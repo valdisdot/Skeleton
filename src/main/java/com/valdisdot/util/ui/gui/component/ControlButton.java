@@ -7,20 +7,20 @@ import java.util.Objects;
 import java.util.function.Supplier;
 
 public class ControlButton implements Supplier<JComponent> {
-    private JButton button;
+    private final JButton button;
 
-    public ControlButton(JButton button, DataController dataController){
+    public ControlButton(JButton button, DataController dataController) {
         this.button = Objects.requireNonNull(button);
         Objects.requireNonNull(dataController);
         this.button.addActionListener(l -> dataController.process());
     }
 
-    public ControlButton(String buttonLabel, DataController dataController){
+    public ControlButton(String buttonLabel, DataController dataController) {
         this(new JButton(buttonLabel), dataController);
     }
 
     @Override
-    public JComponent get(){
+    public JComponent get() {
         return button;
     }
 }

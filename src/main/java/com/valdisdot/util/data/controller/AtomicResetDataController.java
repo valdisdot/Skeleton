@@ -5,11 +5,11 @@ import com.valdisdot.util.data.element.Naming;
 import java.util.Objects;
 import java.util.function.Function;
 
-public class AtomicResetDataController<D> implements DataController{
-    private Naming<D> dataCellGroup;
-    private Function<String, D> resetFunction;
+public class AtomicResetDataController<D> implements DataController {
+    private final Naming<D> dataCellGroup;
+    private final Function<String, D> resetFunction;
 
-    public AtomicResetDataController(Naming<D> dataCellGroup, Function<String, D> resetFunction){
+    public AtomicResetDataController(Naming<D> dataCellGroup, Function<String, D> resetFunction) {
         this.dataCellGroup = Objects.requireNonNull(dataCellGroup);
         this.resetFunction = Objects.requireNonNull(resetFunction);
     }

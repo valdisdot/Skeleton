@@ -20,10 +20,11 @@ public class DataCell<D> {
     }
 
     //get-set states
-    public D getData(){
+    public D getData() {
         return supplierFunction.get();
     }
-    public void setData(D data){
+
+    public void setData(D data) {
         consumerFunction.accept(data);
     }
 }

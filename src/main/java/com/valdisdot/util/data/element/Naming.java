@@ -20,59 +20,59 @@ The main purpose of the class (and the whole library) - to divide application lo
 */
 
 public class Naming<D> {
-    private Map<String, DataCell<D>> dataCellMap;
+    private final Map<String, DataCell<D>> dataCellMap;
 
-    public Naming(){
+    public Naming() {
         dataCellMap = new HashMap<>();
     }
 
-    public Naming(Map<String, DataCell<D>> dataCellMap){
+    public Naming(Map<String, DataCell<D>> dataCellMap) {
         this();
         this.dataCellMap.putAll(Objects.requireNonNull(dataCellMap));
     }
 
     //pair example: ["login", new DataCell<>(jTextArea::getText, jTextArea::setText)]
-    public void put(String dataCellName, DataCell<D> dataCell){
+    public void put(String dataCellName, DataCell<D> dataCell) {
         dataCellMap.put(Objects.requireNonNull(dataCellName), Objects.requireNonNull(dataCell));
     }
 
     //for cases, where you placed control button (and you don't want it to contain data) as content button
-    public DataCell<D> remove(String dataCellName){
+    public DataCell<D> remove(String dataCellName) {
         return dataCellMap.remove(dataCellName);
     }
 
-    public Set<String> getDataCellNames(){
+    public Set<String> getDataCellNames() {
         return dataCellMap.keySet();
     }
 
     //get raw data state
-    public D getDataForCell(String dataCellName){
+    public D getDataForCell(String dataCellName) {
         return dataCellMap.get(dataCellName).getData();
     }
 
-    public Map<String, D> getAllData(){
+    public Map<String, D> getAllData() {
         return dataCellMap.entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey, entry -> entry.getValue().getData()));
     }
 
     //get data state with converting
     //BiFunction<CELL-NAME, CELL-VALUE, CONVERTING-TYPE>
-    public <C> C getDataForCell(String dataCellName, BiFunction<String, D, C> convertingFunction){
+    public <C> C getDataForCell(String dataCellName, BiFunction<String, D, C> convertingFunction) {
         return Objects.requireNonNull(convertingFunction, "Converting bi-function is null")
                 .apply(dataCellName, dataCellMap.get(dataCellName).getData());
     }
 
-    public <C> C getAllData(Function<Map<String, D>, C> converingFunction){
+    public <C> C getAllData(Function<Map<String, D>, C> converingFunction) {
         return Objects.requireNonNull(converingFunction, "Converting function is null")
                 .apply(getAllData());
     }
 
     //set data state
-    public void setDataForCell(String dataCellName, D data){
+    public void setDataForCell(String dataCellName, D data) {
         dataCellMap.get(dataCellName).setData(data);
     }
 
     //for bulk reset
-    public void setDataForAllCells(D data){
+    public void setDataForAllCells(D data) {
         dataCellMap.values().forEach(dataCell -> dataCell.setData(data));
     }
 }
