@@ -1,5 +1,6 @@
 package com.valdisdot.util.ui.gui.element;
 
+import com.valdisdot.util.data.DataCell;
 import com.valdisdot.util.tool.Debug;
 
 import javax.swing.*;
@@ -10,13 +11,9 @@ public class Spinner<T extends Integer> extends AbstractElement<T> {
 
     public Spinner() {
         JSpinner visibleSpinner = new JSpinner();
-        getOnDesk(visibleSpinner);
-    }
-
-    //remove method later
-    public static void getOnDesk(JComponent component) {
-        //removed
-        Debug.getOnTheDesk(component, 7662253);
+        visibleSpinner.setName("test_spinner");
+        Debug.runGetOnTheDesk(visibleSpinner, 0x4267B2);
+        completeInitialization(visibleSpinner, new DataCell<>(() -> null, (v) -> {}));
     }
 
     //for JSpinner, later
