@@ -111,11 +111,11 @@ public class DataCellCodeExample {
     }
 
     static void experiment3(){
-        new AbstractElement<String>(){
-            {
-                completeInitialization(new JLabel(){{setName("test");}}, null);
-            }
-        };
+//        new AbstractElement<String>(){
+//            {
+//                completeInitialization(new JLabel(){{setName("test");}}, null);
+//            }
+//        };
 
 //        new AbstractElement<String>(){
 //            {
@@ -123,11 +123,11 @@ public class DataCellCodeExample {
 //            }
 //        };
 
-        new AbstractElement<String>(){
-            {
-                completeInitialization(null, null);
-            }
-        };
+//        new AbstractElement<String>(){
+//            {
+//                completeInitialization(null, null);
+//            }
+//        };
     }
 
     static void experiment4(){
