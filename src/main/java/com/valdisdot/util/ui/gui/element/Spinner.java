@@ -1,23 +1,40 @@
 package com.valdisdot.util.ui.gui.element;
 
 import com.valdisdot.util.data.DataCell;
-import com.valdisdot.util.tool.Debug;
 
 import javax.swing.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Objects;
 
-public class Spinner<T extends Integer> extends AbstractElement<T> {
+public class Spinner extends AbstractElement<String> {
+    public Spinner(String name, JSpinner visibleSpinner, SpinnerModel spinnerModel){
+        visibleSpinner.setName(Objects.requireNonNull(name));
+        visibleSpinner.setModel(spinnerModel);
+        ((JSpinner.DefaultEditor) visibleSpinner.getEditor()).getTextField().setEditable(false);
+
+        Object first = spinnerModel.getValue();
+        completeInitialization(
+                visibleSpinner,
+                new DataCell<>(
+                        ((JSpinner.DefaultEditor) visibleSpinner.getEditor()).getTextField()::getText,
+                        (v) -> visibleSpinner.setValue(first) //simple set to 0 index
+                )
+        );
+    }
+
+    public Spinner(String name, SpinnerModel spinnerModel) {
+        this(name, new JSpinner(), spinnerModel);
+    }
+
+    public static SpinnerModel asNumberRange(int min, int max, int step){
+        return new SpinnerNumberModel(min, min, Math.max(max, min), step);
+    }
+
+    public static SpinnerModel asList(Collection<String> values){
+        return new SpinnerListModel(new ArrayList<>(values));
+    }
+
     @Override
-    protected boolean pleaseAcceptThatYouHaveDone() {return false;}
-
-    public Spinner() {
-        JSpinner visibleSpinner = new JSpinner();
-        visibleSpinner.setName("test_spinner");
-        Debug.runGetOnTheDesk(visibleSpinner, 0x4267B2);
-        completeInitialization(visibleSpinner, new DataCell<>(() -> null, (v) -> {}));
-    }
-
-    //for JSpinner, later
-    protected Integer value() {
-        return T.valueOf(0);
-    }
+    protected boolean pleaseAcceptThatYouHaveDone() {return true;}
 }
