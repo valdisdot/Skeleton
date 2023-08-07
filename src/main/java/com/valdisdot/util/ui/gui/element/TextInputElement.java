@@ -7,7 +7,7 @@ import javax.swing.text.JTextComponent;
 
 //for JTextArea, JTextField
 public class TextInputElement extends AbstractElement<String> {
-    public TextInputElement(String name, JTextComponent textField){
+    public TextInputElement(String name, JTextComponent textField) {
         textField.setName(name);
         completeInitialization(
                 textField,
@@ -17,5 +17,10 @@ public class TextInputElement extends AbstractElement<String> {
 
     public TextInputElement(String name) {
         this(name, new JTextField());
+    }
+
+    @Override
+    protected boolean pleaseAcceptThatYouHaveDone() {
+        return true;
     }
 }

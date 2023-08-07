@@ -1,6 +1,5 @@
 package com.valdisdot.util.ui.gui.element;
 
-import com.valdisdot.util.ui.gui.util.ThemeHandler;
 import com.valdisdot.util.data.DataCell;
 import com.valdisdot.util.data.element.Element;
 
@@ -12,10 +11,14 @@ public abstract class AbstractElement<T> implements Element<T, JComponent> {
     private DataCell<T> dataCell;
     private JComponent component;
 
-    protected void completeInitialization(JComponent component, DataCell<T> dataCell){
+    protected abstract boolean pleaseAcceptThatYouHaveDone();
+
+    //cuz Constructor.super must be the first line
+    protected void completeInitialization(JComponent component, DataCell<T> dataCell) {
         this.component = Objects.requireNonNull(component, "JComponent is not initialised");
         Objects.requireNonNull(component.getName(), "Component name is null: " + component);
         this.dataCell = dataCell;
+        pleaseAcceptThatYouHaveDone();
     }
 
     @Override

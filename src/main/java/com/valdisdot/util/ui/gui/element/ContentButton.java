@@ -12,7 +12,8 @@ import java.util.function.Supplier;
 //the class uses the same logic as for CheckBox class
 public class ContentButton extends AbstractElement<String> {
     private boolean wasPressed;
-    public ContentButton(String name, JButton button, String valueIfWasPressed, String valueIfWasNotPressed){
+
+    public ContentButton(String name, JButton button, String valueIfWasPressed, String valueIfWasNotPressed) {
         button.setName(name);
         Supplier<String> supplierFunction = () -> wasPressed ? valueIfWasPressed : valueIfWasNotPressed;
         Consumer<String> consumerFunction = (value) -> wasPressed = !wasPressed;
@@ -23,16 +24,21 @@ public class ContentButton extends AbstractElement<String> {
         );
     }
 
-    public ContentButton(String name, String buttonLabel, Collection<ActionListener> actionListeners, String valueIfWasPressed, String valueIfWasNotPressed){
+    public ContentButton(String name, String buttonLabel, Collection<ActionListener> actionListeners, String valueIfWasPressed, String valueIfWasNotPressed) {
         this(
                 name, //set name
-                new JButton(buttonLabel){ //create custom anonymous JButton class
+                new JButton(buttonLabel) { //create custom anonymous JButton class
                     {
-                        if(Objects.nonNull(actionListeners)) actionListeners.forEach(this::addActionListener); //add actions for this button with init-block
+                        if (Objects.nonNull(actionListeners))
+                            actionListeners.forEach(this::addActionListener); //add actions for this button with init-block
                     }
                 },
                 valueIfWasPressed, //->|
                 valueIfWasNotPressed); //|<-
     }
 
+    @Override
+    protected final boolean pleaseAcceptThatYouHaveDone() {
+        return true;
+    }
 }
