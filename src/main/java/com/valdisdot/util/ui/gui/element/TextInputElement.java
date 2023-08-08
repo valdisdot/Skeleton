@@ -6,7 +6,7 @@ import javax.swing.*;
 import javax.swing.text.JTextComponent;
 
 //for JTextArea, JTextField
-public class TextInputElement extends AbstractElement<String> {
+public class TextInputElement extends JElement<String> {
     public TextInputElement(String name, JTextComponent textField) {
         textField.setName(name);
         completeInitialization(

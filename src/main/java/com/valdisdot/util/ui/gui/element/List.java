@@ -12,7 +12,7 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 
-public class List extends AbstractElement<String> {
+public class List extends JElement<String> {
 
     public List(
             String name,

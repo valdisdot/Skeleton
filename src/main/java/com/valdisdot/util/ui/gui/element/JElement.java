@@ -8,7 +8,7 @@ import javax.swing.*;
 import java.util.Objects;
 
 //common Element implementation for javax.swing
-public abstract class AbstractElement<T> implements Element<T, JComponent> {
+public abstract class JElement<T> implements Element<T, JComponent> {
     private DataCell<T> dataCell;
     private JComponent component;
 

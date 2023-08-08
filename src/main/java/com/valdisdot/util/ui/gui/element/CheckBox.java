@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-public class CheckBox extends AbstractElement<String> {
+public class CheckBox extends JElement<String> {
     public CheckBox(String name, JCheckBox checkBox, String valueIfSelected, String valueIfNotSelected) {
         checkBox.setName(name);
 

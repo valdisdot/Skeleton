@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Objects;
 
-public class Spinner extends AbstractElement<String> {
+public class Spinner extends JElement<String> {
     public Spinner(String name, JSpinner visibleSpinner, SpinnerModel spinnerModel){
         visibleSpinner.setName(Objects.requireNonNull(name));
         visibleSpinner.setModel(spinnerModel);

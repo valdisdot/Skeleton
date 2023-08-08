@@ -10,7 +10,7 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 //the class uses the same logic as for CheckBox class
-public class ContentButton extends AbstractElement<String> {
+public class ContentButton extends JElement<String> {
     private boolean wasPressed;
 
     public ContentButton(String name, JButton button, String valueIfWasPressed, String valueIfWasNotPressed) {
