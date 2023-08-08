@@ -1,0 +1,58 @@
+{
+  "application": {
+    "name": "YOUR APPLICATION NAME",
+    "properties": {
+      "alwaysOnTop": true,
+      "resizable": true
+    },
+
+    "branches": [
+      {
+        "item": "NAME FOR PANEL",
+        "content": {}
+      },
+
+      {
+        "item": "NAME FOR BRANCH",
+        "branch": [
+          {
+            "item": "NAME FOR PANEL",
+            "content": {}
+          },
+          {
+            "item": "NAME FOR PANEL",
+            "content": {}
+          }
+        ]
+      },
+
+      {
+        "item": "NAME FOR BRANCH",
+        "branch": [
+          {
+            "item": "NAME FOR PANEL",
+            "content": {}
+          },
+          {
+            "item": "NAME FOR BRANCH",
+            "branch": [
+              {
+                "item": "NAME FOR PANEL",
+                "content": {}
+              },
+              {
+                "item": "NAME FOR PANEL",
+                "content": {}
+              }
+            ]
+          },
+          {
+            "item": "NAME FOR PANEL",
+            "content": {}
+          }
+        ]
+      }
+
+    ]
+  }
+}
