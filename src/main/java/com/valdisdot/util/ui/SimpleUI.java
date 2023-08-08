@@ -11,39 +11,7 @@ import java.util.function.Function;
 /*
 The class is a simple UI util. It uses any InputStream and OutputStream for interacting with user.
 WARNING: class uses while(true) and Thread.sleep() - use only with Threads like 'new Thread(new SimpleUI(...)).start()'
-    CLI example:
-        help
-        [Test CLI][2023-08-05T17:24:12.308745600]: exit help test1 test2
-        test1
-        [Test CLI][2023-08-05T17:24:18.603322700]: HEY FROM test1
-        test2
-        [Test CLI][2023-08-05T17:24:24.091075700]: EXCEPTION FROM test2
-        test3
-        [Test CLI][2023-08-05T17:25:16.788175200]: unknown command
-        exit
-        [Test CLI][2023-08-05T17:25:21.452293300]: closing ...
-    Code example:
-        SimpleUI cli = new SimpleUI(
-              "Test CLI",
-              null,
-              null,
-                Map.of(
-                        "test1", () -> "HEY FROM test1",
-                        "test2", () -> {
-                            throw new Exception("EXCEPTION FROM test2");
-                        }
-                ),
-                () -> "unknown command",
-                "exit",
-                () -> "closing ...",
-                "help",
-                null,
-                Throwable::getMessage,
-                System.in,
-                System.out
-                );
-        new Thread(cli).start();
-pet project, can contain jokes something MEME.("search Lemongrab").UNACCEPTABLE
+Code example: com.valdisdot.util.ui.UICodeExample
  */
 public class SimpleUI implements Runnable {
     private String name;
