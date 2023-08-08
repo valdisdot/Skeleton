@@ -7,6 +7,10 @@ import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
+/*
+* implementation that reads raw data from DataCells, convert the data to specific type and consumes the result
+* Code example: com.valdisdot.util.data.DataControllerCodeExample
+* */
 public class ConvertingDataController<D, C> implements DataController {
     private final DataCellGroup<D> dataCellGroup;
     private final Function<Map<String, D>, C> convertingFunction;
