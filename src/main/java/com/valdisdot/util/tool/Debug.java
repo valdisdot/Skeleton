@@ -1,16 +1,26 @@
 package com.valdisdot.util.tool;
 
+import com.valdisdot.util.data.controller.BulkResetDataController;
+import com.valdisdot.util.data.controller.DataController;
+import com.valdisdot.util.data.controller.RawDataController;
+import com.valdisdot.util.data.element.DataCellGroup;
+import com.valdisdot.util.ui.gui.component.ControlButton;
+import com.valdisdot.util.ui.gui.component.Panel;
+import com.valdisdot.util.ui.gui.element.JElement;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Map;
+import java.util.function.Consumer;
 
 public class Debug {
-    public static void playOnDesk(Collection<JComponent> components, Dimension panelSize, int startWithRGBHex){
+    public static void playOnDesk(Collection<JComponent> components, Dimension panelSize, int startWithRGBHex) {
         new Thread(getOnTheDeskRunnable(components, panelSize, startWithRGBHex)).start();
     }
 
-    public static void playOnDesk(JComponent component, Dimension panelSize, int startWithRGBHex){
+    public static void playOnDesk(JComponent component, Dimension panelSize, int startWithRGBHex) {
         playOnDesk(Collections.singletonList(component), panelSize, startWithRGBHex);
     }
 
@@ -42,5 +52,19 @@ public class Debug {
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setVisible(true);
         };
+    }
+
+    public static <T> void playOnDesk(JElement<T> element, T resetValue, Consumer<Map<String, T>> dataConsumer) {
+        DataCellGroup<T> dataCellGroup = new DataCellGroup<>(
+                Map.of(element.getName(), element.getDataCell())
+        );
+        DataController reset = new BulkResetDataController<>(dataCellGroup, resetValue);
+        DataController read = new RawDataController<>(dataCellGroup, dataConsumer);
+        Panel panel = new Panel();
+        panel.add(element);
+        panel.add(new ControlButton("reset", reset));
+        panel.add(new ControlButton("read", read));
+        JComponent asComponent = panel.get();
+        playOnDesk(asComponent, asComponent.getPreferredSize(), ((int) (Integer.MAX_VALUE * Math.random())));
     }
 }
