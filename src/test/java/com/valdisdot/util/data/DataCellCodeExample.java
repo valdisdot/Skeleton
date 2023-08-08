@@ -2,7 +2,6 @@ package com.valdisdot.util.data;
 
 import com.valdisdot.util.data.element.ElementGroup;
 import com.valdisdot.util.data.element.Naming;
-import com.valdisdot.util.ui.gui.element.AbstractElement;
 import com.valdisdot.util.ui.gui.element.CheckBox;
 import com.valdisdot.util.ui.gui.element.TextInputElement;
 
@@ -19,7 +18,6 @@ public class DataCellCodeExample {
         //experiment1();
         //experiment2();
         //experiment3();
-        experiment4();
     }
 
     static void experiment1(){
@@ -68,7 +66,7 @@ public class DataCellCodeExample {
                         checkBox
                 )
         );
-        dataCellGroup.addDataCell(list);
+        dataCellGroup.addElement(list);
         //generator
         Thread thread = new Thread(() -> {
             boolean run = true;
@@ -111,26 +109,6 @@ public class DataCellCodeExample {
     }
 
     static void experiment3(){
-//        new AbstractElement<String>(){
-//            {
-//                completeInitialization(new JLabel(){{setName("test");}}, null);
-//            }
-//        };
-
-//        new AbstractElement<String>(){
-//            {
-//                completeInitialization(new JLabel(), null);
-//            }
-//        };
-
-//        new AbstractElement<String>(){
-//            {
-//                completeInitialization(null, null);
-//            }
-//        };
-    }
-
-    static void experiment4(){
         /*
         Output:
         {
