@@ -1,7 +1,7 @@
 package com.valdisdot.util.data;
 
 import com.valdisdot.util.data.element.ElementGroup;
-import com.valdisdot.util.data.element.DataCellGroup;
+import com.valdisdot.util.data.element.Naming;
 import com.valdisdot.util.ui.gui.element.CheckBox;
 import com.valdisdot.util.ui.gui.element.TextInputElement;
 
@@ -120,7 +120,7 @@ public class DataCellCodeExample {
             "cell1": "6860f9d4-f6ca-4d10-a881-88305f921dd2";
         }
         */
-        DataCellGroup<String> dataCellGroup = new DataCellGroup<>();
+        Naming<String> dataCellGroup = new Naming<>();
         dataCellGroup.put("cell1", new DataCell<>(UUID.randomUUID()::toString, (s -> {})));
         dataCellGroup.put("cell2", new DataCell<>(UUID.randomUUID()::toString, (s -> {})));
         dataCellGroup.put("cell3", new DataCell<>(UUID.randomUUID()::toString, (s -> {})));

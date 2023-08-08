@@ -1,21 +1,15 @@
 package com.valdisdot.util.data.controller;
 
-import com.valdisdot.util.data.element.DataCellGroup;
+import com.valdisdot.util.data.element.Naming;
 
 import java.util.Objects;
 import java.util.function.Function;
 
-//implementation for atomic reset of DataCells
-//for example, we have some DataCell with name "data_cell"
-//we want to set data on this cell to "default"
-//so, the Function<String, D> resetFunction has to accept DataCell name "data_cell" and return "default"
-//we have Iterable ["val1", "val2"] and want to set data on the cell to iterable.next
-// ~ and return iterable.next
 public class AtomicResetDataController<D> implements DataController {
-    private final DataCellGroup<D> dataCellGroup;
+    private final Naming<D> dataCellGroup;
     private final Function<String, D> resetFunction;
 
-    public AtomicResetDataController(DataCellGroup<D> dataCellGroup, Function<String, D> resetFunction) {
+    public AtomicResetDataController(Naming<D> dataCellGroup, Function<String, D> resetFunction) {
         this.dataCellGroup = Objects.requireNonNull(dataCellGroup);
         this.resetFunction = Objects.requireNonNull(resetFunction);
     }

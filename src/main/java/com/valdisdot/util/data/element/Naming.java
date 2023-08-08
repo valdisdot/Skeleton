@@ -19,14 +19,14 @@ The holder can be placed anywhere (static context, DI, inside some data supplier
 The main purpose of the class (and the whole library) - to divide application logic and view (based on old swing libraries). Also, to create a base for future view-parsing libraries (from JSON to Java Swing app).
 */
 
-public class DataCellGroup<D> {
+public class Naming<D> {
     private final Map<String, DataCell<D>> dataCellMap;
 
-    public DataCellGroup() {
+    public Naming() {
         dataCellMap = new HashMap<>();
     }
 
-    public DataCellGroup(Map<String, DataCell<D>> dataCellMap) {
+    public Naming(Map<String, DataCell<D>> dataCellMap) {
         this();
         this.dataCellMap.putAll(Objects.requireNonNull(dataCellMap));
     }
