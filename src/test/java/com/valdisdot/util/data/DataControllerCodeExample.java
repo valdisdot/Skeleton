@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.valdisdot.util.data.controller.ConvertingDataController;
 import com.valdisdot.util.data.controller.DataController;
 import com.valdisdot.util.data.controller.RawDataController;
-import com.valdisdot.util.data.element.Naming;
+import com.valdisdot.util.data.element.DataCellGroup;
 
 import java.util.Map;
 import java.util.UUID;
@@ -21,7 +21,7 @@ public class DataControllerCodeExample {
 
     static void experiment1(){
         //data cell group
-        Naming<String> dataCellGroup = new Naming<>(
+        DataCellGroup<String> dataCellGroup = new DataCellGroup<>(
                 Map.of(
                         "cell1", new DataCell<>(UUID.randomUUID()::toString, (s) -> {}),
                         "cell2", new DataCell<>(UUID.randomUUID()::toString, (s) -> {}),
@@ -46,7 +46,7 @@ public class DataControllerCodeExample {
     }
 
     static void experiment2(){
-        Naming<String> dataCellGroup = new Naming<>(
+        DataCellGroup<String> dataCellGroup = new DataCellGroup<>(
                 Map.of(
                         "cell1", new DataCell<>(UUID.randomUUID()::toString, (s) -> {}),
                         "cell2", new DataCell<>(UUID.randomUUID()::toString, (s) -> {}),
