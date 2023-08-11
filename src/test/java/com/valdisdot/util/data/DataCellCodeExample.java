@@ -1,8 +1,9 @@
 package com.valdisdot.util.data;
 
-import com.valdisdot.util.data.element.ElementGroup;
 import com.valdisdot.util.data.element.DataCellGroup;
+import com.valdisdot.util.data.element.ElementGroup;
 import com.valdisdot.util.ui.gui.element.CheckBox;
+import com.valdisdot.util.ui.gui.element.ComboList;
 import com.valdisdot.util.ui.gui.element.TextInputElement;
 
 import javax.swing.*;
@@ -20,7 +21,7 @@ public class DataCellCodeExample {
         //experiment3();
     }
 
-    static void experiment1(){
+    static void experiment1() {
         JFrame frame = new JFrame();
         JPanel panel = new JPanel();
         panel.setPreferredSize(new Dimension(300, 200));
@@ -40,7 +41,7 @@ public class DataCellCodeExample {
         frame.setVisible(true);
     }
 
-    static void experiment2(){
+    static void experiment2() {
         /*
         Output:
             term_display: 63 K
@@ -55,7 +56,7 @@ public class DataCellCodeExample {
         //data controller section
         TextInputElement textInputElement = new TextInputElement(termDisplayName);
         CheckBox checkBox = new CheckBox(checkboxName, checkboxName, false, "true", "false");
-        com.valdisdot.util.ui.gui.element.List list = new com.valdisdot.util.ui.gui.element.List(
+        ComboList comboList = new ComboList(
                 checkResultName,
                 List.of("everything is ok", "temperature is too high", "replacing is needed"),
                 null
@@ -66,11 +67,11 @@ public class DataCellCodeExample {
                         checkBox
                 )
         );
-        dataCellGroup.addElement(list);
+        dataCellGroup.addElement(comboList);
         //generator
         Thread thread = new Thread(() -> {
             boolean run = true;
-            while (run){
+            while (run) {
                 dataCellGroup.setDataForCell(termDisplayName, ((int) (Math.random() * 200)) + " K");
                 try {
                     Thread.sleep(1000);
@@ -98,7 +99,7 @@ public class DataCellCodeExample {
         panel.add(component);
         component = checkBox.get();
         panel.add(component);
-        component = list.get();
+        component = comboList.get();
         panel.add(component);
         panel.add(printButton);
         panel.add(interruptGeneratorButton);
@@ -108,7 +109,7 @@ public class DataCellCodeExample {
         frame.setVisible(true);
     }
 
-    static void experiment3(){
+    static void experiment3() {
         /*
         Output:
         {
@@ -121,9 +122,12 @@ public class DataCellCodeExample {
         }
         */
         DataCellGroup<String> dataCellGroup = new DataCellGroup<>();
-        dataCellGroup.put("cell1", new DataCell<>(UUID.randomUUID()::toString, (s -> {})));
-        dataCellGroup.put("cell2", new DataCell<>(UUID.randomUUID()::toString, (s -> {})));
-        dataCellGroup.put("cell3", new DataCell<>(UUID.randomUUID()::toString, (s -> {})));
+        dataCellGroup.put("cell1", new DataCell<>(UUID.randomUUID()::toString, (s -> {
+        })));
+        dataCellGroup.put("cell2", new DataCell<>(UUID.randomUUID()::toString, (s -> {
+        })));
+        dataCellGroup.put("cell3", new DataCell<>(UUID.randomUUID()::toString, (s -> {
+        })));
 
         Function<Map<String, String>, String> allCellsConverter = (cellMap) -> {
             StringBuilder builder = new StringBuilder("{\n");
@@ -131,7 +135,7 @@ public class DataCellCodeExample {
             return builder.append("}").toString();
         };
         BiFunction<String, String, String> singleCellConverter = (key, value) -> {
-            return  "{\n\t\"" + key + "\": \"" + value + "\";\n}";
+            return "{\n\t\"" + key + "\": \"" + value + "\";\n}";
         };
 
         System.out.println(dataCellGroup.getDataForCell("cell1", singleCellConverter));

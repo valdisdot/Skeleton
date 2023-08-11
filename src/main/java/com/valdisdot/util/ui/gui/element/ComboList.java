@@ -12,9 +12,9 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 
-public class List extends JElement<String> {
+public class ComboList extends JElement<String> {
 
-    public List(
+    public ComboList(
             String name,
             JComboBox<String> comboBox,
             //user has to define the behaviour if DataCell.setData is calling by BiFunction - must return the index for JComboBox.setSelectedIndex
@@ -51,7 +51,7 @@ public class List extends JElement<String> {
 
 
     //if BiFunction returns value greater than size of the combo box items - the last one element will be selected
-    public List(String name, Collection<String> elements, BiFunction<String, Collection<String>, Integer> setItemFunction) {
+    public ComboList(String name, Collection<String> elements, BiFunction<String, Collection<String>, Integer> setItemFunction) {
         this(name, new JComboBox<>(new Vector<>(elements)), setItemFunction);
     }
 
