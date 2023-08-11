@@ -2,7 +2,6 @@ package com.valdisdot.util.ui.gui.element;
 
 import com.valdisdot.util.data.DataCell;
 import com.valdisdot.util.data.element.Element;
-import com.valdisdot.util.ui.gui.util.ThemeHandler;
 
 import javax.swing.*;
 import java.util.Objects;
@@ -36,9 +35,5 @@ public abstract class JElement<T> implements Element<T, JComponent> {
     @Override
     public DataCell<T> getDataCell() {
         return Objects.requireNonNull(dataCell, "DataCell is not initialised");
-    }
-
-    public void applyTheme(ThemeHandler themeHandler) {
-        //later
     }
 }
