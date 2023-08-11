@@ -4,7 +4,7 @@ import com.valdisdot.util.data.controller.BulkResetDataController;
 import com.valdisdot.util.data.controller.RawDataController;
 import com.valdisdot.util.data.element.Element;
 import com.valdisdot.util.data.element.ElementGroup;
-import com.valdisdot.util.tool.Debug;
+import com.valdisdot.util.tool.FrameFactory;
 import com.valdisdot.util.ui.gui.component.ControlButton;
 import com.valdisdot.util.ui.gui.element.Spinner;
 
@@ -14,8 +14,8 @@ import java.util.List;
 
 public class SpinnerCodeExample {
     public static void main(String[] args) {
-        //experiment1();
-        //experiment2();
+        experiment1();
+        experiment2();
     }
 
     static void experiment1() {
@@ -30,11 +30,7 @@ public class SpinnerCodeExample {
                         (map) -> map.forEach((key, value) -> System.out.println(key + ": " + value))
                 )
         );
-        Debug.playOnDesk(
-                List.of(element.get(), clean.get(), print.get()),
-                new Dimension(640, 480),
-                0x4267B2
-        );
+        FrameFactory.playOnDesk(element.get());
     }
 
     static void experiment2() {
@@ -49,9 +45,8 @@ public class SpinnerCodeExample {
                         (map) -> map.forEach((key, value) -> System.out.println(key + ": " + value))
                 )
         );
-        Debug.playOnDesk(
+        FrameFactory.playOnDesk(
                 List.of(element.get(), clean.get(), print.get()),
-                new Dimension(640, 480),
                 0x4267B2
         );
     }
