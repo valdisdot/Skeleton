@@ -21,8 +21,9 @@ public class SpinnerCodeExample {
     static void experiment1() {
         Element<String, JComponent> element = new Spinner("test", Spinner.asNumberRange(0, 200, 10));
         ElementGroup<String> elementGroup = new ElementGroup<>(List.of(element));
-        ControlButton clean = new ControlButton("clean", new BulkResetDataController<>(elementGroup, ""));
+        ControlButton clean = new ControlButton("clean", "clean", new BulkResetDataController<>(elementGroup, ""));
         ControlButton print = new ControlButton(
+                "print",
                 "print",
                 new RawDataController<>(
                         elementGroup,
@@ -39,8 +40,9 @@ public class SpinnerCodeExample {
     static void experiment2() {
         Element<String, JComponent> element = new Spinner("test", Spinner.asList(List.of("value1", "value2", "value3")));
         ElementGroup<String> elementGroup = new ElementGroup<>(List.of(element));
-        ControlButton clean = new ControlButton("clean", new BulkResetDataController<>(elementGroup, ""));
+        ControlButton clean = new ControlButton("clean","clean", new BulkResetDataController<>(elementGroup, ""));
         ControlButton print = new ControlButton(
+                "print",
                 "print",
                 new RawDataController<>(
                         elementGroup,

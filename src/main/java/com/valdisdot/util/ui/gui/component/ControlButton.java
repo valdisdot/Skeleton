@@ -6,21 +6,26 @@ import javax.swing.*;
 import java.util.Objects;
 import java.util.function.Supplier;
 
-public class ControlButton implements Supplier<JComponent> {
+public class ControlButton implements Supplier<JButton> {
     private final JButton button;
 
-    public ControlButton(JButton button, DataController dataController) {
+    public ControlButton(String name, JButton button, DataController dataController) {
         this.button = Objects.requireNonNull(button);
-        Objects.requireNonNull(dataController);
-        this.button.addActionListener(l -> dataController.process());
+        this.button.setName(Objects.requireNonNull(name, "Control button name can not be null"));
+        if (Objects.nonNull(dataController)) this.button.addActionListener(l -> dataController.process());
+        button.setFocusable(false);
     }
 
-    public ControlButton(String buttonLabel, DataController dataController) {
-        this(new JButton(buttonLabel), dataController);
+    public ControlButton(String name, String buttonLabel, DataController dataController) {
+        this(name, new JButton(buttonLabel), dataController);
+    }
+
+    public String getName() {
+        return button.getName();
     }
 
     @Override
-    public JComponent get() {
+    public JButton get() {
         return button;
     }
 }
