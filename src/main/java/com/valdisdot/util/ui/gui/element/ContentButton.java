@@ -1,7 +1,7 @@
 package com.valdisdot.util.ui.gui.element;
 
 import com.valdisdot.util.data.DataCell;
-import com.valdisdot.util.tool.Colors;
+import com.valdisdot.util.ui.gui.tool.Colors;
 
 import javax.swing.*;
 import java.awt.*;
