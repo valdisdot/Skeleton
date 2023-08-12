@@ -22,14 +22,18 @@ public class ValuesParser {
     //["value", "value", "value"]
     public static String toJSONArray(List<?> list) {
         if (Objects.isNull(list) || list.isEmpty()) return "[]";
-        StringBuilder builder = new StringBuilder("[");
-        list.stream()
-                .limit(list.size() - 1)
-                .forEach(elem -> builder.append("\"").append(elem).append("\"").append(", "));
-        return builder
-                .append(list.get(list.size() - 1))
-                .append("\"]")
-                .toString();
+        if(list.size() > 1) {
+            StringBuilder builder = new StringBuilder("[");
+            list.stream()
+                    .limit(list.size() - 1)
+                    .forEach(elem -> builder.append("\"").append(elem).append("\"").append(", "));
+            return builder
+                    .append("\"")
+                    .append(list.get(list.size() - 1))
+                    .append("\"]")
+                    .toString();
+        }
+        return "[\"" + list.get(0) + "\"]";
     }
 
     //no original order
