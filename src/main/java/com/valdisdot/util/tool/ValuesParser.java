@@ -40,6 +40,6 @@ public class ValuesParser {
     //key: value
     //key: value
     public static String toKeySemicolonValueString(Map<?, ?> map) {
-        return map.entrySet().stream().map(entry -> entry.getKey() + ": " + entry.getValue() + "\n").collect(Collectors.joining());
+        return map.entrySet().stream().map(entry -> entry.getKey() + ": " + entry.getValue() + "\n").collect(Collectors.joining()).trim();
     }
 }
