@@ -6,8 +6,9 @@ import javax.swing.*;
 import java.util.Collection;
 import java.util.Objects;
 import java.util.Vector;
+import java.util.List;
 
-public class MultiList<D> extends JElement<Collection<D>> {
+public class MultiList<D> extends JElement<List<D>> {
     public MultiList(String name, JList<D> list) {
         list.setName(Objects.requireNonNull(name));
         completeInitialization(list, new DataCell<>(
