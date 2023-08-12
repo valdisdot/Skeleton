@@ -11,6 +11,7 @@ public enum ComponentType {
     LIST("list"),
     MULTI_LIST("multiList"),
     MODIFIABLE_LABEL("modifiableLabel"),
+    RADIO_BUTTONS("radioButtons"),
     SLIDER("slider"),
     SPINNER("spinner"),
     TEXT_AREA("textArea"),
@@ -28,6 +29,7 @@ public enum ComponentType {
         map.put(LIST.value, LIST);
         map.put(MULTI_LIST.value, MULTI_LIST);
         map.put(MODIFIABLE_LABEL.value, MODIFIABLE_LABEL);
+        map.put(RADIO_BUTTONS.value, RADIO_BUTTONS);
         map.put(SLIDER.value, SLIDER);
         map.put(SPINNER.value, SPINNER);
         map.put(TEXT_AREA.value, TEXT_AREA);
