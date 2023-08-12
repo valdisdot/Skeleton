@@ -1,6 +1,6 @@
 package com.valdisdot.util.gui;
 
-import com.valdisdot.util.tool.FrameFactory;
+import com.valdisdot.util.ui.gui.tool.FrameFactory;
 import com.valdisdot.util.tool.ValuesParser;
 import com.valdisdot.util.ui.gui.element.JElement;
 import com.valdisdot.util.ui.gui.element.RadioButtons;

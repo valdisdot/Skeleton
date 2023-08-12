@@ -4,12 +4,11 @@ import com.valdisdot.util.data.controller.BulkResetDataController;
 import com.valdisdot.util.data.controller.RawDataController;
 import com.valdisdot.util.data.element.Element;
 import com.valdisdot.util.data.element.ElementGroup;
-import com.valdisdot.util.tool.FrameFactory;
+import com.valdisdot.util.ui.gui.tool.FrameFactory;
 import com.valdisdot.util.ui.gui.component.ControlButton;
 import com.valdisdot.util.ui.gui.element.Spinner;
 
 import javax.swing.*;
-import java.awt.*;
 import java.util.List;
 
 public class SpinnerCodeExample {

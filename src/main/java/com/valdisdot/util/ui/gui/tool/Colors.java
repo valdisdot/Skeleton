@@ -1,4 +1,4 @@
-package com.valdisdot.util.tool;
+package com.valdisdot.util.ui.gui.tool;
 
 //util class for colors
 public class Colors {

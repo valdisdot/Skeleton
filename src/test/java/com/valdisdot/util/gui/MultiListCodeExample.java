@@ -1,6 +1,6 @@
 package com.valdisdot.util.gui;
 
-import com.valdisdot.util.tool.FrameFactory;
+import com.valdisdot.util.ui.gui.tool.FrameFactory;
 import com.valdisdot.util.ui.gui.element.MultiList;
 
 import java.util.List;

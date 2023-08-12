@@ -1,4 +1,4 @@
-package com.valdisdot.util.tool;
+package com.valdisdot.util.ui.gui.tool;
 
 import com.valdisdot.util.data.controller.BulkResetDataController;
 import com.valdisdot.util.data.controller.DataController;
