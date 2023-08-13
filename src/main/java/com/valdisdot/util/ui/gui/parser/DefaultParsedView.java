@@ -7,6 +7,7 @@ import com.valdisdot.util.ui.gui.component.ControlButton;
 import com.valdisdot.util.ui.gui.component.JComponentDecorator;
 import com.valdisdot.util.ui.gui.element.*;
 import com.valdisdot.util.ui.gui.parser.mold.ElementMold;
+import com.valdisdot.util.ui.gui.parser.mold.FrameMold;
 import com.valdisdot.util.ui.gui.parser.mold.PanelMold;
 import net.miginfocom.swing.MigLayout;
 
@@ -26,22 +27,22 @@ public class DefaultParsedView implements ParsedView<JPanel> {
     private final JPanel root;
     Map<String, Consumer<ActionListener>> controlButtonsActionListenersConsumers;
 
-    public DefaultParsedView(Iterable<PanelMold> panelMolds, Function<ElementMold, JElement<String>> customParseFunction, Function<List<String>, String> listToStringFunction) {
+    public DefaultParsedView(String rootPanelName, Iterable<PanelMold> panelMolds, Function<ElementMold, JElement<String>> customParseFunction, Function<List<String>, String> listToStringFunction) {
         dataCellGroup = new DataCellGroup<>();
         controlButtonsActionListenersConsumers = new HashMap<>();
         root = new JPanel(new MigLayout());
+        root.setName(rootPanelName);
         panelMolds.forEach(panelMold -> {
             String panelConstraint = panelMold.isFromTheTopOfFrame() ? "" : "wrap";
             JPanel currentPanel = new JPanel(new MigLayout("wrap"));
-            if (panelMold.getBackgroundColor() >= 0)
-                currentPanel.setBackground(new Color(panelMold.getBackgroundColor()));
+            currentPanel.setBackground(new Color(panelMold.getBackgroundColor()));
             panelMold.getMoldConstraintMap().forEach(
                     ((elementMold, constraint) -> {
-                        if (elementMold.getType().equals(ComponentType.CONTROL_BUTTON.getValue())) {
+                        if (ComponentType.CONTROL_BUTTON.getValue().equals(elementMold.getType())) {
                             JButton button = parseControlButton(elementMold).get();
                             currentPanel.add(button, constraint);
                             controlButtonsActionListenersConsumers.put(button.getName(), button::addActionListener);
-                        } else if (elementMold.getType().equals(ComponentType.LABEL.getValue())) {
+                        } else if (ComponentType.LABEL.getValue().equals(elementMold.getType())) {
                             JLabel label = parseStaticLabel(elementMold);
                             currentPanel.add(label, constraint);
                         } else {
@@ -55,8 +56,12 @@ public class DefaultParsedView implements ParsedView<JPanel> {
         });
     }
 
-    public DefaultParsedView(Iterable<PanelMold> panelMolds, Function<List<String>, String> listToStringFunction) {
-        this(panelMolds, null, listToStringFunction);
+    public DefaultParsedView(String rootPanelName, Iterable<PanelMold> panelMolds, Function<List<String>, String> listToStringFunction) {
+        this(rootPanelName, panelMolds, null, listToStringFunction);
+    }
+
+    public DefaultParsedView(FrameMold frameMold, Function<List<String>, String> listToStringFunction) {
+        this(frameMold.getName(), frameMold.getPanelMolds(), listToStringFunction);
     }
 
     //customParseFunction - for future component types (which are not present in ComponentType.enum) or for debugging
@@ -111,16 +116,17 @@ public class DefaultParsedView implements ParsedView<JPanel> {
                 if (elementMold.getValues().isEmpty())
                     throw new IllegalArgumentException("Values is empty. Element: [" + elementMold + "]");
                 JList<String> jList = new JComponentDecorator<>(new JList<>(new Vector<>(elementMold.getValues())))
-                        .preferredSize(elementMold.getWidth(), elementMold.getHeight())
                         .background(elementMold.getBackgroundColor())
                         .foreground(elementMold.getForegroundColor())
                         .font(elementMold.getFontName(), elementMold.getFontStyle(), elementMold.getFontSize())
                         .get();
-                return new WrappedDataElement<>(
+                JElement<String> wrapped = new WrappedDataElement<>(
                         new MultiList<>(elementMold.getName(), jList),
                         listToStringFunction,
                         string -> List.of()
                 );
+                new JComponentDecorator<>(wrapped.get()).preferredSize(elementMold.getWidth(), elementMold.getHeight()).get();
+                return wrapped;
             }
             case LIST: {
                 //requires values >=1
@@ -197,15 +203,16 @@ public class DefaultParsedView implements ParsedView<JPanel> {
                 );
             }
             case TEXT_AREA: {
-                JTextArea textArea = new JTextArea();
+                JTextArea textArea = new JComponentDecorator<>(new JTextArea())
+                        .background(elementMold.getBackgroundColor())
+                        .foreground(elementMold.getForegroundColor())
+                        .font(elementMold.getFontName(), elementMold.getFontStyle(), elementMold.getFontSize())
+                        .get();
                 textArea.setLineWrap(true);
                 textArea.setWrapStyleWord(true);
                 ScrollableTextArea scrollableElement = new ScrollableTextArea(elementMold.getName(), textArea);
                 new JComponentDecorator<>(scrollableElement.get())
                         .preferredSize(elementMold.getWidth(), elementMold.getHeight())
-                        .background(elementMold.getBackgroundColor())
-                        .foreground(elementMold.getForegroundColor())
-                        .font(elementMold.getFontName(), elementMold.getFontStyle(), elementMold.getFontSize())
                         .get();
                 return scrollableElement;
             }

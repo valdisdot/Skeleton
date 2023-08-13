@@ -3,13 +3,13 @@ package com.valdisdot.util.gui;
 import com.valdisdot.util.data.controller.BulkResetDataController;
 import com.valdisdot.util.data.controller.ConvertingDataController;
 import com.valdisdot.util.data.element.DataCellGroup;
-import com.valdisdot.util.ui.gui.tool.FrameFactory;
 import com.valdisdot.util.tool.ValuesParser;
 import com.valdisdot.util.ui.gui.component.ComponentType;
 import com.valdisdot.util.ui.gui.parser.DefaultParsedView;
 import com.valdisdot.util.ui.gui.parser.ParsedView;
 import com.valdisdot.util.ui.gui.parser.mold.ElementMold;
 import com.valdisdot.util.ui.gui.parser.mold.PanelMold;
+import com.valdisdot.util.ui.gui.tool.FrameFactory;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
@@ -33,7 +33,7 @@ public class DefaultParserExperiment {
                 .add(new ElementMold("label", "Some label 6", "label6", List.of(), 40, 20, 0xFFFFFF, 0x000000, "Arial", "plain", 12))
                 .add(new ElementMold(ComponentType.CONTROL_BUTTON.getValue(), "control_1", "control_1_name", List.of(), 60, 30, 0x4267B2, 0x0, "Arial", "plain", 12));
         mold.getMoldConstraintMap().forEach((elem, constr) -> System.out.println("constr: " + (constr.isBlank() ? "blank" : constr) + ", elem: " + elem));
-        ParsedView<JPanel> parsedView = new DefaultParsedView(List.of(mold), ValuesParser::toJSONArray);
+        ParsedView<JPanel> parsedView = new DefaultParsedView("test", List.of(mold), ValuesParser::toJSONArray);
         FrameFactory.playOnDesk(parsedView.get());
         DataCellGroup<String> dataCellGroups = parsedView.getDataCellGroups();
         Map<String, Consumer<ActionListener>> buttonsActionListenerConsumers = parsedView.getButtonsActionListenerConsumers();
@@ -61,14 +61,11 @@ public class DefaultParserExperiment {
         panelMold
                 .addToRow(new ElementMold(ComponentType.LABEL.getValue(), "Name:", null, null, 50, 25, -1, -1, null, null, -1))
                 .addToRow(new ElementMold(ComponentType.TEXT_FIELD.getValue(), null, "name", List.of(""), 170, 25, -1, -1, null, null, -1))
-                .newRow()
-                .addToRow(new ElementMold(ComponentType.LABEL.getValue(), "ID:", null, null, 50, 25, -1, -1, null, null, -1))
+                .addToNewRow(new ElementMold(ComponentType.LABEL.getValue(), "ID:", null, null, 50, 25, -1, -1, null, null, -1))
                 .addToRow(new ElementMold(ComponentType.TEXT_FIELD.getValue(), null, "id", List.of(""), 170, 25, -1, -1, null, null, -1))
-                .newRow()
-                .addToRow(new ElementMold(ComponentType.LABEL.getValue(), "Phone:", null, null, 50, 25, -1, -1, null, null, -1))
+                .addToNewRow(new ElementMold(ComponentType.LABEL.getValue(), "Phone:", null, null, 50, 25, -1, -1, null, null, -1))
                 .addToRow(new ElementMold(ComponentType.TEXT_FIELD.getValue(), null, "phone", List.of(""), 170, 25, -1, -1, null, null, -1))
-                .newRow()
-                .addToRow(new ElementMold(ComponentType.LABEL.getValue(), "Customer request:", null, null, 50, 25, -1, -1, null, null, -1))
+                .addToNewRow(new ElementMold(ComponentType.LABEL.getValue(), "Customer request:", null, null, 50, 25, -1, -1, null, null, -1))
                 .addToRow(new ElementMold(ComponentType.MULTI_LIST.getValue(), null, "request_type", List.of("registration", "rates", "bonuses"), 100, 25, -1, -1, null, null, -1))
                 .add(new ElementMold(ComponentType.CHECK_BOX.getValue(), "Is customer satisfied?", "customer_satisfied", List.of("true", "false"), 120, 25, 0xD3D3D3, -1, null, null, -1))
                 .add(new ElementMold(ComponentType.LABEL.getValue(), "Satisfaction level:", null, null, 50, 25, -1, -1, null, null, -1))
@@ -77,7 +74,7 @@ public class DefaultParserExperiment {
                 .addToRow(new ElementMold(ComponentType.CONTROL_BUTTON.getValue(), "Send", "send_button", null, 70, 30, 0x4F7942, -1, null, null, -1))
                 .addToRow(new ElementMold(ComponentType.CONTROL_BUTTON.getValue(), "Clean", "clean_button", null, 70, 30, 0xFF0000, 0xffffff, null, null, -1));
         //parse the PanelMold into ParsedView and get control
-        ParsedView<JPanel> view = new DefaultParsedView(List.of(panelMold), ValuesParser::toJSONArray);
+        ParsedView<JPanel> view = new DefaultParsedView("test", List.of(panelMold), ValuesParser::toJSONArray);
         DataCellGroup<String> dataCellGroups = view.getDataCellGroups();
         Map<String, Consumer<ActionListener>> buttonsActionListenerConsumers = view.getButtonsActionListenerConsumers();
         //define bulk data reset function
