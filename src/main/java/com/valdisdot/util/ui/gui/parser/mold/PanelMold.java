@@ -45,9 +45,9 @@ public class PanelMold {
         return this;
     }
 
-    public PanelMold newRow() {
+    public PanelMold addToNewRow(ElementMold elementMold) {
         writeRow();
-        return this;
+        return addToRow(elementMold);
     }
 
     protected void writeRow() {
@@ -69,5 +69,15 @@ public class PanelMold {
 
     public void setFromTheTopOfFrame(boolean fromTheTopOfFrame) {
         this.fromTheTopOfFrame = fromTheTopOfFrame;
+    }
+
+    @Override
+    public String toString() {
+        return "PanelMold{" +
+                "ordered=" + ordered +
+                ", row=" + row +
+                ", backgroundColor=" + backgroundColor +
+                ", fromTheTopOfFrame=" + fromTheTopOfFrame +
+                '}';
     }
 }
