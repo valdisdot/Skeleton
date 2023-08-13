@@ -33,13 +33,13 @@ public class JComponentDecorator<C extends JComponent> implements Supplier<C> {
         return this;
     }
 
-    public JComponentDecorator<C> background(int hexColor) {
-        if (hexColor >= 0) component.setBackground(new Color(hexColor));
+    public JComponentDecorator<C> background(int color) {
+        component.setBackground(new Color(color));
         return this;
     }
 
-    public JComponentDecorator<C> foreground(int hexColor) {
-        if (hexColor >= 0) component.setForeground(new Color(hexColor));
+    public JComponentDecorator<C> foreground(int color) {
+        component.setForeground(new Color(color));
         return this;
     }
 
@@ -53,7 +53,7 @@ public class JComponentDecorator<C extends JComponent> implements Supplier<C> {
             fontStyle = fontStyle.toLowerCase();
             component.setFont(new Font(
                     fontName,
-                    fontStyle.contains("bold") ? Font.BOLD : fontStyle.contains("italic") ? Font.ITALIC : Font.PLAIN,
+                    fontStyle.contains("bold") || fontStyle.equals("1") ? Font.BOLD : fontStyle.contains("italic") || fontStyle.equals("2") ? Font.ITALIC : Font.PLAIN,
                     fontSize
             ));
         }
