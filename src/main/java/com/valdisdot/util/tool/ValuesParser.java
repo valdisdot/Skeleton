@@ -19,10 +19,18 @@ public class ValuesParser {
         return toInt(value, false, defaultValue);
     }
 
+    public static int fromHEXToDecimalInt(String value, int defaultValue) {
+        try {
+            return Integer.parseInt(value.replaceAll("#", ""), 16);
+        } catch (NumberFormatException e) {
+            return defaultValue;
+        }
+    }
+
     //["value", "value", "value"]
     public static String toJSONArray(List<?> list) {
         if (Objects.isNull(list) || list.isEmpty()) return "[]";
-        if(list.size() > 1) {
+        if (list.size() > 1) {
             StringBuilder builder = new StringBuilder("[");
             list.stream()
                     .limit(list.size() - 1)
