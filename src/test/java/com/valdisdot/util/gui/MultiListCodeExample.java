@@ -1,8 +1,9 @@
 package com.valdisdot.util.gui;
 
-import com.valdisdot.util.ui.gui.tool.FrameFactory;
 import com.valdisdot.util.ui.gui.element.MultiList;
+import com.valdisdot.util.ui.gui.tool.FrameFactory;
 
+import javax.swing.*;
 import java.util.List;
 
 public class MultiListCodeExample {
@@ -11,8 +12,7 @@ public class MultiListCodeExample {
     }
 
     static void experiment1() {
-        List<String> items = List.of("item 1", "item 2", "item 3", "item 4");
-        MultiList<String> multiList = new MultiList<>("test_multilist", items);
+        MultiList<String> multiList = new MultiList<>("test_multilist", new JList<>(new String[]{"item 1", "item 2", "item 3", "item 4"}));
         FrameFactory.playOnDesk(multiList, List.of(), System.out::println);
     }
 }

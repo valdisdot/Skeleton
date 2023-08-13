@@ -1,24 +1,57 @@
 package com.valdisdot.util.ui.gui.element;
 
 import com.valdisdot.util.data.DataCell;
+import com.valdisdot.util.ui.gui.tool.Colors;
 
 import javax.swing.*;
-import java.util.Collection;
-import java.util.Objects;
-import java.util.Vector;
+import javax.swing.plaf.basic.BasicScrollBarUI;
+import java.awt.*;
 import java.util.List;
+import java.util.Objects;
 
 public class MultiList<D> extends JElement<List<D>> {
+    private final JScrollPane scrollPane;
+
     public MultiList(String name, JList<D> list) {
+        scrollPane = new JScrollPane(list, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setName(name);
+        scrollPane.setWheelScrollingEnabled(true);
+        JScrollBar horizontal = scrollPane.getHorizontalScrollBar();
+        JScrollBar vertical = scrollPane.getVerticalScrollBar();
+        Color background = Colors.isDark(list.getBackground().getRGB()) ? list.getBackground().brighter() : list.getBackground().darker();
+        horizontal.setPreferredSize(new Dimension(10, 7));
+        horizontal.setBackground(background);
+        horizontal.setUI(new BasicScrollBarUI() {
+            @Override
+            protected void configureScrollBarColors() {
+                this.thumbColor =
+                        Colors.isDark(list.getBackground().getRGB()) ?
+                                list.getBackground().brighter().brighter() :
+                                list.getBackground().darker().darker();
+            }
+
+
+        });
+        vertical.setPreferredSize(new Dimension(7, 10));
+        vertical.setBackground(background);
+        vertical.setUI(new BasicScrollBarUI() {
+            @Override
+            protected void configureScrollBarColors() {
+                this.thumbColor = Colors.isDark(list.getBackground().getRGB()) ?
+                        list.getBackground().brighter().brighter() :
+                        list.getBackground().darker().darker();
+            }
+        });
         list.setName(Objects.requireNonNull(name));
-        completeInitialization(list, new DataCell<>(
+        completeInitialization(scrollPane, new DataCell<>(
                 list::getSelectedValuesList,
                 (val) -> list.clearSelection()
         ));
     }
 
-    public MultiList(String name, Collection<D> items) {
-        this(name, new JList<>(new Vector<>(Objects.requireNonNull(items))));
+    @Override
+    public JComponent get() {
+        return scrollPane;
     }
 
     @Override
