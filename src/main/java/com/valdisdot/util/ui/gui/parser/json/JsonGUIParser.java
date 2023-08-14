@@ -53,6 +53,7 @@ public class JsonGUIParser implements GUIParser {
             Objects.requireNonNull(framePlot.getName(), "Frame name is null. " + framePlot);
             Objects.requireNonNull(framePlot.getTitle(), "Frame title is null. " + framePlot);
             FrameMold frameMold = new FrameMold(framePlot.getName(), framePlot.getTitle());
+            frameMold.setRootBackgroundColor(ValuesParser.fromHEXToDecimalInt(framePlot.getRootBackground(), Color.LIGHT_GRAY.getRGB()));
             parsePanelMolds(framePlot.getPanels(), properties, frameMold);
             frameMolds.add(frameMold);
         });
