@@ -56,6 +56,13 @@ public class FrameFactory {
     }
 
     public static void playOnDesk(JComponent component){
-        playOnDesk(component, ((int) (Integer.MAX_VALUE * Math.random())));
+        new Thread(() -> {
+            JFrame frame = new JFrame("DESK | com.valdisdot.util");
+            frame.add(component);
+            frame.pack();
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setAlwaysOnTop(true);
+            frame.setVisible(true);
+        }).start();
     }
 }
