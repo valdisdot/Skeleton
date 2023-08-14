@@ -30,10 +30,10 @@ public class DefaultParsedView implements ParsedView<JPanel> {
     public DefaultParsedView(String rootPanelName, Iterable<PanelMold> panelMolds, Function<ElementMold, JElement<String>> customParseFunction, Function<List<String>, String> listToStringFunction) {
         dataCellGroup = new DataCellGroup<>();
         controlButtonsActionListenersConsumers = new HashMap<>();
-        root = new JPanel(new MigLayout());
+        root = new JPanel(new MigLayout("insets 0,gap 0px 0px"));
         root.setName(rootPanelName);
         panelMolds.forEach(panelMold -> {
-            String panelConstraint = panelMold.isFromTheTopOfFrame() ? "" : "wrap";
+            String panelConstraint = panelMold.isFromTheTopOfFrame() ? "aligny top" : "wrap";
             JPanel currentPanel = new JPanel(new MigLayout("wrap"));
             currentPanel.setBackground(new Color(panelMold.getBackgroundColor()));
             panelMold.getMoldConstraintMap().forEach(
@@ -62,6 +62,7 @@ public class DefaultParsedView implements ParsedView<JPanel> {
 
     public DefaultParsedView(FrameMold frameMold, Function<List<String>, String> listToStringFunction) {
         this(frameMold.getName(), frameMold.getPanelMolds(), listToStringFunction);
+        root.setBackground(new Color(frameMold.getRootBackgroundColor()));
     }
 
     //customParseFunction - for future component types (which are not present in ComponentType.enum) or for debugging
