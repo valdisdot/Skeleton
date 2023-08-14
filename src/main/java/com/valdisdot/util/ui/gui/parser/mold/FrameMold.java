@@ -9,6 +9,7 @@ public class FrameMold {
     private final List<PanelMold> panelMolds;
     private String name;
     private String title;
+    private int rootBackgroundColor;
 
     public FrameMold(String name, String title) {
         this.name = name;
@@ -39,6 +40,14 @@ public class FrameMold {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public int getRootBackgroundColor() {
+        return rootBackgroundColor;
+    }
+
+    public void setRootBackgroundColor(int rootBackgroundColor) {
+        this.rootBackgroundColor = rootBackgroundColor;
     }
 
     public List<PanelMold> getPanelMolds() {
