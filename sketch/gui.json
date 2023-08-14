@@ -1,5 +1,7 @@
 {
   "applicationName": "My application",
+  "framesGrouping": "peculiar",
+  "menuBackground": "#FFF6DC",
   "properties": {
     "sizes": [
       {
@@ -259,8 +261,8 @@
             {
               "laying": "row",
               "type": "button",
-              "title": "Copy",
-              "name": "copy",
+              "title": "Print",
+              "name": "print",
               "properties": [
                 "control_background",
                 "control_foreground",
@@ -279,7 +281,14 @@
               ]
             }
           ]
-        },
+        }
+      ]
+    },
+    {
+      "name": "monitor",
+      "title": "Requests monitor",
+      "rootBackground": "#FFC6AC",
+      "panels": [
         {
           "fromTheTopOfFrame": true,
           "properties": [
@@ -300,7 +309,7 @@
             },
             {
               "type": "textArea",
-              "name": "monitor",
+              "name": "monitor_area",
               "properties": [
                 "big_text_area",
                 "text_field_bg",
