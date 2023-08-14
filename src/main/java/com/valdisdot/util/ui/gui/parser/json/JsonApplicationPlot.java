@@ -6,6 +6,9 @@ import java.util.List;
 //pojo for json data binging
 public class JsonApplicationPlot {
     private String applicationName;
+    private String itemMenuName;
+    private String menuBackground;
+    private String framesGrouping;
     private PropertiesMap properties = new PropertiesMap();
     private List<FramePlot> frames = new LinkedList<>();
 
@@ -19,6 +22,30 @@ public class JsonApplicationPlot {
 
     public void setApplicationName(String applicationName) {
         this.applicationName = applicationName;
+    }
+
+    public String getItemMenuName() {
+        return itemMenuName;
+    }
+
+    public void setItemMenuName(String itemMenuName) {
+        this.itemMenuName = itemMenuName;
+    }
+
+    public String getMenuBackground() {
+        return menuBackground;
+    }
+
+    public void setMenuBackground(String menuBackground) {
+        this.menuBackground = menuBackground;
+    }
+
+    public String getFramesGrouping() {
+        return framesGrouping;
+    }
+
+    public void setFramesGrouping(String framesGrouping) {
+        this.framesGrouping = framesGrouping;
     }
 
     public PropertiesMap getProperties() {
