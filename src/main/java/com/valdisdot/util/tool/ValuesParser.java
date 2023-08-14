@@ -22,7 +22,7 @@ public class ValuesParser {
     public static int fromHEXToDecimalInt(String value, int defaultValue) {
         try {
             return Integer.parseInt(value.replaceAll("#", ""), 16);
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException | NullPointerException e) {
             return defaultValue;
         }
     }
