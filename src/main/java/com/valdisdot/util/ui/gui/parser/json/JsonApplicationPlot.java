@@ -215,6 +215,7 @@ public class JsonApplicationPlot {
     static class FramePlot {
         private String name;
         private String title;
+        private String rootBackground;
         private final List<PanelPlot> panels = new LinkedList<>();
 
         public String getName() {
@@ -231,6 +232,14 @@ public class JsonApplicationPlot {
 
         public void setTitle(String title) {
             this.title = title;
+        }
+
+        public String getRootBackground() {
+            return rootBackground;
+        }
+
+        public void setRootBackground(String rootBackground) {
+            this.rootBackground = rootBackground;
         }
 
         public List<PanelPlot> getPanels() {
