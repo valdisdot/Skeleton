@@ -13,6 +13,12 @@
         "height": 200
       },
       {
+        "name": "big_text_area",
+        "width": 400,
+        "height": 400
+      },
+
+      {
         "name": "check_box_size",
         "width": 200,
         "height": 20
@@ -42,12 +48,12 @@
       {
         "name": "panel_bg",
         "type": "background",
-        "value": "FFC6AC"
+        "value": "#FFC6AC"
       },
       {
         "name": "text_field_bg",
         "type": "background",
-        "value": "FFF6DC"
+        "value": "#FFF6DC"
       },
       {
         "name": "slider_fg",
@@ -57,7 +63,7 @@
       {
         "name": "control_background",
         "type": "background",
-        "value": "9E9FA5"
+        "value": "#9E9FA5"
       },
       {
         "name": "control_foreground",
@@ -83,6 +89,7 @@
     {
       "name": "customer_request_window",
       "title": "Customer requests",
+      "rootBackground": "#FFC6AC",
       "panels": [
         {
           "fromTheTopOfFrame": true,
@@ -269,6 +276,35 @@
                 "control_background",
                 "control_foreground",
                 "button_size"
+              ]
+            }
+          ]
+        },
+        {
+          "fromTheTopOfFrame": true,
+          "properties": [
+            "panel_bg",
+            "content_font"
+          ],
+          "elements": [
+            {
+              "type": "label",
+              "title": "Requests collected:",
+              "laying": "row"
+            },
+            {
+              "type": "modifiableLabel",
+              "name": "counter",
+              "title": "0",
+              "laying": "row"
+            },
+            {
+              "type": "textArea",
+              "name": "monitor",
+              "properties": [
+                "big_text_area",
+                "text_field_bg",
+                "text_field_font"
               ]
             }
           ]
