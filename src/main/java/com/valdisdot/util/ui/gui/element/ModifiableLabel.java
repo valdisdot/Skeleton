@@ -14,10 +14,6 @@ public class ModifiableLabel extends JElement<String> {
         );
     }
 
-    public ModifiableLabel(String name) {
-        this(name, new JLabel());
-    }
-
     @Override
     protected boolean pleaseAcceptThatYouHaveDone() {
         return true;
