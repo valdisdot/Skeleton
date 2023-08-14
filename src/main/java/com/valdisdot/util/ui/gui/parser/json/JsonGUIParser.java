@@ -3,7 +3,8 @@ package com.valdisdot.util.ui.gui.parser.json;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.valdisdot.util.tool.ValuesParser;
-import com.valdisdot.util.ui.gui.parser.GUIParser;
+import com.valdisdot.util.ui.gui.parser.Parser;
+import com.valdisdot.util.ui.gui.parser.mold.ApplicationMold;
 import com.valdisdot.util.ui.gui.parser.mold.ElementMold;
 import com.valdisdot.util.ui.gui.parser.mold.FrameMold;
 import com.valdisdot.util.ui.gui.parser.mold.PanelMold;
@@ -13,8 +14,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -22,8 +21,8 @@ import java.util.Optional;
 see example of a json template:
 https://github.com/valdisdot/Utilities sketch/gui.json
  */
-public class JsonGUIParser implements GUIParser {
-    private final List<FrameMold> frameMolds;
+public class JsonGUIParser implements Parser {
+    private final ApplicationMold applicationMold;
 
     public JsonGUIParser(File jsonFile) throws IOException {
         this(new ObjectMapper().readValue(jsonFile, JsonApplicationPlot.class));
@@ -41,21 +40,37 @@ public class JsonGUIParser implements GUIParser {
         this(new ObjectMapper().readValue(uriToJson.toURL(), JsonApplicationPlot.class));
     }
 
-    protected JsonGUIParser(JsonApplicationPlot rootPlot) {
-        JsonPropertyHolder properties = new JsonPropertyHolder();
+    protected JsonGUIParser(JsonApplicationPlot applicationPlot) {
+        Objects.requireNonNull(applicationPlot, "Application plot is null");
+        Objects.requireNonNull(applicationPlot.getApplicationName(), "Application plot name is null. " + applicationPlot);
+        //if application root item menu is null -> set to application name
+        applicationPlot.setItemMenuName(Objects.requireNonNullElse(applicationPlot.getItemMenuName(), applicationPlot.getApplicationName()));
+        //define defaults
+        Color defaultBackground = Color.LIGHT_GRAY;
+        Color defaultForeground = Color.BLACK;
+        //init application mold
+        applicationMold = new ApplicationMold();
+        applicationMold.setApplicationName(applicationPlot.getApplicationName());
+        applicationMold.setRootItemMenuName(applicationPlot.getItemMenuName());
+        ApplicationMold.FramesGrouping framesGrouping;
+        if(ApplicationMold.FramesGrouping.MENU.getValue().equals(applicationPlot.getFramesGrouping())) framesGrouping = ApplicationMold.FramesGrouping.MENU;
+        else if(ApplicationMold.FramesGrouping.JOINT_FRAME.getValue().equals(applicationPlot.getFramesGrouping())) framesGrouping = ApplicationMold.FramesGrouping.JOINT_FRAME;
+        else framesGrouping = ApplicationMold.FramesGrouping.PECULIAR_FRAME;
+        applicationMold.setBuildingPolicy(framesGrouping);
+        applicationMold.setMenuBackground(ValuesParser.fromHEXToDecimalInt(applicationPlot.getMenuBackground(), defaultBackground.getRGB()));
         //parse application common properties
-        parseColors(rootPlot.getProperties().getColors(), Color.LIGHT_GRAY, Color.BLACK, properties);
-        parseFonts(rootPlot.getProperties().getFonts(), new Font("Arial", Font.PLAIN, 12), properties);
-        parseSizes(rootPlot.getProperties().getSizes(), properties);
+        JsonPropertyHolder properties = new JsonPropertyHolder();
+        parseColors(applicationPlot.getProperties().getColors(), defaultBackground, defaultForeground, properties);
+        parseFonts(applicationPlot.getProperties().getFonts(), new Font("Arial", Font.PLAIN, 12), properties);
+        parseSizes(applicationPlot.getProperties().getSizes(), properties);
         //parse frames
-        frameMolds = new ArrayList<>(rootPlot.getFrames().size());
-        rootPlot.getFrames().forEach(framePlot -> {
+        applicationPlot.getFrames().forEach(framePlot -> {
             Objects.requireNonNull(framePlot.getName(), "Frame name is null. " + framePlot);
             Objects.requireNonNull(framePlot.getTitle(), "Frame title is null. " + framePlot);
             FrameMold frameMold = new FrameMold(framePlot.getName(), framePlot.getTitle());
-            frameMold.setRootBackgroundColor(ValuesParser.fromHEXToDecimalInt(framePlot.getRootBackground(), Color.LIGHT_GRAY.getRGB()));
+            frameMold.setRootBackgroundColor(ValuesParser.fromHEXToDecimalInt(framePlot.getRootBackground(), defaultBackground.getRGB()));
             parsePanelMolds(framePlot.getPanels(), properties, frameMold);
-            frameMolds.add(frameMold);
+            applicationMold.addFrameMold(frameMold);
         });
     }
 
@@ -173,8 +188,8 @@ public class JsonGUIParser implements GUIParser {
     }
 
     @Override
-    public List<FrameMold> get() {
-        return frameMolds;
+    public ApplicationMold get() {
+        return applicationMold;
     }
 
     public enum SyntaxTag {
