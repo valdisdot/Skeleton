@@ -11,7 +11,7 @@ import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-
+//implementation for JComboBox
 public class ComboList extends JElement<String> {
 
     public ComboList(
@@ -42,21 +42,12 @@ public class ComboList extends JElement<String> {
                 );
             };
         }
-
-        completeInitialization(
-                comboBox,
-                new DataCell<>(supplierFunction, consumerFunction)
-        );
+        component = comboBox;
+        dataCell = new DataCell<>(supplierFunction, consumerFunction);
     }
-
 
     //if BiFunction returns value greater than size of the combo box items - the last one element will be selected
     public ComboList(String name, Collection<String> elements, BiFunction<String, Collection<String>, Integer> setItemFunction) {
         this(name, new JComboBox<>(new Vector<>(elements)), setItemFunction);
-    }
-
-    @Override
-    protected final boolean pleaseAcceptThatYouHaveDone() {
-        return true;
     }
 }
