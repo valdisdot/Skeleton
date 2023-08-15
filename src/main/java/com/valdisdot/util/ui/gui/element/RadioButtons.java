@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.util.LinkedHashMap;
 import java.util.function.Supplier;
 
+//implementation for a group (from 1 to n) of JRadioButton. Title of JRadioButton and return value is different and must be passed through the constructor's args as Map 'radioButtonValueMap'
 public class RadioButtons extends JElement<String> {
     private Supplier<String> valueSupplier;
 
@@ -27,22 +28,14 @@ public class RadioButtons extends JElement<String> {
             });
         });
 
-        completeInitialization(
-                container,
-                new DataCell<>(
-                        //get data from current supplier or ""
-                        () -> valueSupplier.get(),
-                        val -> {
-                            buttonGroup.clearSelection();
-                            //set to supplier of ""
-                            valueSupplier = () -> "";
-                        }
-                )
-        );
-    }
-
-    @Override
-    protected boolean pleaseAcceptThatYouHaveDone() {
-        return true;
+        component = container;
+        dataCell = new DataCell<>(
+                //get data from current supplier or ""
+                () -> valueSupplier.get(),
+                val -> {
+                    buttonGroup.clearSelection();
+                    //set to supplier of ""
+                    valueSupplier = () -> "";
+                });
     }
 }
