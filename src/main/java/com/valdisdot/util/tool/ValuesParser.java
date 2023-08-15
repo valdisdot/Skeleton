@@ -49,9 +49,39 @@ public class ValuesParser {
         return toJSONArray(new ArrayList<>(collection));
     }
 
-    //key: value
-    //key: value
-    public static String toKeySemicolonValueString(Map<?, ?> map) {
-        return map.entrySet().stream().map(entry -> entry.getKey() + ": " + entry.getValue() + "\n").collect(Collectors.joining()).trim();
+    public static String toJSONObject(Map<?,?> map){
+        StringBuilder builder = new StringBuilder("{\n");
+        ArrayList<Map.Entry<?,?>> entryList = new ArrayList<>(map.entrySet());
+
+        Object temp;
+        for(int i = 0; i < entryList.size() - 1; ++i){
+            temp = entryList.get(i).getValue();
+            builder
+                    .append("\t\"")
+                    .append(entryList.get(i).getKey())
+                    .append("\": ");
+
+            if(temp instanceof Collection) builder.append(toJSONArray((Collection<?>) temp)).append(",\n");
+            else if(temp instanceof Map) builder.append(toJSONObject((Map<?, ?>) temp)).append(",\n");
+            else builder
+                    .append("\"")
+                    .append(temp.toString())
+                    .append("\",\n");
+        }
+
+        temp = entryList.get(entryList.size() - 1).getValue();
+        builder
+                .append("\t\"")
+                .append(entryList.get(entryList.size() - 1).getKey())
+                .append("\": ");
+
+        if(temp instanceof Collection) builder.append(toJSONArray((Collection<?>) temp));
+        else if(temp instanceof Map) builder.append(toJSONObject((Map<?, ?>) temp));
+        else builder
+                .append("\"")
+                .append(temp.toString())
+                .append("\"");
+
+        return builder.append("\n}").toString();
     }
 }
