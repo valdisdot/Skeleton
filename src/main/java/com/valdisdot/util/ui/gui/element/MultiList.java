@@ -43,19 +43,10 @@ public class MultiList<D> extends JElement<List<D>> {
             }
         });
         list.setName(Objects.requireNonNull(name));
-        completeInitialization(scrollPane, new DataCell<>(
+        component = scrollPane;
+        dataCell = new DataCell<>(
                 list::getSelectedValuesList,
                 (val) -> list.clearSelection()
-        ));
-    }
-
-    @Override
-    public JComponent get() {
-        return scrollPane;
-    }
-
-    @Override
-    protected boolean pleaseAcceptThatYouHaveDone() {
-        return true;
+        );
     }
 }
