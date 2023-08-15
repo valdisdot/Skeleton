@@ -5,9 +5,6 @@ import com.valdisdot.util.ui.gui.tool.Colors;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
-import java.util.Collection;
-import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
@@ -22,33 +19,13 @@ public class ContentButton extends JElement<String> {
         Color clicked = new Color(Colors.isDark(original.getRGB()) ? original.getRGB() + 128 : original.getRGB() - 64);
         button.addActionListener(l -> {
             wasPressed = !wasPressed;
-            if(wasPressed) button.setBackground(clicked);
+            if (wasPressed) button.setBackground(clicked);
             else button.setBackground(original);
         });
 
         Supplier<String> supplierFunction = () -> wasPressed ? valueIfWasPressed : valueIfWasNotPressed;
         Consumer<String> consumerFunction = (value) -> wasPressed = !wasPressed;
-        completeInitialization(
-                button,
-                new DataCell<>(supplierFunction, consumerFunction)
-        );
-    }
-
-    public ContentButton(String name, String buttonLabel, Collection<ActionListener> actionListeners, String valueIfWasPressed, String valueIfWasNotPressed) {
-        this(
-                name, //set name
-                new JButton(buttonLabel) { //create custom anonymous JButton class
-                    {
-                        if (Objects.nonNull(actionListeners))
-                            actionListeners.forEach(this::addActionListener); //add actions for this button with init-block
-                    }
-                },
-                valueIfWasPressed, //->|
-                valueIfWasNotPressed); //|<-
-    }
-
-    @Override
-    protected final boolean pleaseAcceptThatYouHaveDone() {
-        return true;
+        component = button;
+        dataCell = new DataCell<>(supplierFunction, consumerFunction);
     }
 }
