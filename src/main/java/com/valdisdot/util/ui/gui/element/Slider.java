@@ -19,17 +19,10 @@ public class Slider<D> extends JElement<D>{
         slider.setPaintTicks(true);
         slider.setLabelTable(labels);
 
-        completeInitialization(
-                slider,
-                new DataCell<>(
-                        () -> labelValueMap.get(labels.get(slider.getValue()).getText()),
-                        val -> slider.setValue(0)
-                )
+        component = slider;
+        dataCell = new DataCell<>(
+                () -> labelValueMap.get(labels.get(slider.getValue()).getText()),
+                val -> slider.setValue(0)
         );
-    }
-
-    @Override
-    protected boolean pleaseAcceptThatYouHaveDone() {
-        return true;
     }
 }
