@@ -44,7 +44,7 @@ public class GUIExample {
         //define get data controller
         ConvertingDataController<String, String> sendToMonitorController = new ConvertingDataController<>(
                 customerRequestWindowsControl.getDataCellGroup(),
-                ValuesParser::toKeySemicolonValueString,
+                ValuesParser::toJSONObject,
                 dataConsumer.andThen( //send data to monitor
                         counter //and then increase counter (which ignores data)
                 )
