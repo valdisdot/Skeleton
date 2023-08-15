@@ -21,6 +21,6 @@ public class RadioButtonsExperiment {
                         new JRadioButton("Apple"), "apple",
                         new JRadioButton("Orange"), "orange"
                 )));
-        FrameFactory.playOnDesk(radio, "", map -> System.out.println(ValuesParser.toKeySemicolonValueString(map)));
+        FrameFactory.playOnDesk(radio, "", map -> System.out.println(ValuesParser.toJSONObject(map)));
     }
 }
