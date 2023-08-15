@@ -3,10 +3,7 @@ package com.valdisdot.util.ui.gui.element;
 import com.valdisdot.util.data.DataCell;
 
 import javax.swing.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Objects;
-import java.util.Vector;
+import java.util.*;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
@@ -18,7 +15,7 @@ public class ComboList extends JElement<String> {
             String name,
             JComboBox<String> comboBox,
             //user has to define the behaviour if DataCell.setData is calling by BiFunction - must return the index for JComboBox.setSelectedIndex
-            BiFunction<String, Collection<String>, Integer> setItemFunction
+            BiFunction<String, List<String>, Integer> setItemFunction
     ) {
         comboBox.setName(name);
 
@@ -47,7 +44,7 @@ public class ComboList extends JElement<String> {
     }
 
     //if BiFunction returns value greater than size of the combo box items - the last one element will be selected
-    public ComboList(String name, Collection<String> elements, BiFunction<String, Collection<String>, Integer> setItemFunction) {
+    public ComboList(String name, Collection<String> elements, BiFunction<String, List<String>, Integer> setItemFunction) {
         this(name, new JComboBox<>(new Vector<>(elements)), setItemFunction);
     }
 }
