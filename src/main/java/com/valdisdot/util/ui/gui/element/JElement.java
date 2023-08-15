@@ -8,23 +8,12 @@ import java.util.Objects;
 
 //common Element implementation for javax.swing
 public abstract class JElement<D> implements Element<D, JComponent> {
-    private DataCell<D> dataCell;
-    private JComponent component;
-
-    protected abstract boolean pleaseAcceptThatYouHaveDone();
-
-    //cuz Constructor.super must be the first line
-    protected void completeInitialization(JComponent component, DataCell<D> dataCell) {
-        this.component = Objects.requireNonNull(component, "JComponent is not initialised");
-        Objects.requireNonNull(component.getName(), "Component name is null: " + component);
-        this.dataCell = dataCell;
-        pleaseAcceptThatYouHaveDone();
-    }
-
+    protected DataCell<D> dataCell;
+    protected JComponent component;
 
     @Override
     public String getName() {
-        return component.getName();
+        return Objects.requireNonNull(Objects.requireNonNull(component, "JComponent is not initialised").getName(), "Component name is null: " + component);
     }
 
     @Override
@@ -34,6 +23,6 @@ public abstract class JElement<D> implements Element<D, JComponent> {
 
     @Override
     public DataCell<D> getDataCell() {
-        return Objects.requireNonNull(dataCell, "DataCell is not initialised");
+        return Objects.requireNonNull(dataCell, "DataCell is not initialised. " + component);
     }
 }
