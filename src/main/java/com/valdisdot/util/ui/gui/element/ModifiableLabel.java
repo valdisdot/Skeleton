@@ -4,18 +4,11 @@ import com.valdisdot.util.data.DataCell;
 
 import javax.swing.*;
 
-//class for cases where JLabel can be changed dynamically
+//class for cases where JLabel can be changed on-demand
 public class ModifiableLabel extends JElement<String> {
     public ModifiableLabel(String name, JLabel label) {
         label.setName(name);
-        completeInitialization(
-                label,
-                new DataCell<>(label::getText, label::setText)
-        );
-    }
-
-    @Override
-    protected boolean pleaseAcceptThatYouHaveDone() {
-        return true;
+        component = label;
+        dataCell = new DataCell<>(label::getText, label::setText);
     }
 }
