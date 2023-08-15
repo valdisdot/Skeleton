@@ -4,10 +4,10 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.valdisdot.util.tool.ValuesParser;
 import com.valdisdot.util.ui.gui.parser.Parser;
-import com.valdisdot.util.ui.gui.parser.mold.ApplicationMold;
-import com.valdisdot.util.ui.gui.parser.mold.ElementMold;
-import com.valdisdot.util.ui.gui.parser.mold.FrameMold;
-import com.valdisdot.util.ui.gui.parser.mold.PanelMold;
+import com.valdisdot.util.ui.gui.mold.ApplicationMold;
+import com.valdisdot.util.ui.gui.mold.ElementMold;
+import com.valdisdot.util.ui.gui.mold.FrameMold;
+import com.valdisdot.util.ui.gui.mold.PanelMold;
 
 import java.awt.*;
 import java.io.File;

@@ -5,8 +5,8 @@ import com.valdisdot.util.ui.gui.component.Frame;
 import com.valdisdot.util.ui.gui.parser.DefaultParsedView;
 import com.valdisdot.util.ui.gui.parser.ParsedView;
 import com.valdisdot.util.ui.gui.parser.Parser;
-import com.valdisdot.util.ui.gui.parser.mold.ApplicationMold;
-import com.valdisdot.util.ui.gui.parser.mold.FrameMold;
+import com.valdisdot.util.ui.gui.mold.ApplicationMold;
+import com.valdisdot.util.ui.gui.mold.FrameMold;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;

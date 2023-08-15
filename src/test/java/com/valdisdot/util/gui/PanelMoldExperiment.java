@@ -1,7 +1,7 @@
 package com.valdisdot.util.gui;
 
-import com.valdisdot.util.ui.gui.parser.mold.ElementMold;
-import com.valdisdot.util.ui.gui.parser.mold.PanelMold;
+import com.valdisdot.util.ui.gui.mold.ElementMold;
+import com.valdisdot.util.ui.gui.mold.PanelMold;
 
 import java.util.List;
 

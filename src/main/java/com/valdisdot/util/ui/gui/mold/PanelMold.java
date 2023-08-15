@@ -1,4 +1,4 @@
-package com.valdisdot.util.ui.gui.parser.mold;
+package com.valdisdot.util.ui.gui.mold;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;

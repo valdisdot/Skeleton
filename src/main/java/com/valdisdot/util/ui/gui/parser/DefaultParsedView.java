@@ -6,9 +6,9 @@ import com.valdisdot.util.ui.gui.component.ComponentType;
 import com.valdisdot.util.ui.gui.component.ControlButton;
 import com.valdisdot.util.ui.gui.component.JComponentDecorator;
 import com.valdisdot.util.ui.gui.element.*;
-import com.valdisdot.util.ui.gui.parser.mold.ElementMold;
-import com.valdisdot.util.ui.gui.parser.mold.FrameMold;
-import com.valdisdot.util.ui.gui.parser.mold.PanelMold;
+import com.valdisdot.util.ui.gui.mold.ElementMold;
+import com.valdisdot.util.ui.gui.mold.FrameMold;
+import com.valdisdot.util.ui.gui.mold.PanelMold;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
