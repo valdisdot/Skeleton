@@ -9,17 +9,11 @@ import java.util.function.Function;
 public class WrappedDataElement<D, C> extends JElement<C> {
     public WrappedDataElement(JElement<D> internal, Function<D, C> supplierFunction, Function<C, D> consumerFunction) {
         DataCell<D> dataCell = internal.getDataCell();
-        completeInitialization(
-                internal.get(),
-                new DataCell<C>(
-                        () -> supplierFunction.apply(dataCell.getData()),
-                        (c) -> dataCell.setData(consumerFunction.apply(c))
-                )
+        component = internal.get();
+        this.dataCell = new DataCell<C>(
+                () -> supplierFunction.apply(dataCell.getData()),
+                (c) -> dataCell.setData(consumerFunction.apply(c))
         );
     }
 
-    @Override
-    protected boolean pleaseAcceptThatYouHaveDone() {
-        return true;
-    }
 }
