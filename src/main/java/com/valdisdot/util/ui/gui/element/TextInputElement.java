@@ -9,18 +9,11 @@ import javax.swing.text.JTextComponent;
 public class TextInputElement extends JElement<String> {
     public TextInputElement(String name, JTextComponent textField) {
         textField.setName(name);
-        completeInitialization(
-                textField,
-                new DataCell<>(textField::getText, textField::setText)
-        );
+        component = textField;
+        dataCell = new DataCell<>(textField::getText, textField::setText);
     }
 
     public TextInputElement(String name) {
         this(name, new JTextField());
-    }
-
-    @Override
-    protected boolean pleaseAcceptThatYouHaveDone() {
-        return true;
     }
 }
