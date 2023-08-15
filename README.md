@@ -64,7 +64,9 @@ The package itself contains util-classes for simple and monad operations like si
 
 The package contains class `SimpleUI` and internal package `ui.gui`.
 
-1. **SimpleUI** is a simple UI util. The main purpose of the class is to simplify creating a CLI. It uses any InputStream and OutputStream for interacting with user.
+#### class **`SimpleUI`**
+
+**SimpleUI** is a simple UI util. The main purpose of the class is to simplify creating a CLI. It uses any InputStream and OutputStream for interacting with user.
 
 The instance of the class can be created with a constructor with params or through the `SimpleUI.Builder`. Notice, that class **uses Thread.sleep()**, so it implements Runnable for using with a separate Thread.
 
@@ -96,15 +98,23 @@ SimpleUI cli = SimpleUI.builder()
     .build();
 new Thread(cli).start();
 ``````
-2. **ui.gui** package contains utilities for manual create or parsing GUI (to `javax.swing`)
 
-The central logic unit is a mold from `ui.gui.mold`. For a single element (label, text field, check box etc.) it is an `ElementMold`, for a panel - `PanelMold`, for a frame - `FrameMold`, for the whole application it is a `ApplicationMold`.
+#### package **`ui.gui`**
+
+**ui.gui** package contains utilities for manual create or parsing GUI (to `javax.swing`)
+
+##### package **`ui.gui.mold`**
+
+The central logic unit is the 'molds' from `ui.gui.mold`. For a single element (label, text field, check box etc.) it is an `ElementMold`, for a panel - `PanelMold`, for a frame - `FrameMold`, for the whole application it is a `ApplicationMold`.
 Each mold contains its own properties and information for about GUI. Molds can be created by hands or parsed from outside (from JSON or XML files).
 
-Package `ui.gui.element` contains abstract implementation of `Element<D, C>` - `JElement<D>`. 
+##### package **`ui.gui.element`** and **`JElement`**
 
-The class *JElement* returns logical name (key) of the Element, a JComponent as a Supplier of JComponent (representation of view) and a DataCell of its Element. 
-Inheritors of `JElement<D>`:
+Package `ui.gui.element` contains abstract implementation of `Element<D, C>` - `JElement<D>`.
+The class *JElement* returns logical name (key) of the Element, a JComponent as a Supplier of JComponent (representation of view) and a DataCell of its Element.
+
+*Implementations of JElement:*
+
 - `CheckBox` is an implementation for **JCheckBox**.
 ``````
 CheckBox checkBox = new CheckBox("is_checked", "Is checked?", false, "sure", "nope");
@@ -199,7 +209,11 @@ WrappedDataElement<String, Integer> wrappedElement = new WrappedDataElement<>(
 );
 int data = wrappedElement.getDataCell().getData();
 ``````
-
+##### package **`ui.gui.component`**
+##### package **`ui.gui.tool`**
+##### package **`ui.gui.parser`**
+##### class **`ui.gui.Control`**
+##### class **`ui.gui.GUI`**
 
 
 
