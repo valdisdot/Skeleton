@@ -7,8 +7,8 @@ import com.valdisdot.util.tool.ValuesParser;
 import com.valdisdot.util.ui.gui.component.ComponentType;
 import com.valdisdot.util.ui.gui.parser.DefaultParsedView;
 import com.valdisdot.util.ui.gui.parser.ParsedView;
-import com.valdisdot.util.ui.gui.parser.mold.ElementMold;
-import com.valdisdot.util.ui.gui.parser.mold.PanelMold;
+import com.valdisdot.util.ui.gui.mold.ElementMold;
+import com.valdisdot.util.ui.gui.mold.PanelMold;
 import com.valdisdot.util.ui.gui.tool.FrameFactory;
 
 import javax.swing.*;
@@ -80,7 +80,7 @@ public class DefaultParserExperiment {
         //define bulk data reset function
         BulkResetDataController<String> reset = new BulkResetDataController<>(dataCellGroups, "");
         //define fetch-and-send data function, which send out data to the server (to the console)
-        ConvertingDataController<String, String> fetchAndSend = new ConvertingDataController<>(dataCellGroups, ValuesParser::toKeySemicolonValueString, System.out::println);
+        ConvertingDataController<String, String> fetchAndSend = new ConvertingDataController<>(dataCellGroups, ValuesParser::toJSONObject, System.out::println);
         //next, lets define the bulk reset function for control button with name 'clean_button'
         buttonsActionListenerConsumers.get("clean_button").accept(l -> reset.process());
         //define the fetch-and-send data function for control button with name 'send_button'
