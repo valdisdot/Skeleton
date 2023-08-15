@@ -14,6 +14,7 @@ public class ScrollableTextArea extends TextInputElement {
     public ScrollableTextArea(String name, JTextArea textField) {
         super(name, textField);
         scrollPane = new JScrollPane(super.get(), JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setName(name);
         scrollPane.setWheelScrollingEnabled(true);
         JScrollBar horizontal = scrollPane.getHorizontalScrollBar();
         JScrollBar vertical = scrollPane.getVerticalScrollBar();
@@ -41,10 +42,6 @@ public class ScrollableTextArea extends TextInputElement {
                         textField.getBackground().darker().darker();
             }
         });
-    }
-
-    @Override
-    public JComponent get() {
-        return scrollPane;
+        component = scrollPane;
     }
 }
