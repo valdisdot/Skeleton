@@ -1,5 +1,7 @@
 package com.valdisdot.util.ui.gui.tool;
 
+import java.awt.*;
+
 //util class for colors
 public class Colors {
     //for analysing the brightness on a color
@@ -25,5 +27,9 @@ public class Colors {
         int reversedGreen = maxColorValue - green;
         int reversedBlue = maxColorValue - blue;
         return (reversedRed << 16) | (reversedGreen << 8) | reversedBlue;
+    }
+
+    public Color getDifferentColor(Color color){
+        return isDark(color.getRGB()) ? color.brighter() : color.darker();
     }
 }
