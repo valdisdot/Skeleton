@@ -4,7 +4,6 @@ import com.valdisdot.util.tool.ValuesParser;
 import com.valdisdot.util.ui.gui.component.Frame;
 import com.valdisdot.util.ui.gui.parser.DefaultParsedView;
 import com.valdisdot.util.ui.gui.parser.ParsedView;
-import com.valdisdot.util.ui.gui.parser.Parser;
 import com.valdisdot.util.ui.gui.mold.ApplicationMold;
 import com.valdisdot.util.ui.gui.mold.FrameMold;
 import net.miginfocom.swing.MigLayout;
@@ -17,8 +16,7 @@ import java.util.function.Function;
 
 /*
 the class is user-end class for parsing GUI.
-It accepts a Parser. We can use ready-to-use implementation (com.valdisdot.util.ui.gui.parser.json.JsonGUIParser, see 'README.md' -> ui.gui.parser.json.JsonGUIParser).
-Parser is a simple supplier of a ApplicationMold. We can create a new one implementation of the interface (parse from XML or manually by creating some FrameMoldBuilder). Or we can just pass through a function ApplicationMold::new.
+It accepts a ApplicationMold. We can use ready-to-use provider of ApplicationMold (ui.gui.parser.json.JsonApplicationMoldParser) or build it by hand.
 ApplicationMold.FramesGrouping is an enum which provide logic of building a graphical interface.
     MENU -> will create a JFrame with JMenu, all frames will be placed as JPanels
     PECULIAR_FRAME -> will create a JFrame, all frames will be places in a JScrollPane
@@ -93,14 +91,6 @@ public class GUI {
 
     public GUI(ApplicationMold applicationMold) {
         this(applicationMold, ValuesParser::toJSON);
-    }
-
-    public GUI(Parser parser, Function<List<String>, String> listToStringFunction) {
-        this(parser.get(), listToStringFunction);
-    }
-
-    public GUI(Parser guiParser) {
-        this(guiParser, ValuesParser::toJSON);
     }
 
     public Map<String, Control> getControlMap() {
