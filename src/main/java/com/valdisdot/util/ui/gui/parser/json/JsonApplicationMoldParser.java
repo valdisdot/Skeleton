@@ -3,7 +3,6 @@ package com.valdisdot.util.ui.gui.parser.json;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.valdisdot.util.tool.ValuesParser;
-import com.valdisdot.util.ui.gui.parser.Parser;
 import com.valdisdot.util.ui.gui.mold.ApplicationMold;
 import com.valdisdot.util.ui.gui.mold.ElementMold;
 import com.valdisdot.util.ui.gui.mold.FrameMold;
@@ -21,26 +20,26 @@ import java.util.Optional;
 see example of a json template:
 https://github.com/valdisdot/Utilities sketch/gui.json
  */
-public class JsonGUIParser implements Parser {
+public class JsonApplicationMoldParser {
     private final ApplicationMold applicationMold;
 
-    public JsonGUIParser(File jsonFile) throws IOException {
+    public JsonApplicationMoldParser(File jsonFile) throws IOException {
         this(new ObjectMapper().readValue(jsonFile, JsonApplicationPlot.class));
     }
 
-    public JsonGUIParser(String json) throws JsonProcessingException {
+    public JsonApplicationMoldParser(String json) throws JsonProcessingException {
         this(new ObjectMapper().readValue(json, JsonApplicationPlot.class));
     }
 
-    public JsonGUIParser(InputStream jsonInputStream) throws IOException {
+    public JsonApplicationMoldParser(InputStream jsonInputStream) throws IOException {
         this(new ObjectMapper().readValue(jsonInputStream, JsonApplicationPlot.class));
     }
 
-    public JsonGUIParser(URI uriToJson) throws IOException {
+    public JsonApplicationMoldParser(URI uriToJson) throws IOException {
         this(new ObjectMapper().readValue(uriToJson.toURL(), JsonApplicationPlot.class));
     }
 
-    protected JsonGUIParser(JsonApplicationPlot applicationPlot) {
+    protected JsonApplicationMoldParser(JsonApplicationPlot applicationPlot) {
         Objects.requireNonNull(applicationPlot, "Application plot is null");
         Objects.requireNonNull(applicationPlot.getApplicationName(), "Application plot name is null. " + applicationPlot);
         //if application root item menu is null -> set to application name
@@ -187,8 +186,7 @@ public class JsonGUIParser implements Parser {
         });
     }
 
-    @Override
-    public ApplicationMold get() {
+    public ApplicationMold getApplicationMold() {
         return applicationMold;
     }
 
