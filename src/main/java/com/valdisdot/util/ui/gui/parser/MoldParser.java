@@ -9,7 +9,7 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 //contact for parsers
-public interface ParsedView<P extends JPanel> extends Supplier<P> {
+public interface MoldParser<P extends JPanel> extends Supplier<P> {
     DataCellGroup<String> getDataCellGroups();
 
     Map<String, Consumer<ActionListener>> getButtonsActionListenerConsumers();

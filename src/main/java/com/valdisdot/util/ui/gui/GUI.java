@@ -2,8 +2,8 @@ package com.valdisdot.util.ui.gui;
 
 import com.valdisdot.util.tool.ValuesParser;
 import com.valdisdot.util.ui.gui.component.Frame;
-import com.valdisdot.util.ui.gui.parser.DefaultParsedView;
-import com.valdisdot.util.ui.gui.parser.ParsedView;
+import com.valdisdot.util.ui.gui.parser.DefaultMoldParser;
+import com.valdisdot.util.ui.gui.parser.MoldParser;
 import com.valdisdot.util.ui.gui.mold.ApplicationMold;
 import com.valdisdot.util.ui.gui.mold.FrameMold;
 import net.miginfocom.swing.MigLayout;
@@ -46,11 +46,11 @@ public class GUI {
         applicationTitle = applicationMold.getApplicationName();
         //parse raw
         for (FrameMold frameMold : applicationMold.getFrameMolds()) {
-            ParsedView<JPanel> parsedView = new DefaultParsedView(frameMold, listToStringFunction);
-            JPanel root = parsedView.get();
+            MoldParser<JPanel> moldParser = new DefaultMoldParser(frameMold, listToStringFunction);
+            JPanel root = moldParser.get();
             controlMap.put(
                     frameMold.getName(),
-                    new Control(parsedView.getDataCellGroups(), parsedView.getButtonsActionListenerConsumers()));
+                    new Control(moldParser.getDataCellGroups(), moldParser.getButtonsActionListenerConsumers()));
             frameTitlePanelViewMap.put(
                     frameMold.getTitle(),
                     root);

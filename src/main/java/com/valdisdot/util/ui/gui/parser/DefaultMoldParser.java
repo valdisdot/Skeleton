@@ -22,12 +22,12 @@ import java.util.function.Function;
 /*
 default parser class from molds (after parsing from json, manual codding, xml etc.) to JPanels
 */
-public class DefaultParsedView implements ParsedView<JPanel> {
+public class DefaultMoldParser implements MoldParser<JPanel> {
     private final DataCellGroup<String> dataCellGroup;
     private final JPanel root;
     Map<String, Consumer<ActionListener>> controlButtonsActionListenersConsumers;
 
-    public DefaultParsedView(String rootPanelName, Iterable<PanelMold> panelMolds, Function<ElementMold, JElement<String>> customParseFunction, Function<List<String>, String> listToStringFunction) {
+    public DefaultMoldParser(String rootPanelName, Iterable<PanelMold> panelMolds, Function<ElementMold, JElement<String>> customParseFunction, Function<List<String>, String> listToStringFunction) {
         dataCellGroup = new DataCellGroup<>();
         controlButtonsActionListenersConsumers = new HashMap<>();
         root = new JPanel(new MigLayout("insets 0,gap 0px 0px"));
@@ -56,11 +56,11 @@ public class DefaultParsedView implements ParsedView<JPanel> {
         });
     }
 
-    public DefaultParsedView(String rootPanelName, Iterable<PanelMold> panelMolds, Function<List<String>, String> listToStringFunction) {
+    public DefaultMoldParser(String rootPanelName, Iterable<PanelMold> panelMolds, Function<List<String>, String> listToStringFunction) {
         this(rootPanelName, panelMolds, null, listToStringFunction);
     }
 
-    public DefaultParsedView(FrameMold frameMold, Function<List<String>, String> listToStringFunction) {
+    public DefaultMoldParser(FrameMold frameMold, Function<List<String>, String> listToStringFunction) {
         this(frameMold.getName(), frameMold.getPanelMolds(), listToStringFunction);
         root.setBackground(new Color(frameMold.getRootBackgroundColor()));
     }
