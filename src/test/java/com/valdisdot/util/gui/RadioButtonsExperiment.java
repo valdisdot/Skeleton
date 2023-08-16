@@ -1,6 +1,6 @@
 package com.valdisdot.util.gui;
 
-import com.valdisdot.util.ui.gui.tool.FrameFactory;
+import com.valdisdot.util.FrameFactory;
 import com.valdisdot.util.tool.ValuesParser;
 import com.valdisdot.util.ui.gui.element.JElement;
 import com.valdisdot.util.ui.gui.element.RadioButtons;
@@ -21,6 +21,6 @@ public class RadioButtonsExperiment {
                         new JRadioButton("Apple"), "apple",
                         new JRadioButton("Orange"), "orange"
                 )));
-        FrameFactory.playOnDesk(radio, "", map -> System.out.println(ValuesParser.toJSONObject(map)));
+        FrameFactory.playOnDesk(radio, "", map -> System.out.println(ValuesParser.toJSON(map)));
     }
 }

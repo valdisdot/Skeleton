@@ -1,7 +1,7 @@
 package com.valdisdot.util.gui.element;
 
 import com.valdisdot.util.ui.gui.element.*;
-import com.valdisdot.util.ui.gui.tool.FrameFactory;
+import com.valdisdot.util.FrameFactory;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;

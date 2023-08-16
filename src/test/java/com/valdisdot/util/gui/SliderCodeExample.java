@@ -1,6 +1,6 @@
 package com.valdisdot.util.gui;
 
-import com.valdisdot.util.ui.gui.tool.FrameFactory;
+import com.valdisdot.util.FrameFactory;
 import com.valdisdot.util.ui.gui.element.Slider;
 
 import java.util.LinkedHashMap;

@@ -6,7 +6,7 @@ import com.valdisdot.util.data.controller.RawDataController;
 import com.valdisdot.util.tool.ValuesParser;
 import com.valdisdot.util.ui.gui.Control;
 import com.valdisdot.util.ui.gui.GUI;
-import com.valdisdot.util.ui.gui.parser.json.JsonGUIParser;
+import com.valdisdot.util.ui.gui.parser.json.JsonApplicationMoldParser;
 
 import javax.swing.*;
 import java.io.File;
@@ -17,7 +17,7 @@ import java.util.function.Consumer;
 public class GUIExample {
     public static void main(String[] args) throws IOException {
         //parse gui.json
-        GUI gui = new GUI(new JsonGUIParser(new File("D:\\users\\main\\documents\\Projects\\Utilities\\sketch\\gui.json")));
+        GUI gui = new GUI(new JsonApplicationMoldParser(new File("D:\\users\\main\\documents\\Projects\\Utilities\\sketch\\gui.json")).getApplicationMold());
         //get control
         Map<String, Control> controlMap = gui.getControlMap();
         Control customerRequestWindowsControl = controlMap.get("customer_request_window");
@@ -44,7 +44,7 @@ public class GUIExample {
         //define get data controller
         ConvertingDataController<String, String> sendToMonitorController = new ConvertingDataController<>(
                 customerRequestWindowsControl.getDataCellGroup(),
-                ValuesParser::toJSONObject,
+                ValuesParser::toJSON,
                 dataConsumer.andThen( //send data to monitor
                         counter //and then increase counter (which ignores data)
                 )

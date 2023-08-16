@@ -1,7 +1,7 @@
 package com.valdisdot.util.gui;
 
 import com.valdisdot.util.ui.gui.element.MultiList;
-import com.valdisdot.util.ui.gui.tool.FrameFactory;
+import com.valdisdot.util.FrameFactory;
 
 import javax.swing.*;
 import java.util.List;

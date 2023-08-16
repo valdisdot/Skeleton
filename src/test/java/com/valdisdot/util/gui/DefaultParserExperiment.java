@@ -9,7 +9,7 @@ import com.valdisdot.util.ui.gui.parser.DefaultParsedView;
 import com.valdisdot.util.ui.gui.parser.ParsedView;
 import com.valdisdot.util.ui.gui.mold.ElementMold;
 import com.valdisdot.util.ui.gui.mold.PanelMold;
-import com.valdisdot.util.ui.gui.tool.FrameFactory;
+import com.valdisdot.util.FrameFactory;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
@@ -33,7 +33,7 @@ public class DefaultParserExperiment {
                 .add(new ElementMold("label", "Some label 6", "label6", List.of(), 40, 20, 0xFFFFFF, 0x000000, "Arial", "plain", 12))
                 .add(new ElementMold(ComponentType.CONTROL_BUTTON.getValue(), "control_1", "control_1_name", List.of(), 60, 30, 0x4267B2, 0x0, "Arial", "plain", 12));
         mold.getMoldConstraintMap().forEach((elem, constr) -> System.out.println("constr: " + (constr.isBlank() ? "blank" : constr) + ", elem: " + elem));
-        ParsedView<JPanel> parsedView = new DefaultParsedView("test", List.of(mold), ValuesParser::toJSONArray);
+        ParsedView<JPanel> parsedView = new DefaultParsedView("test", List.of(mold), ValuesParser::toJSON);
         FrameFactory.playOnDesk(parsedView.get());
         DataCellGroup<String> dataCellGroups = parsedView.getDataCellGroups();
         Map<String, Consumer<ActionListener>> buttonsActionListenerConsumers = parsedView.getButtonsActionListenerConsumers();
@@ -74,13 +74,13 @@ public class DefaultParserExperiment {
                 .addToRow(new ElementMold(ComponentType.CONTROL_BUTTON.getValue(), "Send", "send_button", null, 70, 30, 0x4F7942, -1, null, null, -1))
                 .addToRow(new ElementMold(ComponentType.CONTROL_BUTTON.getValue(), "Clean", "clean_button", null, 70, 30, 0xFF0000, 0xffffff, null, null, -1));
         //parse the PanelMold into ParsedView and get control
-        ParsedView<JPanel> view = new DefaultParsedView("test", List.of(panelMold), ValuesParser::toJSONArray);
+        ParsedView<JPanel> view = new DefaultParsedView("test", List.of(panelMold), ValuesParser::toJSON);
         DataCellGroup<String> dataCellGroups = view.getDataCellGroups();
         Map<String, Consumer<ActionListener>> buttonsActionListenerConsumers = view.getButtonsActionListenerConsumers();
         //define bulk data reset function
         BulkResetDataController<String> reset = new BulkResetDataController<>(dataCellGroups, "");
         //define fetch-and-send data function, which send out data to the server (to the console)
-        ConvertingDataController<String, String> fetchAndSend = new ConvertingDataController<>(dataCellGroups, ValuesParser::toJSONObject, System.out::println);
+        ConvertingDataController<String, String> fetchAndSend = new ConvertingDataController<>(dataCellGroups, ValuesParser::toJSON, System.out::println);
         //next, lets define the bulk reset function for control button with name 'clean_button'
         buttonsActionListenerConsumers.get("clean_button").accept(l -> reset.process());
         //define the fetch-and-send data function for control button with name 'send_button'
