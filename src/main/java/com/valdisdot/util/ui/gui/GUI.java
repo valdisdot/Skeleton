@@ -92,7 +92,7 @@ public class GUI {
     }
 
     public GUI(ApplicationMold applicationMold) {
-        this(applicationMold, ValuesParser::toJSONArray);
+        this(applicationMold, ValuesParser::toJSON);
     }
 
     public GUI(Parser parser, Function<List<String>, String> listToStringFunction) {
@@ -100,7 +100,7 @@ public class GUI {
     }
 
     public GUI(Parser guiParser) {
-        this(guiParser, ValuesParser::toJSONArray);
+        this(guiParser, ValuesParser::toJSON);
     }
 
     public Map<String, Control> getControlMap() {
