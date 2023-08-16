@@ -11,7 +11,7 @@ import java.util.function.Function;
  * 1) we want to set data on this cell to "default" -> the Function<String, D> resetFunction has to accept DataCell name "data_cell" * and return "default"
  * 2)we have Iterable ["val1", "val2"] and want to set data on the cell to iterable.next -> *~ and return iterable.next
  */
-public class AtomicResetDataController<D> implements DataController {
+public class AtomicResetDataController<D> implements Runnable {
     private final DataCellGroup<D> dataCellGroup;
     private final Function<String, D> resetFunction;
 
@@ -21,7 +21,7 @@ public class AtomicResetDataController<D> implements DataController {
     }
 
     @Override
-    public void process() {
+    public void run() {
         dataCellGroup.getDataCellNames().forEach(name -> dataCellGroup.setDataForCell(name, resetFunction.apply(name)));
     }
 }

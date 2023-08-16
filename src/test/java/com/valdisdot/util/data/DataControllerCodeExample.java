@@ -4,7 +4,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.valdisdot.util.data.controller.ConvertingDataController;
-import com.valdisdot.util.data.controller.DataController;
 import com.valdisdot.util.data.controller.RawDataController;
 import com.valdisdot.util.data.element.DataCellGroup;
 
@@ -39,8 +38,8 @@ public class DataControllerCodeExample {
         };
         //consumer
         Consumer<JsonNode> consumer = (node) -> System.out.println(node.get("cell2"));
-        DataController dataController = new ConvertingDataController<>(dataCellGroup, convertFunction, consumer);
-        dataController.process();
+        Runnable dataController = new ConvertingDataController<>(dataCellGroup, convertFunction, consumer);
+        dataController.run();
         //Output:
         //"8ee42de2-ba37-41db-a723-4b8475a990a9"
     }
@@ -53,8 +52,8 @@ public class DataControllerCodeExample {
                         "cell3", new DataCell<>(UUID.randomUUID()::toString, (s) -> {})
                 )
         );
-        DataController dataController = new RawDataController<>(dataCellGroup, System.out::println);
+        Runnable dataController = new RawDataController<>(dataCellGroup, System.out::println);
         //simple Map printing
-        dataController.process();
+        dataController.run();
     }
 }

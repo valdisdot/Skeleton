@@ -82,9 +82,9 @@ public class DefaultParserExperiment {
         //define fetch-and-send data function, which send out data to the server (to the console)
         ConvertingDataController<String, String> fetchAndSend = new ConvertingDataController<>(dataCellGroups, ValuesParser::toJSON, System.out::println);
         //next, lets define the bulk reset function for control button with name 'clean_button'
-        buttonsActionListenerConsumers.get("clean_button").accept(l -> reset.process());
+        buttonsActionListenerConsumers.get("clean_button").accept(l -> reset.run());
         //define the fetch-and-send data function for control button with name 'send_button'
-        buttonsActionListenerConsumers.get("send_button").accept(l -> fetchAndSend.process());
+        buttonsActionListenerConsumers.get("send_button").accept(l -> fetchAndSend.run());
         //finally, play the view on the desk
         FrameFactory.playOnDesk(view.get());
     }

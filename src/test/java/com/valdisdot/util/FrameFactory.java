@@ -1,7 +1,6 @@
 package com.valdisdot.util;
 
 import com.valdisdot.util.data.controller.BulkResetDataController;
-import com.valdisdot.util.data.controller.DataController;
 import com.valdisdot.util.data.controller.RawDataController;
 import com.valdisdot.util.data.element.DataCellGroup;
 import com.valdisdot.util.ui.gui.component.ControlButton;
@@ -47,8 +46,8 @@ public class FrameFactory {
         DataCellGroup<T> dataCellGroup = new DataCellGroup<>(
                 Map.of(element.getName(), element.getDataCell())
         );
-        DataController reset = new BulkResetDataController<>(dataCellGroup, resetValue);
-        DataController read = new RawDataController<>(dataCellGroup, dataConsumer);
+        Runnable reset = new BulkResetDataController<>(dataCellGroup, resetValue);
+        Runnable read = new RawDataController<>(dataCellGroup, dataConsumer);
         JPanel panel = new JPanel(new MigLayout("wrap"));
         panel.add(element.get());
         panel.add(new ControlButton("reset", "reset", reset).get(), "split 2");

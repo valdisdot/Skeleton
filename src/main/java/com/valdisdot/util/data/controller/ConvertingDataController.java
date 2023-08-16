@@ -11,7 +11,7 @@ import java.util.function.Function;
 * implementation that reads raw data from DataCells, convert the data to specific type and consumes the result
 * Code example: com.valdisdot.util.data.DataControllerCodeExample
 * */
-public class ConvertingDataController<D, C> implements DataController {
+public class ConvertingDataController<D, C> implements Runnable {
     private final DataCellGroup<D> dataCellGroup;
     private final Function<Map<String, D>, C> convertingFunction;
     private final Consumer<C> dataConsumer;
@@ -23,7 +23,7 @@ public class ConvertingDataController<D, C> implements DataController {
     }
 
     @Override
-    public void process() {
+    public void run() {
         dataConsumer.accept(convertingFunction.apply(dataCellGroup.getAllData()));
     }
 }
