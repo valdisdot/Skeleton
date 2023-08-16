@@ -1,4 +1,4 @@
-package com.valdisdot.util.ui.gui.tool;
+package com.valdisdot.util;
 
 import com.valdisdot.util.data.controller.BulkResetDataController;
 import com.valdisdot.util.data.controller.DataController;
@@ -6,6 +6,7 @@ import com.valdisdot.util.data.controller.RawDataController;
 import com.valdisdot.util.data.element.DataCellGroup;
 import com.valdisdot.util.ui.gui.component.ControlButton;
 import com.valdisdot.util.ui.gui.element.JElement;
+import com.valdisdot.util.ui.gui.tool.Colors;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
