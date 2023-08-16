@@ -35,7 +35,7 @@ public class Control {
     }
 
     //simplifying ActionListener binding
-    public void addActionForButton(String controlButtonName, ActionListener actionListener) {
-        controlButtonsActionListenersConsumers.get(controlButtonName).accept(actionListener);
+    public void bindActionForButton(String controlButtonName, Runnable action) {
+        controlButtonsActionListenersConsumers.get(controlButtonName).accept(actionListener -> action.run());
     }
 }
