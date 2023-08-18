@@ -421,6 +421,192 @@ The public class of the package is `JsonApplicationMoldParser`. The class return
 - `JsonApplicationMoldParser(InputStream jsonInputStream) throws IOException`
 - `JsonApplicationMoldParser(URI uriToJson) throws IOException`
 
+1. *JSON file properties and structure:*
+
+`applicationName` - string, name of an application (the value will be used for a one-frame application).
+
+`framesGrouping` - string, one of the values of enum ApplicationMold.FramesGrouping: `menu`, `joint`, `peculiar` (default for unknown or null/value absence).
+
+`itemMenuName` - string, menu name in the application frame, for case `"framesGrouping" = "menu"`. `"itemMenuName" = "applicationName"` as default for null/value absence.
+
+`menuBackground` - string (HEX-color), menu color, for case `"framesGrouping" = "menu"`. Default is gray.
+
+`properties` - object, the holder for properties like size, color, font, for all elements in an application. Structure:
+
+- `sizes` - array of objects, contain property name and dimension. Structure of the internal elements:
+- - `name` - string, property name.
+- - `width` - integer.
+- - `height` - integer.
+
+- `colors` - array of objects, contain property name, value of the color and color type. Structure of the internal elements:
+- - `name` - string, property name.
+- - `value` - string (HEX-color).
+- - `type` - string, type of color usage, either `background` or `foreground`.
+
+- `fonts` - array of objects, contains property name, font name, font size and font style. Structure of the internal elements:
+
+- - `name` - string, property name.
+- - `fontName` - string, font family or font name like *Arial*.
+- - `fontSize` - integer.
+- - `fontStyle` - string, font style like `bold`, `italic` or `plain` (default for unknown or null/value absence).
+
+`frames` - array of objects, contain application logical frames. The current parsing depends on value `framesGrouping`. Structure of the internal elements:
+
+- - `name` - string, logical name of the frame. The value is used for `JPanel.setName` or `JFrame.setName`.
+- - `title` - string, a title for a frame. It is used for `JFrame.setTitle` for each frame if `"framesGrouping"="peculiar"`
+- - `rootBackground` - string (HEX-color), set the background of a frame's panel.
+- - `panels` - array of objects, contain separate logical panels of the frame. The placing of each panel depends on this value. Structure of the internal elements:
+
+- - - `fromTheTopOfFrame` - boolean, the placing policy of the panel. The placing on the current frame depends on this value. If `true` - the panel will be placed *from the top*, else the panel will be place *under the last panel*. Default is `true`.
+- - - `properties` - array of strings, contains the name of defined properties in the root element. If properties for an element of the panel *is not specified* - this value *will be applied*.
+- - - `elements` - array of objects, contains elements themselves. Structure of the internal elements:
+
+- - - -  `type` - string, **required**, the type of element. See bellow (***list, element types***)
+- - - -  `name` - string, **required**, logical name of the frame. The value is used for `JComponent.setName`.
+- - - -  `title` - string, *title side* of the element, the text that is displayed on the element. **Required** for `checkBox`, `contentButton`, `button`, `label`, `modifiableLabel`.
+- - - -  `laying` - string or absence, defines element *laying policy*. If equals `newRow` - element will be placed from new line and begin a new row, if `row` - element will be placed in the previous row or will begin a new row if previous *laying policy* isn't defined. *In other cases* element is placing *from a new line*. 
+- - - -  `properties` - array of strings, contains the name of defined properties in the root element. Will override properties of the parent element (aka CSS).
+- - - -  `values` - array of string. The values holder, that is specified for each `type`. **Required**  for `checkBox`, `contentButton`, `multiList`, `list`, `radioButtons`, `slider` and `spinner`.
+
+2. *`element` types:*
+
+- `checkBox` - represents a checkbox. Property `values` must be presented and contains data. The fist element of the list represent *true* (check box is selected), the second is *false* (check box is not selected). Minimum size is 2.
+
+``````
+{
+  "type": "checkBox",
+  "name": "customer_agreement",
+  "title": "I accept company's policy",
+  "properties": ["foregrond_extra_red"],
+  "values": ["signed", "declined"]
+}
+``````
+
+`contentButton` - represents a data button. Property `values` must be presented and contains data. The fist element of the list represent *true* (button is clicked), the second is *false* (button is not clicked). Minimum size is 2.
+
+``````
+{
+  "type": "contentButton",
+  "name": "fast_shipping",
+  "title": "Add 7.99$ for fast shipping",
+  "properties": ["nice_button_color", "white_foreground", "pretty_content_font"],
+  "values": ["true", "false"]
+}
+``````
+
+`button` - represents a control button. The `name` value is used for subscribe `ActionListner` or `Runnable` for this button.
+
+``````
+{
+  "type": "button",
+  "name": "connect_to_server",
+  "title": "Connect",
+  "properties": ["control_color", "control_font"]
+}
+``````
+
+`label` - represents a label. It can be used as description for an element which doesn't have a label text like `textArea`.
+
+``````
+{
+  "type": "label",
+  "title": "Type your name: ",
+  "laying": "newRow",
+  "properties": ["lite_cyan_foreground"]
+}
+``````
+
+`list` - represent a combo box, where we can select only one element. Property `values` must be presented and contains items for a list. Minimum size is 1. 
+
+``````
+{
+  "type": "list",
+  "name": "mode",
+  "laying": "row",
+  "properties": ["nice_button_color", "white_foreground", "pretty_content_font"],
+  "values": ["easy", "normal", "extreeme"]
+}
+``````
+
+`multiList` - represent a list with multi-selection. Property `values` must be presented and contains items for a list. Minimum size is 1.
+
+``````
+{
+  "type": "multiList",
+  "name": "request_themes",
+  "laying": "row",
+  "properties": ["nice_button_color", "white_foreground", "pretty_content_font"],
+  "values": ["rates", "deposit", "creadit", "registration"]
+}
+``````
+
+`modifiableLabel` - represent a label with a variable text, which can be changed in runtime.
+
+``````
+{
+  "type": "modifiableLabel",
+  "name": "hello_message",
+  "title": "Hello, {$NAME}"
+}
+``````
+
+`radioButtons` - represents a group of radiobutton. Property `values` must be presented and contains pairs ***label - data*** (like *Map.of()*). Minimum size is 2.
+
+``````
+{
+  "type": "radioButtons",
+  "name": "login_mode",
+  "properties": ["control_color", "control_font"],
+  "values": ["as superuser", "su", "as user", "user"]
+}
+``````
+
+`slider` - represents a slider (ranged). Property `values` must be presented and contains pairs ***label - data*** (like *Map.of()*). Minimum size is 2.
+
+``````
+{
+  "type": "slider",
+  "name": "temperature_max_preset",
+  "properties": ["control_color", "control_font"],
+  "values": [
+    "guest room", "22",
+    "living room", "23",
+    "bathroom", "20"
+    ]
+}
+``````
+
+`spinner` - represents a numbers' spinner. Property `values` must be presented and contains three values: **minimum value**, **maximum value** (in any order) and the last one is **step**. Minimum size is 3.
+
+``````
+{
+  "type": "spinner",
+  "name": "temperature",
+  "properties": ["control_color", "control_font"],
+  "values": ["90", "40", "5"]
+}
+``````
+
+`textArea` - represents a text area.
+
+``````
+{
+  "type": "textArea",
+  "name": "comment",
+  "properties": ["text_input_color", "content_font"]
+}
+``````
+
+`textField` - represents a text field (one row).
+
+``````
+{
+  "type": "textField",
+  "name": "customer_phone",
+  "properties": ["text_input_color", "content_font"]
+}
+``````
+
 ##### class **`ui.gui.Control`**
 
 It is a data class for holding `DataCellGroup<String, Map<String, String>` and `Map<String, Consumer<ActionListener>>`
