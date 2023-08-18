@@ -366,60 +366,33 @@ implementation `DefaultMoldParser` and package with logic for parsing 'gui molds
 
 1. interface `MoldParser<P extends JPanel>`
 
-The interface is a contract for parsers. An implementation must contain two methods:
+The interface is a contract for parsers. An implementation must contain three methods:
 
+- `void parse(FrameMold frame)` for parsing a single FrameMold into type `P extends JPanel`, init data source and control logic. 
 - `DataCellGroup<String> getDataCellGroups()` for controlling the data.
 - `Map<String, Consumer<ActionListener>> getButtonsActionListenerConsumers()` for binging action with control button by
   its name (key).
 
 2. class `DefaultMoldParser`
 
-Default implementation of MoldParser, it has three constructors:
+Default implementation of MoldParser, it has two constructors:
 
-- for cases, where we have more implementation of JElement than are presented in
-  package `ui.gui.element`. `listToStringFunction` is parsing function for cases, where *DataCell operates with a list
-  of data*.
+- default `DefaultMoldParser()`, where built entity may ***throw IllegalArgumentException*** after calling method `parse(FrameMold frameMold)`, if unknown type of ElementMold appears. Also, List of data from the DataCells ***will be converted into a string of JSON array***.
 
-``````
-  DefaultMoldParser(
-      String rootPanelName,
-      Iterable<PanelMold> panelMolds,
-      Function<ElementMold, JElement<String>> customParseFunction,
-      Function<List<String>, String> listToStringFunction
-  )
-``````
-
-- constructor, where `listToStringFunction` is `tool.ValuesParser::toJSON`.
-
-``````
-   DefaultMoldParser(
-       String rootPanelName, 
-       Iterable<PanelMold> panelMolds, 
-       Function<List<String>, String> listToStringFunction
-)
-``````
-
-- for parsing from a `FrameMold`.
-
-``````
-   DefaultMoldParser(
-       FrameMold frameMold, 
-       Function<List<String>, 
-       String> listToStringFunction
-)
-``````
+- second `DefaultMoldParser(Function<ElementMold, JElement<String>> customParseFunction, Function<List<String>, String> listToStringFunction)` is for cases, where we have other ones implementation of JElement than are presented in
+ package `ui.gui.element`. They can be parsed with `customParseFunction`. List of data from the DataCells will be parsed by `listToStringFunction`.
 
 3. package `parser.json`
 
-The public class of the package is `JsonApplicationMoldParser`. The class returns `ApplicationMold` and uses
+The public class of the package is `JsonApplicationPlotParser`. The class returns `ApplicationMold` and uses
 *jackson.ObjectMapper* util for parsing *json* into package-level class `JsonApplicationPlot`.
 
-`JsonApplicationMoldParser` has four constructors:
+`JsonApplicationPlotParser` has four constructors:
 
-- `JsonApplicationMoldParser(File jsonFile) throws IOException`
-- `JsonApplicationMoldParser(String json) throws JsonProcessingException`
-- `JsonApplicationMoldParser(InputStream jsonInputStream) throws IOException`
-- `JsonApplicationMoldParser(URI uriToJson) throws IOException`
+- `JsonApplicationPlotParser(File jsonFile) throws IOException`
+- `JsonApplicationPlotParser(String json) throws JsonProcessingException`
+- `JsonApplicationPlotParser(InputStream jsonInputStream) throws IOException`
+- `JsonApplicationPlotParser(URI uriToJson) throws IOException`
 
 1. *JSON file properties and structure:*
 
@@ -524,7 +497,7 @@ The public class of the package is `JsonApplicationMoldParser`. The class return
   "name": "mode",
   "laying": "row",
   "properties": ["nice_button_color", "white_foreground", "pretty_content_font"],
-  "values": ["easy", "normal", "extreeme"]
+  "values": ["easy", "normal", "extreme"]
 }
 ``````
 
@@ -536,7 +509,7 @@ The public class of the package is `JsonApplicationMoldParser`. The class return
   "name": "request_themes",
   "laying": "row",
   "properties": ["nice_button_color", "white_foreground", "pretty_content_font"],
-  "values": ["rates", "deposit", "creadit", "registration"]
+  "values": ["rates", "deposit", "credit", "registration"]
 }
 ``````
 
@@ -660,12 +633,12 @@ Two constructors are provided:
 
 ``````
         //parse gui.json
-        GUI gui = new GUI(new JsonApplicationMoldParser(new File("sketch/gui.json")).getApplicationMold());
+        GUI gui = new GUI(new JsonApplicationPlotParser(new File("sketch/gui.json")).getApplicationMold());
         
         //get control
         Map<String, Control> controlMap = gui.getControlMap();
-        Control customerRequestWindowsControl = controlMap.get("customer_request_window");
-        Control monitorWindowsControl = controlMap.get("monitor");
+        Control customerRequestFrameControl = controlMap.get("customer_request_window");
+        Control monitorFrameControl = controlMap.get("monitor");
         
         //fill with some business logic
         //1) get data consumer from 'monitor' - 'monitor_area'
@@ -673,7 +646,7 @@ Two constructors are provided:
             StringBuilder builder = new StringBuilder();
             @Override
             public void accept(String s) {
-                monitorWindowsControl.setDataForCell(
+                monitorFrameControl.setDataForCell(
                         "monitor_area",
                         builder.append(s).append("\n\n").toString());
             }
@@ -684,13 +657,13 @@ Two constructors are provided:
             int counter = 0;
             @Override
             public void accept(String s) {
-                monitorWindowsControl.setDataForCell("counter", String.valueOf(++counter));
+                monitorFrameControl.setDataForCell("counter", String.valueOf(++counter));
             }
         };
         
         //3) define get data controller
         Runnable sendToMonitorController = new ConvertingDataController<>(
-                customerRequestWindowsControl.getDataCellGroup(),
+                customerRequestFrameControl.getDataCellGroup(),
                 ValuesParser::toJSON,
                 dataConsumer.andThen( //send data to monitor
                         counter //and then increase counter (which ignores data)
@@ -699,20 +672,20 @@ Two constructors are provided:
         
         //4) define print data controller
         Runnable printController = new RawDataController<>(
-                customerRequestWindowsControl.getDataCellGroup(),
+                customerRequestFrameControl.getDataCellGroup(),
                 System.out::println
         );
         
         //5) define clean data controller
         Runnable resetController = new BulkResetDataController<>(
-                customerRequestWindowsControl.getDataCellGroup(),
+                customerRequestFrameControl.getDataCellGroup(),
                 ""
         );
         
         //bind action listeners with buttons
-        customerRequestWindowsControl.bindActionForButton("send", sendToMonitorController);
-        customerRequestWindowsControl.bindActionForButton("print", printController);
-        customerRequestWindowsControl.bindActionForButton("clean", resetController);
+        customerRequestFrameControl.bindActionForButton("send", sendToMonitorController);
+        customerRequestFrameControl.bindActionForButton("print", printController);
+        customerRequestFrameControl.bindActionForButton("clean", resetController);
         
         //show view
         gui.getFrames().stream().forEach(frame -> {
