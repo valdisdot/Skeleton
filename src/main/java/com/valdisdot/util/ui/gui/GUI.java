@@ -1,18 +1,16 @@
 package com.valdisdot.util.ui.gui;
 
-import com.valdisdot.util.tool.ValuesParser;
 import com.valdisdot.util.ui.gui.component.Frame;
-import com.valdisdot.util.ui.gui.parser.DefaultMoldParser;
-import com.valdisdot.util.ui.gui.parser.MoldParser;
 import com.valdisdot.util.ui.gui.mold.ApplicationMold;
 import com.valdisdot.util.ui.gui.mold.FrameMold;
+import com.valdisdot.util.ui.gui.parser.DefaultMoldParser;
+import com.valdisdot.util.ui.gui.parser.MoldParser;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 import java.util.*;
-import java.util.function.Function;
 
 /*
 the class is user-end class for parsing GUI.
@@ -36,7 +34,7 @@ public class GUI {
     //for cases where frames.size() > 1
     private final String applicationTitle;
 
-    public GUI(ApplicationMold applicationMold, Function<List<String>, String> listToStringFunction) {
+    public GUI(ApplicationMold applicationMold, MoldParser<JPanel> moldParser) {
         //init storage
         controlMap = new HashMap<>();
         frames = new LinkedList<>();
@@ -46,7 +44,7 @@ public class GUI {
         applicationTitle = applicationMold.getApplicationName();
         //parse raw
         for (FrameMold frameMold : applicationMold.getFrameMolds()) {
-            MoldParser<JPanel> moldParser = new DefaultMoldParser(frameMold, listToStringFunction);
+            moldParser.parse(frameMold);
             JPanel root = moldParser.get();
             controlMap.put(
                     frameMold.getName(),
@@ -90,7 +88,7 @@ public class GUI {
     }
 
     public GUI(ApplicationMold applicationMold) {
-        this(applicationMold, ValuesParser::toJSON);
+        this(applicationMold, new DefaultMoldParser());
     }
 
     public Map<String, Control> getControlMap() {
