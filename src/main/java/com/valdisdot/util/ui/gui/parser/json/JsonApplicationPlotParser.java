@@ -20,26 +20,26 @@ import java.util.Optional;
 see example of a json template:
 https://github.com/valdisdot/Utilities sketch/gui.json
  */
-public class JsonApplicationMoldParser {
+public class JsonApplicationPlotParser {
     private final ApplicationMold applicationMold;
 
-    public JsonApplicationMoldParser(File jsonFile) throws IOException {
+    public JsonApplicationPlotParser(File jsonFile) throws IOException {
         this(new ObjectMapper().readValue(jsonFile, JsonApplicationPlot.class));
     }
 
-    public JsonApplicationMoldParser(String json) throws JsonProcessingException {
+    public JsonApplicationPlotParser(String json) throws JsonProcessingException {
         this(new ObjectMapper().readValue(json, JsonApplicationPlot.class));
     }
 
-    public JsonApplicationMoldParser(InputStream jsonInputStream) throws IOException {
+    public JsonApplicationPlotParser(InputStream jsonInputStream) throws IOException {
         this(new ObjectMapper().readValue(jsonInputStream, JsonApplicationPlot.class));
     }
 
-    public JsonApplicationMoldParser(URI uriToJson) throws IOException {
+    public JsonApplicationPlotParser(URI uriToJson) throws IOException {
         this(new ObjectMapper().readValue(uriToJson.toURL(), JsonApplicationPlot.class));
     }
 
-    protected JsonApplicationMoldParser(JsonApplicationPlot applicationPlot) {
+    protected JsonApplicationPlotParser(JsonApplicationPlot applicationPlot) {
         Objects.requireNonNull(applicationPlot, "Application plot is null");
         Objects.requireNonNull(applicationPlot.getApplicationName(), "Application plot name is null. " + applicationPlot);
         //if application root item menu is null -> set to application name
