@@ -8,31 +8,45 @@ import com.valdisdot.util.ui.gui.component.JComponentDecorator;
 import com.valdisdot.util.ui.gui.element.*;
 import com.valdisdot.util.ui.gui.mold.ElementMold;
 import com.valdisdot.util.ui.gui.mold.FrameMold;
-import com.valdisdot.util.ui.gui.mold.PanelMold;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.util.List;
 import java.util.*;
+import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-/*
-default parser class from molds (after parsing from json, manual codding, xml etc.) to JPanels
-*/
+//default parser class from molds (after parsing from json, manual codding, xml etc.) to JPanels
 public class DefaultMoldParser implements MoldParser<JPanel> {
-    private final DataCellGroup<String> dataCellGroup;
-    private final JPanel root;
-    Map<String, Consumer<ActionListener>> controlButtonsActionListenersConsumers;
+    private final Function<ElementMold, JElement<String>> customParseFunction;
+    private final Function<List<String>, String> listToStringFunction;
+    private DataCellGroup<String> dataCellGroup;
+    private JPanel root;
+    private Map<String, Consumer<ActionListener>> controlButtonsActionListenersConsumers;
 
-    public DefaultMoldParser(String rootPanelName, Iterable<PanelMold> panelMolds, Function<ElementMold, JElement<String>> customParseFunction, Function<List<String>, String> listToStringFunction) {
+    //in-app, default
+    public DefaultMoldParser(){
+        customParseFunction = null;
+        listToStringFunction = ValuesParser::toJSON;
+    }
+
+    //for library-users
+    //customParseFunction - for future JElement types (which are not present in ComponentType.enum) or for debugging
+    public DefaultMoldParser(Function<ElementMold, JElement<String>> customParseFunction, Function<List<String>, String> listToStringFunction) {
+        this.customParseFunction = customParseFunction;
+        this.listToStringFunction = Objects.requireNonNullElse(listToStringFunction, ValuesParser::toJSON);
+    }
+
+    //wait till parsing is done
+    @Override
+    public synchronized void parse(FrameMold frameMold){
         dataCellGroup = new DataCellGroup<>();
         controlButtonsActionListenersConsumers = new HashMap<>();
         root = new JPanel(new MigLayout("insets 0,gap 0px 0px"));
-        root.setName(rootPanelName);
-        panelMolds.forEach(panelMold -> {
+        root.setName(frameMold.getName());
+        frameMold.getPanelMolds().forEach(panelMold -> {
             String panelConstraint = panelMold.isFromTheTopOfFrame() ? "aligny top" : "wrap";
             JPanel currentPanel = new JPanel(new MigLayout("wrap"));
             currentPanel.setBackground(new Color(panelMold.getBackgroundColor()));
@@ -54,18 +68,9 @@ public class DefaultMoldParser implements MoldParser<JPanel> {
             );
             root.add(currentPanel, panelConstraint);
         });
-    }
-
-    public DefaultMoldParser(String rootPanelName, Iterable<PanelMold> panelMolds, Function<List<String>, String> listToStringFunction) {
-        this(rootPanelName, panelMolds, null, listToStringFunction);
-    }
-
-    public DefaultMoldParser(FrameMold frameMold, Function<List<String>, String> listToStringFunction) {
-        this(frameMold.getName(), frameMold.getPanelMolds(), listToStringFunction);
         root.setBackground(new Color(frameMold.getRootBackgroundColor()));
     }
 
-    //customParseFunction - for future component types (which are not present in ComponentType.enum) or for debugging
     protected JElement<String> parse(ElementMold elementMold, Function<ElementMold, JElement<String>> customParseFunction, Function<List<String>, String> listToStringFunction) {
         //common restriction
         Objects.requireNonNull(elementMold, "Element mold is null");
