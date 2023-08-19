@@ -7,7 +7,7 @@ import java.util.List;
 public class JsonApplicationPlot {
     private String applicationName;
     private String itemMenuName;
-    private String menuBackground;
+    private String controlBackground;
     private String framesGrouping;
     private PropertiesMap properties = new PropertiesMap();
     private List<FramePlot> frames = new LinkedList<>();
@@ -32,12 +32,12 @@ public class JsonApplicationPlot {
         this.itemMenuName = itemMenuName;
     }
 
-    public String getMenuBackground() {
-        return menuBackground;
+    public String getControlBackground() {
+        return controlBackground;
     }
 
-    public void setMenuBackground(String menuBackground) {
-        this.menuBackground = menuBackground;
+    public void setControlBackground(String controlBackground) {
+        this.controlBackground = controlBackground;
     }
 
     public String getFramesGrouping() {

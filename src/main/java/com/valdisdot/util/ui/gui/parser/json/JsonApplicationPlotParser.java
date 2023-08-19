@@ -53,7 +53,7 @@ public class JsonApplicationPlotParser {
         applicationMold.setRootItemMenuName(applicationPlot.getItemMenuName());
         ApplicationMold.FramesGrouping framesGrouping = ApplicationMold.FramesGrouping.getFromValue(applicationPlot.getFramesGrouping());
         applicationMold.setBuildingPolicy(framesGrouping);
-        applicationMold.setMenuBackground(ValuesParser.fromHEXToDecimalInt(applicationPlot.getMenuBackground(), defaultBackground.getRGB()));
+        applicationMold.setControlBackground(ValuesParser.fromHEXToDecimalInt(applicationPlot.getControlBackground(), defaultBackground.getRGB()));
         //parse application common properties
         JsonPropertyHolder properties = new JsonPropertyHolder();
         parseColors(applicationPlot.getProperties().getColors(), defaultBackground, defaultForeground, properties);
