@@ -1,7 +1,7 @@
 {
   "applicationName": "My application",
-  "framesGrouping": "peculiar",
-  "menuBackground": "#FFF6DC",
+  "framesGrouping": "sideBar",
+  "controlBackground": "#FFF6DC",
   "properties": {
     "sizes": [
       {
