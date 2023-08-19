@@ -70,8 +70,9 @@ public class ApplicationMold {
     public enum FramesGrouping {
         MENU("menu"),
         SIDE_BAR("sideBar"),
-        PECULIAR_FRAME("peculiar"), //default
-        JOINT_FRAME("joint");
+        PECULIAR_FRAME("peculiar"),
+        JOINT_FRAME("joint"),
+        NONE(null); //default
 
         private final static Map<String, FramesGrouping> map;
 
@@ -94,7 +95,7 @@ public class ApplicationMold {
         }
 
         public static FramesGrouping getFromValue(String value){
-            return map.getOrDefault(value, PECULIAR_FRAME);
+            return map.getOrDefault(value, NONE);
         }
     }
 }
