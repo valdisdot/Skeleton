@@ -1,6 +1,7 @@
 package com.valdisdot.util.ui.gui;
 
-import com.valdisdot.util.ui.gui.component.Frame;
+import com.valdisdot.util.ui.gui.component.FrameWithMenuBar;
+import com.valdisdot.util.ui.gui.component.FrameWithSidebar;
 import com.valdisdot.util.ui.gui.mold.ApplicationMold;
 import com.valdisdot.util.ui.gui.mold.FrameMold;
 import com.valdisdot.util.ui.gui.parser.DefaultMoldParser;
@@ -56,7 +57,7 @@ public class GUI {
         //parse user-end JFrames
         if (framesGrouping == ApplicationMold.FramesGrouping.MENU) {
             //create as a JMenu -> click on a JItem should change the current JPanel of the root JFrame
-            frames.add(new Frame(
+            frames.add(new FrameWithMenuBar(
                     applicationTitle,
                     applicationMold.getRootItemMenuName(),
                     new Color(applicationMold.getMenuBackground()),
@@ -74,8 +75,13 @@ public class GUI {
             frame.revalidate();
             frame.pack();
             frames.add(frame);
-        } else {
-            //should the closing of one frame (EXIT_ON_CLOSE or ??) close the other JFrames?
+        } else if (framesGrouping == ApplicationMold.FramesGrouping.SIDE_BAR) {
+            frames.add(new FrameWithSidebar(
+                    applicationTitle,
+                    new Color(applicationMold.getMenuBackground()),
+                    frameTitlePanelViewMap
+            ));
+        } else if(framesGrouping == ApplicationMold.FramesGrouping.PECULIAR_FRAME){
             frameTitlePanelViewMap.forEach((title, panel) -> {
                 JFrame frame = new JFrame(title);
                 frame.add(panel);
@@ -84,7 +90,7 @@ public class GUI {
                 frame.pack();
                 frames.add(frame);
             });
-        }
+        } //else no parsing into JFrames
     }
 
     public GUI(ApplicationMold applicationMold) {
