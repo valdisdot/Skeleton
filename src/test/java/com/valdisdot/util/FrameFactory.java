@@ -31,7 +31,7 @@ public class FrameFactory {
             rootPane.setLayout(new MigLayout("wrap"));
             rootPane.setBackground(new Color(startWithRGBHex));
             components.forEach(component -> {
-                component.setBackground(new Color(Colors.reverse(startWithRGBHex)));
+                component.setBackground(Colors.reverse(new Color(startWithRGBHex)));
                 rootPane.add(component);
             });
             frame.repaint();
