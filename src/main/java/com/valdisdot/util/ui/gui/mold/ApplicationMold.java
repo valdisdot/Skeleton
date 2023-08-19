@@ -8,7 +8,7 @@ import java.util.Map;
 public class ApplicationMold {
     private String applicationName;
     private String rootItemMenuName;
-    private int menuBackground;
+    private int controlBackground;
     private FramesGrouping framesGrouping;
     private final List<FrameMold> frameMolds = new LinkedList<>();
 
@@ -28,12 +28,12 @@ public class ApplicationMold {
         this.rootItemMenuName = rootItemMenuName;
     }
 
-    public int getMenuBackground() {
-        return menuBackground;
+    public int getControlBackground() {
+        return controlBackground;
     }
 
-    public void setMenuBackground(int menuBackground) {
-        this.menuBackground = menuBackground;
+    public void setControlBackground(int controlBackground) {
+        this.controlBackground = controlBackground;
     }
 
     public FramesGrouping getBuildingPolicy() {
@@ -61,7 +61,7 @@ public class ApplicationMold {
         return "ApplicationMold{" +
                 "applicationName='" + applicationName + '\'' +
                 ", rootItemMenuName='" + rootItemMenuName + '\'' +
-                ", menuBackground=" + menuBackground +
+                ", controlBackground=" + controlBackground +
                 ", framesGrouping=" + framesGrouping +
                 ", frameMolds=" + frameMolds +
                 '}';
