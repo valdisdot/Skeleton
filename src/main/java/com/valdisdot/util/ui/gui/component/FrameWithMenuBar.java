@@ -7,11 +7,11 @@ import java.awt.*;
 import java.util.LinkedHashMap;
 
 //implementation of JFrame with JMenu
-public class Frame extends JFrame {
+public class FrameWithMenuBar extends JFrame {
     //link for a current displaying element
     private JComponent current;
 
-    public Frame(String frameTitle, String menuName, Color menuColor, LinkedHashMap<String, JPanel> menuItems){
+    public FrameWithMenuBar(String frameTitle, String menuName, Color menuColor, LinkedHashMap<String, JPanel> menuItems){
         super(frameTitle);
         //lay first panel
         String firstPanelKey = menuItems.keySet().stream().limit(1).findAny().orElseThrow(() -> new IllegalArgumentException("LinkedHashMap of menu items is empty."));
