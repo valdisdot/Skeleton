@@ -1,7 +1,9 @@
 package com.valdisdot.util.ui.gui.mold;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 public class ApplicationMold {
     private String applicationName;
@@ -67,8 +69,19 @@ public class ApplicationMold {
 
     public enum FramesGrouping {
         MENU("menu"),
+        SIDE_BAR("sideBar"),
         PECULIAR_FRAME("peculiar"), //default
         JOINT_FRAME("joint");
+
+        private final static Map<String, FramesGrouping> map;
+
+        static {
+            map = new HashMap<>();
+            map.put(MENU.value, MENU);
+            map.put(SIDE_BAR.value, SIDE_BAR);
+            map.put(JOINT_FRAME.value, JOINT_FRAME);
+            map.put(PECULIAR_FRAME.value, PECULIAR_FRAME);
+        }
 
         private final String value;
 
@@ -78,6 +91,10 @@ public class ApplicationMold {
 
         public String getValue() {
             return value;
+        }
+
+        public static FramesGrouping getFromValue(String value){
+            return map.getOrDefault(value, PECULIAR_FRAME);
         }
     }
 }
