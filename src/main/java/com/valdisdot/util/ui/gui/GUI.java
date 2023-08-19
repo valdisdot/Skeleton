@@ -60,7 +60,7 @@ public class GUI {
             frames.add(new FrameWithMenuBar(
                     applicationTitle,
                     applicationMold.getRootItemMenuName(),
-                    new Color(applicationMold.getMenuBackground()),
+                    new Color(applicationMold.getControlBackground()),
                     frameTitlePanelViewMap
             ));
         } else if (framesGrouping == ApplicationMold.FramesGrouping.JOINT_FRAME) {
@@ -78,7 +78,7 @@ public class GUI {
         } else if (framesGrouping == ApplicationMold.FramesGrouping.SIDE_BAR) {
             frames.add(new FrameWithSidebar(
                     applicationTitle,
-                    new Color(applicationMold.getMenuBackground()),
+                    new Color(applicationMold.getControlBackground()),
                     frameTitlePanelViewMap
             ));
         } else if(framesGrouping == ApplicationMold.FramesGrouping.PECULIAR_FRAME){
