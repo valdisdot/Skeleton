@@ -64,10 +64,10 @@ public class GUI {
                     frameTitlePanelViewMap
             ));
         } else if (framesGrouping == ApplicationMold.FramesGrouping.JOINT_FRAME) {
-            JPanel root = new JPanel(new MigLayout("insets 0,gap 0px 0px,wrap"));
+            JPanel root = new JPanel(new MigLayout("insets 0,gap 0px 0px"));
             JFrame frame = new JFrame(applicationMold.getApplicationName());
             frameTitlePanelViewMap.forEach((title, panel) -> {
-                root.add(panel);
+                root.add(panel, "top");
                 root.setBackground(panel.getBackground());
             });
             frame.add(root);
