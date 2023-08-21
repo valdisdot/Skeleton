@@ -34,20 +34,17 @@ public class PanelMold {
         this.backgroundColor = backgroundColor;
     }
 
-    public PanelMold addToRow(ElementMold elementMold) {
+    public void addToRow(ElementMold elementMold) {
         row.add(elementMold);
-        return this;
     }
 
-    public PanelMold add(ElementMold elementMold) {
+    public void add(ElementMold elementMold) {
         writeRow();
         ordered.put(elementMold, "");
-        return this;
     }
 
-    public PanelMold addToNewRow(ElementMold elementMold) {
+    public void addToNewRow(ElementMold elementMold) {
         writeRow();
-        return addToRow(elementMold);
     }
 
     protected void writeRow() {
