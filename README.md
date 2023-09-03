@@ -6,7 +6,7 @@ The library contains useful classes and methods which make developing with legac
 
 ### package **`com.valdisdot.util.data` and class `DataCell<D>`**
 
-`data` package contains the central of the logic class `DataCell<D>` that is a container for set/get functions. It
+`data` package contains the central of the logic class `DataCell<D>` - a container for set/get functions. It
 creates a separate level of abstraction.
 
 ``````
@@ -32,11 +32,11 @@ The package also contains two internal packages - `data.element` and `data.contr
 
 - `data.element` contains three classes:
 
-    - `DataCellGroup<D>` is a holder for a map of pairs of element logical name (key) "elem_name" and its DataCell. This
+    - `DataCellGroup<D>` is a holder for a map of pairs of element logical name ("elem_name") and its DataCell. The
       class helps to operate data on-demand.
     - `Element<D, C>` is an interface of the view-data bridge. It operates data with type D and supplies a view of type
-      C (extends *Supplier<C>*). Default implementation: `JElement<D>` from `com.valdisdot.ui.gui.element`.
-    - `ElementGroup<D>` extends DataCellGroup<D>. The class itself is an implementation with boilerplate for getting
+      C (extends *Supplier of C*). Default implementation: `JElement<D>` from `com.valdisdot.ui.gui.element`.
+    - `ElementGroup<D>` extends DataCellGroup. The class itself is an implementation with boilerplate for getting
       DataCell<D> from the Element<D, ?>.
 
 #### package `data.controller`
@@ -112,26 +112,23 @@ Runnable rawDataController = new RawDataController<>(
 
 ### package **`com.valdisdot.util.tool`**
 
-The package itself contains util-classes for simple and monad operations like simple parsing or converting.
+The package itself contains util-classes for simple and point operations like simple parsing or converting.
 
 `ValuesParser` class has simple method for parsing values. For instance:
 
-- `int toInt(String value, int defaultValue)`
+- `int toInt(params)`
 - `int fromHEXToDecimalInt(String value, int defaultValue)`
-- `String toJSONArray(Collection<?> collection)`
-- `String toJSONObject(Map<?,?> map)`
+- `String toJSON(params)`
 
 ### package **`com.valdisdot.util.ui`**
 
 The package contains class `SimpleUI` and internal package `ui.gui`.
 
-#### class **`SimpleUI`**
+**SimpleUI** is a simple UI util and the main purpose of it is to simplify creating a CLI. It uses any InputStream
+and OutputStream for interacting with a user.
 
-**SimpleUI** is a simple UI util. The main purpose of the class is to simplify creating a CLI. It uses any InputStream
-and OutputStream for interacting with user.
-
-The instance of the class can be created with a constructor with params or through the `SimpleUI.Builder`. Notice, that
-class **uses Thread.sleep()**, so it implements Runnable for using with a separate Thread.
+The instance of the class can be created with a constructor with params or with the `SimpleUI.Builder`. Notice, that
+class **uses Thread.sleep()**, so it implements Runnable for using with a `java.lang.Thread`.
 
 ``````
 SimpleUI cli = SimpleUI.builder()
@@ -171,8 +168,6 @@ new Thread(cli).start();
 The central logic unit is the 'molds' from `ui.gui.mold`. For a single element (label, text field, check box etc.) it is
 an `ElementMold`, for a panel - `PanelMold`, for a frame - `FrameMold`, for the whole application it is
 a `ApplicationMold`.
-Each mold contains its own properties and information for about GUI. Molds can be created by hands or parsed from
-outside (from JSON or XML files).
 
 Handwriting the code can be overwhelming:
 
@@ -193,11 +188,62 @@ applicationMold.setBuildingPolicy(ApplicationMold.FramesGrouping.PECULIAR_FRAME)
 applicationMold.addFrameMold(frameMold);
 ``````
 
+Each mold contains its own properties and information for about GUI. Molds can be created by hands, with the `gui.mold.ApplicationMoldBuilder` or parsed from
+outside (from JSON `gui.parser.json`).
+
 ##### package **`ui.gui.element`** and class **`JElement`**
 
 Package `ui.gui.element` contains abstract implementation of `Element<D, C>` - `JElement<D>`.
-The class *JElement* returns logical name (key) of the Element, a JComponent as a Supplier of JComponent (representation
-of view) and a DataCell of its Element.
+
+**JElement class API**:
+
+- `String getName()` returns logical name (key) of the Element
+- `JComponent get()` returns a JComponent (as a Supplier of JComponent)
+- `DataCell<D> getDataCell()` returns a DataCell of its Element
+
+Example case:
+
+``````
+class MyFancyDataController {
+    private Map<String, DataCell<String> data = new HashMap<>();
+    
+    public void reg(Element<String, ?> element){
+        data.put(element.getName(), element.getDataCell());
+    }
+    
+    public getData(String elementName){
+        return data.get(elementName).getData();
+    }
+}
+
+class Application {
+    public void run(){
+        JElement<String> mockElem = new JElement<String>() {
+            String mockStorage = "";
+            DataCell<String> dataCell = new DataCell<>(() -> mockStorage, string -> mockStorage = string);
+            
+            @Override
+            public String getName() {
+                return "mock";
+            }
+
+            @Override
+            public DataCell<String> getDataCell() {
+                return dataCell;
+            }
+        };
+        
+        JElement<String> label = new new ModifiableLabel("label", new JLabel("change me"));
+        
+        MyFancyDataController controller = new MyFancyDataController();
+        controller.reg(mockElem);
+        controller.reg(label);
+        
+        print(controller.getData("mock"));
+        print(controller.getData("label"));
+    }
+}
+``````
 
 *Implementations of JElement:*
 
@@ -235,14 +281,14 @@ ComboList comboList = new ComboList(
 );
 ``````
 
-- `ContentButton` is an implementation for **JButton**. The class uses the same logic as CheckBox class.
+- `ContentButton` is an implementation for **JButton**. The class uses the same logic as the CheckBox class.
 
 ``````
 JButton button = new JButton("Accept");
 ContentButton contentButton = new ContentButton("accepted", button, "true", "false");
 ``````
 
-- `ModifiableLabel` is an implementation for **JLabel**. The class is useful for cases where JLabel has to be changed
+- `ModifiableLabel` is an implementation for **JLabel**. The class is useful for cases where a JLabel has to be changed
   on-demand.
 
 ``````
@@ -279,7 +325,7 @@ textField.setFont(new Font("Arial", Font.BOLD, 13));
 TextInputElement textInputElement = new TextInputElement("customer_phone", textField);
 ``````
 
-- `ScrollableTextArea` is an implementation for **JTextArea**. The class wraps a JTextArea into a JScrollPane
+- `ScrollableTextArea` is an implementation for **JTextArea**. The class wraps a JTextArea into a JScrollPane.
 
 ``````
 JTextArea textArea = new JTextArea();
@@ -310,7 +356,7 @@ jSpinner.setPreferredSize(new Dimension(150, 30));
 Spinner spinner = new Spinner("rate", jSpinner, Spinner.asList(List.of("good", "neutral", "bad")));
 ``````
 
-- `WrappedDataElement<D, C>` is a common implementation. It is useful for cases, where converting is required.
+- `WrappedDataElement<D, C>` is a common implementation with built-in converting. It is useful for cases, where the application is working with String but some of the JElements operate with different data type.
 
 ``````
 Spinner spinner = new Spinner("rate", Spinner.asNumberRange(1, 5, 1));
@@ -324,13 +370,12 @@ int data = wrappedElement.getDataCell().getData();
 
 ##### package **`ui.gui.component`**
 
-The package contains classes for GUI, which are not part of gui.element package, but are very useful for parsing and
+The package contains classes for GUI, which are not part of `gui.element` package, but are very useful for parsing and
 composing GUI.
 
 1. enum `ComponentType` contains enumeration of tags, which can be used for parsing logic.
 
-For example, the values of the enums is used for logic of parsing gui from JSON
-file (`ui.gui.parser.json.JsonGUIParser`).
+For example, the values of the enum is used for logic of parsing gui from JSON file.
 
 ``````
 CHECK_BOX("checkBox"),
@@ -348,27 +393,33 @@ TEXT_FIELD("textField")
 ``````
 
 2. class `ControlButton` obviously is used as a control button and reduce some boilerplate. It accepts button logical
-   name (key), `data.controller.DataController` and either **label for JButton** or **JButton itself**.
-3. class `Frame` *extends JFrame* and represents a frame with a menu bar. Each JPanel from 'menuItems' map will be
-   parsed as a menu item. This type of frame will be created if frame building policy `ApplicationMold.FramesGrouping`
-   equals `MENU("menu")`.
-4. class `JComponentDecorator<<C extends JComponent>` is a supplier of C, where C extends JComponent. It is a util
+   name (key), `data.controller.DataController` and either **title for JButton** or **JButton itself**.
+3. class `FrameWithMenuBar` *extends JFrame* and represents a frame with a menu bar. Each JPanel from 'menuItems' map will be
+   parsed as a menu item.
+4. class `FrameWithSidebar` *extends JFrame* and represents a frame with a sidebar. It uses another class from the package - `SidebarPanel`.
+5. class `JComponentDecorator<<C extends JComponent>` is a supplier of C, where C extends JComponent. It is a util
    class, the builder for decorate JElements with colors, size and font and is used for parsing.
 
 ##### package **`ui.gui.tool`**
 
-The package contains util-classes for monad operations with GUI like reversing color or calculating darkness of a color.
+The package contains util-classes for point operations with GUI like reversing color or calculating darkness of a color.
+
+*List of methods of class `Colors`:*
+
+- `boolean isDark(int hexColor)` evaluates darkness.
+- `Color reverse(Color elementColor)` simple simple reversing.
+- `List<Color> analogousColors(Color elementColor)` returns a list of two closest color.
+- `List<Color> getTriadicColors(Color elementColor)` returns a list of two colors from triadic triangle.
 
 ##### package **`ui.gui.parser`**
 
-The package contains the parsing interface `MoldParser<P extends JPanel>`, its default
-implementation `DefaultMoldParser` and package with logic for parsing 'gui molds' from json `parser.json`.
+The package contains the parsing interface `MoldParser<P extends JPanel>`, its default implementation `DefaultMoldParser` and package with logic for parsing 'gui molds' from json `parser.json`.
 
-1. interface `MoldParser<P extends JPanel>`
+1. interface `MoldParser<P extends JPanel> implements Function<FrameMold, P>`
 
 The interface is a contract for parsers. An implementation must contain three methods:
 
-- `void parse(FrameMold frame)` for parsing a single FrameMold into type `P extends JPanel`, init data source and control logic. 
+- `P apply(FrameMold frame)` for parsing a single FrameMold into type `P extends JPanel`, init data source and control logic. 
 - `DataCellGroup<String> getDataCellGroups()` for controlling the data.
 - `Map<String, Consumer<ActionListener>> getButtonsActionListenerConsumers()` for binging action with control button by
   its name (key).
@@ -377,10 +428,9 @@ The interface is a contract for parsers. An implementation must contain three me
 
 Default implementation of MoldParser, it has two constructors:
 
-- default `DefaultMoldParser()`, where built entity may ***throw IllegalArgumentException*** after calling method `parse(FrameMold frameMold)`, if unknown type of ElementMold appears. Also, List of data from the DataCells ***will be converted into a string of JSON array***.
+- default `DefaultMoldParser()`, where built entity may ***throw IllegalArgumentException*** after calling method `apply(FrameMold frameMold)`, if unknown type of ElementMold appears. Also, List of data from the DataCells ***will be converted into a string of JSON array***.
 
-- second `DefaultMoldParser(Function<ElementMold, JElement<String>> customParseFunction, Function<List<String>, String> listToStringFunction)` is for cases, where we have other ones implementation of JElement than are presented in
- package `ui.gui.element`. They can be parsed with `customParseFunction`. List of data from the DataCells will be parsed by `listToStringFunction`.
+- second `DefaultMoldParser(Function<ElementMold, JElement<String>> customParseFunction, Function<List<String>, String> listToStringFunction)` is for cases, where we have new ones implementation of JElement. They can be parsed with the `customParseFunction`. List of data from the DataCells will be parsed by `listToStringFunction`.
 
 3. package `parser.json`
 
@@ -396,25 +446,25 @@ The public class of the package is `JsonApplicationPlotParser`. The class return
 
 1. *JSON file properties and structure:*
 
-`applicationName` - string, name of an application (the value will be used for a one-frame application).
+`applicationName` - string, the name of an application (the value will be used for a one-frame application).
 
-`framesGrouping` - string, one of the values of enum ApplicationMold.FramesGrouping: `menu`, `joint`, `peculiar` (default for unknown or null/value absence).
+`framesGrouping` - string, one of the values from enum ApplicationMold.FramesGrouping: `menu`, `sidebar`, `joint`, `peculiar`. May be absent (no parsing into the JFrames).
 
 `itemMenuName` - string, menu name in the application frame, for case `"framesGrouping" = "menu"`. `"itemMenuName" = "applicationName"` as default for null/value absence.
 
-`menuBackground` - string (HEX-color), menu color, for case `"framesGrouping" = "menu"`. Default is gray.
+`controlBackground` - string (HEX-color), menu/side bar control elements color. Default is gray.
 
-`properties` - object, the holder for properties like size, color, font, for all elements in an application. Structure:
+`properties` - object, the holder for properties like size, color, font, for all elements in the application. Structure:
 
-- `sizes` - array of objects, contain property name and dimension. Structure of the internal elements:
+- `sizes` - array of objects, contains property name and dimension. Structure of the internal elements:
 - - `name` - string, property name.
 - - `width` - integer.
 - - `height` - integer.
 
-- `colors` - array of objects, contain property name, value of the color and color type. Structure of the internal elements:
+- `colors` - array of objects, contains property name, value of the color and color type. Structure of the internal elements:
 - - `name` - string, property name.
 - - `value` - string (HEX-color).
-- - `type` - string, type of color usage, either `background` or `foreground`.
+- - `type` - string, type of color usage, can be either `background` or `foreground`.
 
 - `fonts` - array of objects, contains property name, font name, font size and font style. Structure of the internal elements:
 
@@ -423,27 +473,27 @@ The public class of the package is `JsonApplicationPlotParser`. The class return
 - - `fontSize` - integer.
 - - `fontStyle` - string, font style like `bold`, `italic` or `plain` (default for unknown or null/value absence).
 
-`frames` - array of objects, contain application logical frames. The current parsing depends on value `framesGrouping`. Structure of the internal elements:
+`frames` - array of objects, contains application logical frames. The current parsing policy depends on the value `framesGrouping`. Structure of the internal elements:
 
 - - `name` - string, logical name of the frame. The value is used for `JPanel.setName` or `JFrame.setName`.
 - - `title` - string, a title for a frame. It is used for `JFrame.setTitle` for each frame if `"framesGrouping"="peculiar"`
-- - `rootBackground` - string (HEX-color), set the background of a frame's panel.
-- - `panels` - array of objects, contain separate logical panels of the frame. The placing of each panel depends on this value. Structure of the internal elements:
+- - `rootBackground` - string (HEX-color), background color of a frame's panel. Isn't really needed, but can be useful for some cases.
+- - `panels` - array of objects, contains separate logical panels of the frame. Structure of the internal elements:
 
 - - - `fromTheTopOfFrame` - boolean, the placing policy of the panel. The placing on the current frame depends on this value. If `true` - the panel will be placed *from the top*, else the panel will be place *under the last panel*. Default is `true`.
-- - - `properties` - array of strings, contains the name of defined properties in the root element. If properties for an element of the panel *is not specified* - this value *will be applied*.
+- - - `properties` - array of strings, contains the name of defined properties in the root element. If properties for an element of the panel *is not specified* - this value *will be applied* (aka CSS).
 - - - `elements` - array of objects, contains elements themselves. Structure of the internal elements:
 
 - - - -  `type` - string, **required**, the type of element. See bellow (***list, element types***)
-- - - -  `name` - string, **required**, logical name of the frame. The value is used for `JComponent.setName`.
+- - - -  `name` - string, **required**, logical name of the component. The value is used for `JComponent.setName` and will be defined as name for `DataCell<>`.
 - - - -  `title` - string, *title side* of the element, the text that is displayed on the element. **Required** for `checkBox`, `contentButton`, `button`, `label`, `modifiableLabel`.
 - - - -  `laying` - string or absence, defines element *laying policy*. If equals `newRow` - element will be placed from new line and begin a new row, if `row` - element will be placed in the previous row or will begin a new row if previous *laying policy* isn't defined. *In other cases* element is placing *from a new line*. 
-- - - -  `properties` - array of strings, contains the name of defined properties in the root element. Will override properties of the parent element (aka CSS).
+- - - -  `properties` - array of strings, contains the name of defined properties in the root element. Will override properties of the parent element.
 - - - -  `values` - array of string. The values holder, that is specified for each `type`. **Required**  for `checkBox`, `contentButton`, `multiList`, `list`, `radioButtons`, `slider` and `spinner`.
 
 2. *`element` types:*
 
-- `checkBox` - represents a checkbox. Property `values` must be presented and contains data. The fist element of the list represent *true* (check box is selected), the second is *false* (check box is not selected). Minimum size is 2.
+- `checkBox` - represents a checkbox. Property `values` must be presented and contain data. The fist element of the list represent *true* (check box is selected), the second is *false* (check box is not selected). Minimum size is 2.
 
 ``````
 {
@@ -455,7 +505,7 @@ The public class of the package is `JsonApplicationPlotParser`. The class return
 }
 ``````
 
-`contentButton` - represents a data button. Property `values` must be presented and contains data. The fist element of the list represent *true* (button is clicked), the second is *false* (button is not clicked). Minimum size is 2.
+`contentButton` - represents a data button. Property `values` must be presented and contain data. The fist element of the list represent *true* (button is clicked), the second is *false* (button is not clicked). Minimum size is 2.
 
 ``````
 {
@@ -467,7 +517,7 @@ The public class of the package is `JsonApplicationPlotParser`. The class return
 }
 ``````
 
-`button` - represents a control button. The `name` value is used for subscribe `ActionListner` or `Runnable` for this button.
+`button` - represents a control button. The `name` value is used for subscribe `ActionListner` or `Runnable` for this button in the application.
 
 ``````
 {
@@ -478,7 +528,7 @@ The public class of the package is `JsonApplicationPlotParser`. The class return
 }
 ``````
 
-`label` - represents a label. It can be used as description for an element which doesn't have a label text like `textArea`.
+`label` - represents a label. It can be used as description for an element which doesn't have labels like `textArea`.
 
 ``````
 {
@@ -489,7 +539,7 @@ The public class of the package is `JsonApplicationPlotParser`. The class return
 }
 ``````
 
-`list` - represent a combo box, where we can select only one element. Property `values` must be presented and contains items for a list. Minimum size is 1. 
+`list` - represent a combo box, where we can select only one element. Property `values` must be presented and contain items for a list. Minimum size is 1. 
 
 ``````
 {
@@ -501,7 +551,7 @@ The public class of the package is `JsonApplicationPlotParser`. The class return
 }
 ``````
 
-`multiList` - represent a list with multi-selection. Property `values` must be presented and contains items for a list. Minimum size is 1.
+`multiList` - represent a list with multi-selection. Property `values` must be presented and contain items for a list. Minimum size is 1.
 
 ``````
 {
@@ -523,7 +573,7 @@ The public class of the package is `JsonApplicationPlotParser`. The class return
 }
 ``````
 
-`radioButtons` - represents a group of radiobutton. Property `values` must be presented and contains pairs ***label - data*** (like *Map.of()*). Minimum size is 2.
+`radioButtons` - represents a group of radiobutton. Property `values` must be presented and contain pairs ***label - data*** (like *Map.of()*). Minimum size is 2.
 
 ``````
 {
@@ -534,7 +584,7 @@ The public class of the package is `JsonApplicationPlotParser`. The class return
 }
 ``````
 
-`slider` - represents a slider (ranged). Property `values` must be presented and contains pairs ***label - data*** (like *Map.of()*). Minimum size is 2.
+`slider` - represents a slider (ranged). Property `values` must be presented and contain pairs ***label - data*** (like *Map.of()*). Minimum size is 2.
 
 ``````
 {
@@ -549,7 +599,7 @@ The public class of the package is `JsonApplicationPlotParser`. The class return
 }
 ``````
 
-`spinner` - represents a numbers' spinner. Property `values` must be presented and contains three values: **minimum value**, **maximum value** (in any order) and the last one is **step**. Minimum size is 3.
+`spinner` - represents a numbers' spinner. Property `values` must be presented and contain three values: **minimum value**, **maximum value** (in any order) and the last one is **step**. Minimum size is 3.
 
 ``````
 {
@@ -570,7 +620,7 @@ The public class of the package is `JsonApplicationPlotParser`. The class return
 }
 ``````
 
-`textField` - represents a text field (one row).
+`textField` - represents a text field (one row text area).
 
 ``````
 {
@@ -582,46 +632,49 @@ The public class of the package is `JsonApplicationPlotParser`. The class return
 
 ##### class **`ui.gui.Control`**
 
-It is a data class for holding `DataCellGroup<String, Map<String, String>` and `Map<String, Consumer<ActionListener>>`
-for control buttons.
-Except for holding control under ... control, the class also simplifies some operation with DataCellGroup (delegate) and
-binds ActionListeners with control buttons. We can make it through the delegation or get DataCellGroup and Map of
-ActionListeners.
+It is a data class for holding `DataCellGroup<String, Map<String, String>` and `Map<String, Consumer<ActionListener>>` for control buttons.
+Except for holding control under ... control, the class also simplifies some operation with DataCellGroup (delegate) and binds ActionListeners with control buttons.
+
+***Control* class API**:
+
+- `DataCellGroup<String> getDataCellGroup()`
+- `Map<String, Consumer<ActionListener>> getControlButtonsActionListenersConsumers()`
+- `void bindActionForButton(String controlButtonName, Runnable action)` - is simplifying with action binding
+- `void setDataForCell(String dataCellName, String data)` - is simplifying of control.getDataCellGroup().someAction(dataCellName, data)
+- `String getDataForCell(String dataCellName)`
 
 ##### class **`ui.gui.GUI`**
 
-The class is *user-end class* for parsing GUI.
+The class GUI is *user-end class* for parsing gui.
 
-It accepts an ApplicationMold. We can use ready-to-use ApplicationMolds
-provider `ui.gui.parser.json.JsonApplicationMoldParser` from some JSON file or build by hands `ApplicationMold`.
+It accepts an ApplicationMold. We can use ready-to-use ApplicationMolds provider `ui.gui.parser.json.JsonApplicationMoldParser` from some JSON file or build by hands `ApplicationMold`.
 
 `ApplicationMold.FramesGrouping` defines the logic for building a graphical interface.
 
-- `MENU` -> `GUI` will create a single JFrame (`ui.gui.component.Frame`) with JMenu, all frames will be placed as
+- `MENU` -> `GUI` will create a specified JFrame (`ui.gui.component.FrameWithMenuBar`) with JMenu, all frames for each `FrameMold` will be placed as
   JPanels.
 
-- `PECULIAR_FRAME` -> `GUI` will create a single JFrame, all frames will be places in a JScrollPane.
+- `SIDE_BAR` -> `GUI` will create a specified JFrame (`ui.gui.component.FrameWithSideBar`) with sidebar, all frames for each `FrameMold` will be placed as
+  JPanels.
 
-- `JOINT_FRAME` *(default)* -> `GUI` will create a linked list of JFrames.
+- `PECULIAR_FRAME` -> `GUI` will create a single JFrame, all frames will be places in a row (like a gallery of frames). 
+
+- `JOINT_FRAME` -> `GUI` will create a linked list of JFrames.
+- `null (default)` - `GUI` will not parse JFrames.
 
 Two constructors are provided:
 
-- `GUI(ApplicationMold applicationMold, Function<List<String>, String> listToStringFunction)`,
-  where `listToStringFunction` defines logic of parsing list of values from `DataCell<? extends List<String>>` into
-  single String.
-
-- `GUI(ApplicationMold applicationMold)`, `listToStringFunction` will be defined as `ValuesParser::toJSON` by default.
+- `GUI(ApplicationMold applicationMold, MoldParser<JPanel> moldParser)` for cases where we have a new one parser.
+- `GUI(ApplicationMold applicationMold)` for cases where we accept the logic of `DefaultMoldParser()`
 
 **GUI class API**:
-
+UPDATE
 - `String getApplicationTitle()`
 - `JFrame getFirstFrame()` return the linkedList.getFirst(), method is useful for cases with a single JFrame.
-- `List<JFrame> getFrames()`
-- `LinkedHashMap<String, JPanel> getFrameTitlePanelViewMap()` returns ordered map where *key is **frame title*** and
-  *value is parsed FrameMold into JPanel*. Method is useful for scenario where users want to compose frames by
-  themselves.
-- `Map<String, Control> getControlMap()` return the map where *key is **frame name*** and *value is a controllable data
-  elements* of the frame.
+- `List<JFrame> getFrames()` return all parsed JFrames.
+- `List<JFrame> prepareAndGetFrames(Consumer<JFrame> setupFunction)` allows to prepare and modify each parsed JFrame and return a list of them.
+- `LinkedHashMap<String, JPanel> getFrameTitlePanelViewMap()` returns ordered map where *key is **frame title*** and *value is parsed FrameMold into JPanel*. Method is useful for scenario where user wants to compose frames by her/himself.
+- `Map<String, Control> getControlMap()` return a map where *key is **frame name*** and *value is a controllable data elements* of the frame.
 
 ## Examples
 
