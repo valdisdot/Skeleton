@@ -392,8 +392,8 @@ TEXT_AREA("textArea"),
 TEXT_FIELD("textField")
 ``````
 
-2. class `ControlButton` obviously is used as a control button and reduce some boilerplate. It accepts button logical
-   name (key), `data.controller.DataController` and either **title for JButton** or **JButton itself**.
+2. class `ControlButton` obviously is used as a control button and reduces some boilerplate. It accepts button logical
+   name (key), `Runnable` on-click action and either **title for JButton** or **JButton itself**.
 3. class `FrameWithMenuBar` *extends JFrame* and represents a frame with a menu bar. Each JPanel from 'menuItems' map will be
    parsed as a menu item.
 4. class `FrameWithSidebar` *extends JFrame* and represents a frame with a sidebar. It uses another class from the package - `SidebarPanel`.
@@ -662,13 +662,15 @@ It accepts an ApplicationMold. We can use ready-to-use ApplicationMolds provider
 - `JOINT_FRAME` -> `GUI` will create a linked list of JFrames.
 - `null (default)` - `GUI` will not parse JFrames.
 
+![parse example](https://github.com/valdisdot/Utilities/blob/main/sketch/frame_grouping_example.png?raw=true)
+
 Two constructors are provided:
 
 - `GUI(ApplicationMold applicationMold, MoldParser<JPanel> moldParser)` for cases where we have a new one parser.
 - `GUI(ApplicationMold applicationMold)` for cases where we accept the logic of `DefaultMoldParser()`
 
 **GUI class API**:
-UPDATE
+
 - `String getApplicationTitle()`
 - `JFrame getFirstFrame()` return the linkedList.getFirst(), method is useful for cases with a single JFrame.
 - `List<JFrame> getFrames()` return all parsed JFrames.
