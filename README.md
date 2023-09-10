@@ -1,6 +1,6 @@
 # com.valdisdot.util Library
 
-The library contains useful classes and methods which make developing with legacy Java classes ***much*** easier.
+The library contains useful classes and methods that simplify development with legacy Java classes.
 
 ## Structure
 
@@ -42,7 +42,7 @@ The package also contains two internal packages - `data.element` and `data.contr
 #### package `data.controller`
 
 - `data.controller` contains implementations of interface Runnable, which are ready-to-use set of classes for operating
-  the DataCellGroups by different ways.
+  the DataCellGroups by various ways.
 
 ``````
 DataCellGroup<String> dataCellGroup = new DataCellGroup<>(
@@ -161,7 +161,7 @@ new Thread(cli).start();
 
 #### package **`ui.gui`**
 
-**ui.gui** package contains utilities for manual create or parsing GUI (to `javax.swing`)
+**ui.gui** package contains utilities for manual create, parsing GUI (to `javax.swing`)
 
 ##### package **`ui.gui.mold`**
 
