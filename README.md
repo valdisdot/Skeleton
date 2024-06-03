@@ -1,10 +1,10 @@
-# com.valdisdot.util Library
+# com.valdisdot.skeleton Library
 
 The library contains useful classes and methods that simplify development with legacy Java classes.
 
 ## Structure
 
-### package **`com.valdisdot.util.data` and class `DataCell<D>`**
+### package **`com.valdisdot.skeleton.data` and class `DataCell<D>`**
 
 `data` package contains the central of the logic class `DataCell<D>` - a container for set/get functions. It
 creates a separate level of abstraction.
@@ -110,7 +110,7 @@ Runnable rawDataController = new RawDataController<>(
 );
 ``````
 
-### package **`com.valdisdot.util.tool`**
+### package **`com.valdisdot.skeleton.tool`**
 
 The package itself contains util-classes for simple and point operations like simple parsing or converting.
 
@@ -120,7 +120,7 @@ The package itself contains util-classes for simple and point operations like si
 - `int fromHEXToDecimalInt(String value, int defaultValue)`
 - `String toJSON(params)`
 
-### package **`com.valdisdot.util.ui`**
+### package **`com.valdisdot.skeleton.ui`**
 
 The package contains class `SimpleUI` and internal package `ui.gui`.
 
