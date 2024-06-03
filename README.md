@@ -18,7 +18,7 @@ creates a separate level of abstraction.
 
  ``````
  Map<String, Integer> map = new HashMap<>(Map.of("some_key", 1, "other_key", 9876));
- DataCell<String> dc = new DataCell<>(
+ DataCell<Integer> dc = new DataCell<>(
     () -> map.get("some_key"),
     data -> map.put("some_key", data)
 );
