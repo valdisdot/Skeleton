@@ -1,3 +1,6 @@
+#DEPRICATED
+#REBASING THE LIBRARY IS IN PROGRESS
+
 # com.valdisdot.skeleton Library
 
 The library contains useful classes and methods that simplify development with legacy Java classes.
