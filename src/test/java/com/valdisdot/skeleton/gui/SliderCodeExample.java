@@ -1,7 +1,7 @@
 package com.valdisdot.skeleton.gui;
 
 import com.valdisdot.skeleton.FrameFactory;
-import com.valdisdot.skeleton.ui.gui.element.Slider;
+import com.valdisdot.skeleton.OLD.ui.gui.element.Slider;
 
 import java.util.LinkedHashMap;
 

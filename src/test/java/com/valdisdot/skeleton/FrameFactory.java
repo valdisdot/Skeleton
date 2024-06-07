@@ -1,11 +1,11 @@
 package com.valdisdot.skeleton;
 
-import com.valdisdot.skeleton.data.controller.BulkResetDataController;
-import com.valdisdot.skeleton.data.controller.RawDataController;
-import com.valdisdot.skeleton.data.element.DataCellGroup;
-import com.valdisdot.skeleton.ui.gui.component.ControlButton;
-import com.valdisdot.skeleton.ui.gui.element.JElement;
-import com.valdisdot.skeleton.ui.gui.tool.Colors;
+import com.valdisdot.skeleton.OLD.data.controller.BulkResetDataController;
+import com.valdisdot.skeleton.OLD.data.controller.RawDataController;
+import com.valdisdot.skeleton.OLD.data.element.DataCellGroup;
+import com.valdisdot.skeleton.OLD.ui.gui.component.ControlButton;
+import com.valdisdot.skeleton.OLD.ui.gui.element.JElement;
+import com.valdisdot.skeleton.OLD.ui.gui.tool.Colors;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;

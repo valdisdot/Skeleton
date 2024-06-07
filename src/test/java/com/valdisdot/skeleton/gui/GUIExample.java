@@ -1,12 +1,12 @@
 package com.valdisdot.skeleton.gui;
 
-import com.valdisdot.skeleton.data.controller.BulkResetDataController;
-import com.valdisdot.skeleton.data.controller.ConvertingDataController;
-import com.valdisdot.skeleton.data.controller.RawDataController;
-import com.valdisdot.skeleton.tool.ValuesParser;
-import com.valdisdot.skeleton.ui.gui.Control;
-import com.valdisdot.skeleton.ui.gui.GUI;
-import com.valdisdot.skeleton.ui.gui.parser.json.JsonApplicationPlotParser;
+import com.valdisdot.skeleton.OLD.data.controller.BulkResetDataController;
+import com.valdisdot.skeleton.OLD.data.controller.ConvertingDataController;
+import com.valdisdot.skeleton.OLD.data.controller.RawDataController;
+import com.valdisdot.skeleton.OLD.tool.ValuesParser;
+import com.valdisdot.skeleton.OLD.ui.gui.Control;
+import com.valdisdot.skeleton.OLD.ui.gui.GUI;
+import com.valdisdot.skeleton.OLD.ui.gui.parser.json.JsonApplicationPlotParser;
 
 import javax.swing.*;
 import java.io.File;

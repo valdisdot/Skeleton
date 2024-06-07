@@ -1,5 +1,7 @@
 package com.valdisdot.skeleton.ui;
 
+import com.valdisdot.skeleton.OLD.ui.SimpleUI;
+
 import java.util.Map;
 
 public class UICodeExample {

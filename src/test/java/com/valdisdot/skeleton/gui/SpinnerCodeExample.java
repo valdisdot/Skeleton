@@ -1,12 +1,12 @@
 package com.valdisdot.skeleton.gui;
 
-import com.valdisdot.skeleton.data.controller.BulkResetDataController;
-import com.valdisdot.skeleton.data.controller.RawDataController;
-import com.valdisdot.skeleton.data.element.Element;
-import com.valdisdot.skeleton.data.element.ElementGroup;
+import com.valdisdot.skeleton.OLD.data.controller.BulkResetDataController;
+import com.valdisdot.skeleton.OLD.data.controller.RawDataController;
+import com.valdisdot.skeleton.OLD.data.element.Element;
+import com.valdisdot.skeleton.OLD.data.element.ElementGroup;
 import com.valdisdot.skeleton.FrameFactory;
-import com.valdisdot.skeleton.ui.gui.component.ControlButton;
-import com.valdisdot.skeleton.ui.gui.element.Spinner;
+import com.valdisdot.skeleton.OLD.ui.gui.component.ControlButton;
+import com.valdisdot.skeleton.OLD.ui.gui.element.Spinner;
 
 import javax.swing.*;
 import java.util.List;

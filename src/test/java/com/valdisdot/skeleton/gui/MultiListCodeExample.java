@@ -1,6 +1,6 @@
 package com.valdisdot.skeleton.gui;
 
-import com.valdisdot.skeleton.ui.gui.element.MultiList;
+import com.valdisdot.skeleton.OLD.ui.gui.element.MultiList;
 import com.valdisdot.skeleton.FrameFactory;
 
 import javax.swing.*;

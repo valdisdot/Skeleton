@@ -1,6 +1,6 @@
 package com.valdisdot.skeleton.gui.element;
 
-import com.valdisdot.skeleton.ui.gui.element.*;
+import com.valdisdot.skeleton.OLD.ui.gui.element.*;
 import com.valdisdot.skeleton.FrameFactory;
 import net.miginfocom.swing.MigLayout;
 

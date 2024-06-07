@@ -1,10 +1,11 @@
 package com.valdisdot.skeleton.data;
 
-import com.valdisdot.skeleton.data.element.DataCellGroup;
-import com.valdisdot.skeleton.data.element.ElementGroup;
-import com.valdisdot.skeleton.ui.gui.element.CheckBox;
-import com.valdisdot.skeleton.ui.gui.element.ComboList;
-import com.valdisdot.skeleton.ui.gui.element.TextInputElement;
+import com.valdisdot.skeleton.OLD.data.DataCell;
+import com.valdisdot.skeleton.OLD.data.element.DataCellGroup;
+import com.valdisdot.skeleton.OLD.data.element.ElementGroup;
+import com.valdisdot.skeleton.OLD.ui.gui.element.CheckBox;
+import com.valdisdot.skeleton.OLD.ui.gui.element.ComboList;
+import com.valdisdot.skeleton.OLD.ui.gui.element.TextInputElement;
 
 import javax.swing.*;
 import java.awt.*;

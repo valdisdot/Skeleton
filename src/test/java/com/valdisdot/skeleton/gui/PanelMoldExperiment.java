@@ -1,9 +1,9 @@
 package com.valdisdot.skeleton.gui;
 
-import com.valdisdot.skeleton.ui.gui.mold.ApplicationMold;
-import com.valdisdot.skeleton.ui.gui.mold.ElementMold;
-import com.valdisdot.skeleton.ui.gui.mold.FrameMold;
-import com.valdisdot.skeleton.ui.gui.mold.PanelMold;
+import com.valdisdot.skeleton.OLD.ui.gui.mold.ApplicationMold;
+import com.valdisdot.skeleton.OLD.ui.gui.mold.ElementMold;
+import com.valdisdot.skeleton.OLD.ui.gui.mold.FrameMold;
+import com.valdisdot.skeleton.OLD.ui.gui.mold.PanelMold;
 
 import java.util.List;
 

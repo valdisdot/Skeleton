@@ -1,9 +1,9 @@
 package com.valdisdot.skeleton.gui;
 
 import com.valdisdot.skeleton.FrameFactory;
-import com.valdisdot.skeleton.tool.ValuesParser;
-import com.valdisdot.skeleton.ui.gui.element.JElement;
-import com.valdisdot.skeleton.ui.gui.element.RadioButtons;
+import com.valdisdot.skeleton.OLD.tool.ValuesParser;
+import com.valdisdot.skeleton.OLD.ui.gui.element.JElement;
+import com.valdisdot.skeleton.OLD.ui.gui.element.RadioButtons;
 
 import javax.swing.*;
 import java.util.LinkedHashMap;

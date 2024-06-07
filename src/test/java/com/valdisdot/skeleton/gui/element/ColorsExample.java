@@ -1,6 +1,6 @@
 package com.valdisdot.skeleton.gui.element;
 
-import com.valdisdot.skeleton.ui.gui.tool.Colors;
+import com.valdisdot.skeleton.OLD.ui.gui.tool.Colors;
 
 import java.awt.*;
 

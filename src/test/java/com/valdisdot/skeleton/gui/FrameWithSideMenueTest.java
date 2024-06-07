@@ -1,6 +1,6 @@
 package com.valdisdot.skeleton.gui;
 
-import com.valdisdot.skeleton.ui.gui.component.FrameWithSidebar;
+import com.valdisdot.skeleton.OLD.ui.gui.component.FrameWithSidebar;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
