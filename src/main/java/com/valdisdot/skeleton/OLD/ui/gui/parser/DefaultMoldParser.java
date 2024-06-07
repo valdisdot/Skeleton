@@ -6,7 +6,6 @@ import com.valdisdot.skeleton.OLD.ui.gui.component.JComponentDecorator;
 import com.valdisdot.skeleton.OLD.ui.gui.element.*;
 import com.valdisdot.skeleton.OLD.data.element.DataCellGroup;
 import com.valdisdot.skeleton.OLD.tool.ValuesParser;
-import com.valdisdot.skeleton.ui.gui.element.*;
 import com.valdisdot.skeleton.OLD.ui.gui.mold.ElementMold;
 import com.valdisdot.skeleton.OLD.ui.gui.mold.FrameMold;
 import net.miginfocom.swing.MigLayout;
