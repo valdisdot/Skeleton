@@ -5,10 +5,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.valdisdot</groupId>
-    <artifactId>util</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <artifactId>skeleton</artifactId>
+    <version>1.0</version>
     <name>${project.groupId}:${project.artifactId}</name>
-    <description>Utilities</description>
+    <description>Skeleton GUI</description>
     <packaging>jar</packaging>
 
     <properties>
@@ -17,6 +17,9 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <com.fasterxml.jackson.version>2.15.2</com.fasterxml.jackson.version>
         <com.miglayout.version>11.0</com.miglayout.version>
+        <maven.plugins.compiler.version>3.13.0</maven.plugins.compiler.version>
+        <maven.plugins.resources.version>3.3.1</maven.plugins.resources.version>
+        <maven.plugins.assembly.version>3.7.0</maven.plugins.assembly.version>
     </properties>
     <dependencies>
         <!-- json processing -->
@@ -28,6 +31,11 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
+            <version>${com.fasterxml.jackson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
             <version>${com.fasterxml.jackson.version}</version>
         </dependency>
         <!--miglayout-->
@@ -47,25 +55,37 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven.plugins.compiler.version}</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
-                <configuration><encoding>UTF-8</encoding></configuration>
+                <version>${maven.plugins.resources.version}</version>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                </configuration>
             </plugin>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
+                <version>${maven.plugins.assembly.version}</version>
                 <configuration>
-                    <descriptorRefs><descriptorRef>jar-with-dependencies</descriptorRef></descriptorRefs>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
                 </configuration>
                 <executions>
                     <execution>
                         <id>make-assembly</id>
                         <phase>package</phase>
-                        <goals><goal>single</goal></goals>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
                     </execution>
                 </executions>
             </plugin>
         </plugins>
     </build>
+
+
 </project>
