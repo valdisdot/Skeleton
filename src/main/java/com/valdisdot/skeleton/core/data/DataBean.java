@@ -192,7 +192,6 @@ public final class DataBean<DataType> implements Identifiable {
                         for (DataType e : list) {
                             map.merge(e, 1, Integer::sum);
                         }
-                        list.forEach(e -> map.put(e, 1));
                         return map;
                     }
                     return Map.of();
