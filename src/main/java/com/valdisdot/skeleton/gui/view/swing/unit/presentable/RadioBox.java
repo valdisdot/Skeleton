@@ -61,7 +61,7 @@ public class RadioBox extends JMultiPresentableUnit implements DataUnit<String> 
             AbstractButton button;
             while (enumeration.hasMoreElements()) {
                 button = enumeration.nextElement();
-                if (val.equals(button.getName())) {
+                if (button.getName().equals(val)) {
                     button.setSelected(true);
                     return;
                 }
