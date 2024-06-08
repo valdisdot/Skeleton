@@ -69,7 +69,7 @@
                 ## control button
                 {
                     "id": "an_id_0", ## mandatory field
-                    "type": "button", ## mandatory field
+                    "type": "controlButton", ## mandatory field
                     "follow": false, ## property for element layout ('row' -> lay after the last element, to X-axis), default: false, optional field
                     "title": "a control button", ## optional field
                     "styles": [ ## optional field
