@@ -168,16 +168,12 @@ public class JView extends JElement implements ViewInstance<JPanel, JComponent, 
         return new PropertiesMap(properties);
     }
 
-    private String getNameFor(Class<? extends JElement> element){
-        String name = element.getName();
-        return name.substring(0, 1).toLowerCase() + name.substring(1);
-    }
-
     public static class JViewBuildException extends RuntimeException {
         private Mold object;
 
         public JViewBuildException(String message, Mold object) {
             super(message);
+            this.object = object;
         }
 
         public Mold getObject() {
