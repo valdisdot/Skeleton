@@ -3,6 +3,10 @@ package com.valdisdot.skeleton.gui.parser.provider.json;
 import java.io.*;
 import java.util.*;
 
+/**
+ * The class represents a POJO object for json parsing.
+ * @apiNote Mainly for internal use.
+ * */
 public class JsonPlot {
     private final Map<String, Object> properties = new LinkedHashMap<>();
     private final List<StylePlot> styles = new LinkedList<>();

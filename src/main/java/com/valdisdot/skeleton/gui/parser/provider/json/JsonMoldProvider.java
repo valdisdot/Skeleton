@@ -14,28 +14,61 @@ import java.io.InputStream;
 import java.net.URI;
 import java.util.*;
 
-//uses Jackson API
+/**
+ * The implementation of MoldProvider for JSON-files.
+ * @apiNote Uses Jackson API under the hood.
+ * @see MoldProvider
+ */
 public class JsonMoldProvider implements MoldProvider {
     private final PropertiesMap properties;
     private final Collection<PanelMold> panelMolds;
     private final Map<String, Style> styles;
 
+    /**
+     * Instantiates a mold provider from the json file.
+     *
+     * @param json a json file
+     * @throws IOException an input/output exception, if something went wrong with the file
+     */
     public JsonMoldProvider(File json) throws IOException {
         this(new ObjectMapper().readValue(json, JsonPlot.class));
     }
 
+    /**
+     * Instantiates a mold provider from the json string.
+     *
+     * @param json a json string
+     * @throws JsonProcessingException the json processing exception, if something went wrong with the json structure in the string.
+     */
     public JsonMoldProvider(String json) throws JsonProcessingException {
         this(new ObjectMapper().readValue(json, JsonPlot.class));
     }
 
+    /**
+     * Instantiates a mold provider from the stream.
+     *
+     * @param json a json input stream
+     * @throws IOException an input/output exception
+     */
     public JsonMoldProvider(InputStream json) throws IOException {
         this(new ObjectMapper().readValue(json, JsonPlot.class));
     }
 
+    /**
+     * Instantiates a mold provider from a URI of json location.
+     *
+     * @param json a json URI
+     * @throws IOException an input/output exception
+     */
     public JsonMoldProvider(URI json) throws IOException {
         this(new ObjectMapper().readValue(json.toURL(), JsonPlot.class));
     }
 
+    /**
+     * Instantiates a mold provider from a POJO. Contain the main parsing logic.
+     *
+     * @param json the json POJO
+     */
     protected JsonMoldProvider(JsonPlot json) {
         Objects.requireNonNull(json, "JsonPlot is null");
         properties = new PropertiesMap();
@@ -145,11 +178,13 @@ public class JsonMoldProvider implements MoldProvider {
     }
 
 
+    /**{@inheritDoc}*/
     @Override
     public Collection<PanelMold> getPanelMolds() {
         return panelMolds;
     }
 
+    /**{@inheritDoc}*/
     @Override
     public PropertiesMap getProperties() {
         return properties;
