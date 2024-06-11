@@ -17,6 +17,14 @@ import net.miginfocom.swing.MigLayout;
 import javax.swing.*;
 import java.util.*;
 
+/**
+ * The class represents the implementation of an abstraction between graphical view elements, their control and data exchange.
+ * As the main view component operates with JPanel, internal view components are JComponents and data exchange type is simply a String.
+ * @apiNote Class is open to the inheritance. All fields and essential methods have protected modifiers.
+ * @since 1.0
+ * @author Vladyslav Tymchenko
+ * @see ViewInstance
+ */
 public class JView extends JElement implements ViewInstance<JPanel, JComponent, String> {
     protected final Map<String, ControlUnit<JComponent>> controlUnits;
     protected final Map<String, DataUnit<String>> dataUnits;
@@ -24,6 +32,10 @@ public class JView extends JElement implements ViewInstance<JPanel, JComponent, 
     protected final JPanel view;
     protected final Map<String, Object> properties;
 
+    /**
+     * Instantiates a new view from a panel mold.
+     * @param mold a mold
+     */
     public JView(PanelMold mold) {
         Objects.requireNonNull(mold, "PanelMold is null.");
         Objects.requireNonNull(mold.getId(), "PanelMold ID is null.");
@@ -46,6 +58,11 @@ public class JView extends JElement implements ViewInstance<JPanel, JComponent, 
         }
     }
 
+    /**
+     * Parses an element mold into the JComponent
+     * @param mold a mold
+     * @return parsed JComponent
+     */
     protected JComponent parse(ElementMold mold) {
         Objects.requireNonNull(mold, "Element mold is null");
         Objects.requireNonNull(mold.getId(), "Element ID is null. Element: [" + mold + "]");
@@ -54,6 +71,12 @@ public class JView extends JElement implements ViewInstance<JPanel, JComponent, 
         else return parseJElement(mold);
     }
 
+    /**
+     * Parses an element mold into the ControlButton and returns its JComponent.
+     *
+     * @param mold a mold
+     * @return parsed JComponent
+     */
     protected JComponent parseButton(ElementMold mold) {
         ControlButton button = new ControlButton(mold.getId(), mold.getTitle());
         controlUnits.put(mold.getId(), button);
@@ -62,7 +85,12 @@ public class JView extends JElement implements ViewInstance<JPanel, JComponent, 
         return button.getComponent();
     }
 
-    //you can override the method for your custom implementations of ElementMold, but note that if you want to use super.parseJElement(), the parent method must be called after your custom code. Otherwise, it will throw JViewBuildException.
+    /**
+     * Parses an element mold into {@code T extends DataUnit<String>, RepresentableUnit<JComponent>} and returns its JComponent.
+     * @apiNote If the method is going to be overridden with a custom implementations of the parsing ElementMold, note that if the intention is to use also {@code super.parseJElement()}, the parent method must be called after the custom code or with a try/catch for JViewBuildException.
+     * @param mold a mold
+     * @return parsed JComponent
+     */
     protected JComponent parseJElement(ElementMold mold) {
         if(mold.getType().equalsIgnoreCase(CheckBox.class.getSimpleName())) {
             CheckBox checkBox = new CheckBox(mold.getId(), mold.getTitle(), "true".equals(mold.getProperty("preselected")), mold.getProperty("selected"), mold.getProperty("deselected"));
@@ -128,46 +156,57 @@ public class JView extends JElement implements ViewInstance<JPanel, JComponent, 
         throw new JViewBuildException("Unknown type: " + mold.getType(), mold);
     }
 
+    /**{@inheritDoc}*/
     @Override
     public Optional<ControlUnit<JComponent>> getControlUnit(String id) {
         return Optional.ofNullable(controlUnits.get(id));
     }
 
+    /**{@inheritDoc}*/
     @Override
     public Map<String, ControlUnit<JComponent>> getControlUnits() {
         return Map.copyOf(controlUnits);
     }
 
+    /**{@inheritDoc}*/
     @Override
     public Optional<DataUnit<String>> getDataUnit(String id) {
         return Optional.ofNullable(dataUnits.get(id));
     }
 
+    /**{@inheritDoc}*/
     @Override
     public Map<String, DataUnit<String>> getDataUnits() {
         return Map.copyOf(dataUnits);
     }
 
+    /**{@inheritDoc}*/
     @Override
     public Optional<PresentableUnit<JComponent>> getPresentableUnit(String id) {
         return Optional.ofNullable(presentableUnits.get(id));
     }
 
+    /**{@inheritDoc}*/
     @Override
     public Map<String, PresentableUnit<JComponent>> getPresentableUnits() {
         return Map.copyOf(presentableUnits);
     }
 
+    /**{@inheritDoc}*/
     @Override
     public JPanel getView() {
         return view;
     }
 
+    /**{@inheritDoc}*/
     @Override
     public PropertiesMap getProperties() {
         return new PropertiesMap(properties);
     }
 
+    /**
+     * Internal RuntimeException, contains the mold which cause the throwing an exception.
+     */
     public static class JViewBuildException extends RuntimeException {
         private Mold object;
 
@@ -176,6 +215,9 @@ public class JView extends JElement implements ViewInstance<JPanel, JComponent, 
             this.object = object;
         }
 
+        /**
+         * @return the mold which cause the throwing an exception.
+         */
         public Mold getObject() {
             return object;
         }
