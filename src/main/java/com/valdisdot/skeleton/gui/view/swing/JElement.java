@@ -10,6 +10,9 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.Objects;
 
+/**
+ * The helper abstract parent class for code reducing. Contains common for all Swing implementations methods.
+ */
 public abstract class JElement implements Identifiable {
     private final Collection<JComponent> internal;
     private JComponent component;
@@ -23,23 +26,59 @@ public abstract class JElement implements Identifiable {
         setComponent(component);
     }
 
+    /**{@inheritDoc}*/
     @Override
     public String getId() {
         return component.getName();
     }
 
+    /**
+     * Sets the internal component. Allow to bing the JComponent in post construct.
+     *
+     * @param <V>       the type parameter
+     * @param component the component
+     * @return the component from the parameter
+     */
     protected <V extends JComponent> V setComponent(V component) {
         this.component = Objects.requireNonNull(component, "JComponent is null");
         Objects.requireNonNull(component.getName(), "JComponent.getName() is null");
         return component;
     }
 
+    /**
+     * @return the main component
+     */
+    public JComponent getComponent() {
+        return component;
+    }
+
+    /**
+     * Adds and internal component. Mainly purpose for applying the styles.
+     *
+     * @param <V>       the type parameter
+     * @param component the component
+     * @return the component from the parameter
+     * @see JElement#applyStyle(Style)
+     */
     protected <V extends JComponent> V addPart(V component) {
         internal.add(component);
         return component;
     }
 
-    //parse the style and return the result object (color, size, font) for next possible usage
+    /**
+     * @return the internal components
+     */
+    public Collection<JComponent> getInternal() {
+        return internal;
+    }
+
+    /**
+     * Applies a style from the style object. Applying will be performed to the component and internal components, added via method {@code addPart}
+     * @param style a style
+     * @return an object, parsed from the style
+     * @see JElement#addPart(JComponent)
+     * @see Style
+     */
     public Object applyStyle(Style style) {
         Map<Style.Keyword, String> args = style.getValues();
         switch (style.getType()) {
@@ -79,13 +118,5 @@ public abstract class JElement implements Identifiable {
             default:
                 return null;
         }
-    }
-
-    public Collection<JComponent> getInternal() {
-        return internal;
-    }
-
-    public JComponent getComponent() {
-        return component;
     }
 }
