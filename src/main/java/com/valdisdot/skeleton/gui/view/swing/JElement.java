@@ -12,6 +12,8 @@ import java.util.Objects;
 
 /**
  * The helper abstract parent class for code reducing. Contains common for all Swing implementations methods.
+ * @since 1.0
+ * @author Vladyslav Tymchenko
  */
 public abstract class JElement implements Identifiable {
     private final Collection<JComponent> internal;

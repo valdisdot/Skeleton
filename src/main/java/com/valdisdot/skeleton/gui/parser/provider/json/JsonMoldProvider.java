@@ -18,6 +18,8 @@ import java.util.*;
  * The implementation of MoldProvider for JSON-files.
  * @apiNote Uses Jackson API under the hood.
  * @see MoldProvider
+ * @since 1.0
+ * @author Vladyslav Tymchenko
  */
 public class JsonMoldProvider implements MoldProvider {
     private final PropertiesMap properties;

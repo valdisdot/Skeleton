@@ -10,6 +10,8 @@ import java.util.Map;
 /**
  * Abstract parent class for 'mold' -  the central logic unit in parsing the UI. For a single element (label, text field, check box etc.) it is an ElementMold, for a panel - PanelMold.
  * Each mold contains its own properties and information for about the UI.
+ * @since 1.0
+ * @author Vladyslav Tymchenko
  */
 public abstract class Mold implements Identifiable {
     protected String id;

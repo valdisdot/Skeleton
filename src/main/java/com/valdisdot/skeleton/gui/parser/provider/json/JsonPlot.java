@@ -6,6 +6,8 @@ import java.util.*;
 /**
  * The class represents a POJO object for json parsing.
  * @apiNote Mainly for internal use.
+ * @since 1.0
+ * @author Vladyslav Tymchenko
  * */
 public class JsonPlot {
     private final Map<String, Object> properties = new LinkedHashMap<>();

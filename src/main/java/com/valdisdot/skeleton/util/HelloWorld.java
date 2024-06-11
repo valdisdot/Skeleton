@@ -17,6 +17,8 @@ import java.util.Optional;
 
 /**
  * The util class, which allows the user to initialize the library, essential files and defaults.
+ * @since 1.0
+ * @author Vladyslav Tymchenko
  */
 public class HelloWorld {
     public static void main(String[] args) throws IOException {

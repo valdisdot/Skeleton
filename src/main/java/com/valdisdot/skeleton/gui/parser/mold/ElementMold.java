@@ -4,7 +4,10 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
 
-/**{@inheritDoc}*/
+/**{@inheritDoc}
+ * @since 1.0
+ * @author Vladyslav Tymchenko
+ * */
 public class ElementMold extends Mold {
     private String type;
     private boolean doesFollow = false;

@@ -9,6 +9,8 @@ import java.util.Objects;
 
 /**
  * The class defines a finite set of styling properties like background and foreground colors, font, size.
+ * @since 1.0
+ * @author Vladyslav Tymchenko
  */
 public class Style implements Identifiable {
     private final Map<Keyword, String> values = new EnumMap<>(Keyword.class);

@@ -7,6 +7,8 @@ import java.util.Collection;
 
 /**
  * The interface provide an additional abstraction layer for parsing and deserializing PanelMolds from the outsize the application, like JSON- or XML-files.
+ * @since 1.0
+ * @author Vladyslav Tymchenko
  */
 public interface MoldProvider {
     /**

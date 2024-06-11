@@ -6,6 +6,8 @@ import java.util.Optional;
 
 /**
  * The wrapper under the LinkedHashMap. Adds custom method to easy retrieving the needed objects.
+ * @since 1.0
+ * @author Vladyslav Tymchenko
  */
 public class PropertiesMap extends LinkedHashMap<String, Object> {
     public PropertiesMap(Map<String, Object> properties) {

@@ -4,6 +4,8 @@ import java.util.*;
 
 /**
  * {@inheritDoc}
+ * @since 1.0
+ * @author Vladyslav Tymchenko
  */
 public class PanelMold extends Mold {
     private List<ElementMold> elements;

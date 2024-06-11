@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 
 /**
  * The util class which contains default converting functions.
+ * @since 1.0
+ * @author Vladyslav Tymchenko
  */
 public class Functions {
     private Functions() {
