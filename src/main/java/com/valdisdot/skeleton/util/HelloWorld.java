@@ -15,6 +15,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Optional;
 
+/**
+ * The util class, which allows the user to initialize the library, essential files and defaults.
+ */
 public class HelloWorld {
     public static void main(String[] args) throws IOException {
         boolean wasExecution = false;
