@@ -5,8 +5,18 @@ import com.valdisdot.skeleton.util.PropertiesMap;
 
 import java.util.Collection;
 
+/**
+ * The interface provide an additional abstraction layer for parsing and deserializing PanelMolds from the outsize the application, like JSON- or XML-files.
+ */
 public interface MoldProvider {
+    /**
+     * @return a collection of panel molds
+     * @see PanelMold
+     */
     Collection<PanelMold> getPanelMolds();
 
+    /**
+     * @return the common properties for the whole application.
+     */
     PropertiesMap getProperties();
 }
