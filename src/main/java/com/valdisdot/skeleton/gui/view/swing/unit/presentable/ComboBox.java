@@ -9,25 +9,44 @@ import javax.swing.*;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * The implementation of a combo box element.
+ * @since 1.0
+ * @author Vladyslav Tymchenko
+ */
 public class ComboBox extends JMultiPresentableUnit implements DataUnit<String> {
     private final JComboBox<PresentablePair> comboBox;
 
+    /**
+     * Instantiates a new combo box.
+     *
+     * @param id   an id, not null
+     * @param view a view, nullable
+     * @see PresentablePair
+     */
     public ComboBox(String id, Collection<PresentablePair> view) {
         JComboBox<PresentablePair> comboBox = new JComboBox<>();
         comboBox.setName(id);
         this.comboBox = setComponent(comboBox);
-        if (view != null && !view.isEmpty()) replacePresentations(view);
+        replacePresentations(view);
     }
 
+    /**
+     * Instantiates a new combo box.
+     *
+     * @param id an id, not null
+     */
     public ComboBox(String id) {
         this(id, null);
     }
 
+    /**{@inheritDoc}*/
     @Override
     public DataBean<String> getBean() {
         return new DataBean<>(getId(), comboBox.getSelectedItem() == null ? null : comboBox.getSelectedItem().toString());
     }
 
+    /**{@inheritDoc}*/
     @Override
     public void setBean(DataBean<String> data) {
         int i = 0;
@@ -39,16 +58,18 @@ public class ComboBox extends JMultiPresentableUnit implements DataUnit<String> 
         }
     }
 
+    /**{@inheritDoc}*/
     @Override
     public void reset() {
         comboBox.setSelectedIndex(0);
     }
 
+    /**{@inheritDoc}*/
     @Override
     protected void updateView() {
+        comboBox.removeAllItems();
         List<PresentablePair> view = getCurrentView();
         if (!view.isEmpty()) {
-            comboBox.removeAllItems();
             for (PresentablePair pair : view) {
                 comboBox.addItem(pair);
             }
