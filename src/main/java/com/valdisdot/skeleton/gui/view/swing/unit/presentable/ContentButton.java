@@ -9,6 +9,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Objects;
 
+/**
+ * The implementation of a content button element.
+ * @since 1.0
+ * @author Vladyslav Tymchenko
+ */
 public class ContentButton extends JSinglePresentableUnit implements DataUnit<String> {
     private final JButton button;
     private final String selected;
@@ -17,6 +22,15 @@ public class ContentButton extends JSinglePresentableUnit implements DataUnit<St
     private Color pressedColor;
     private Color defaultColor;
 
+    /**
+     * Instantiates a new content button.
+     *
+     * @param id          an id, not null
+     * @param title       a title, nullable
+     * @param preselected flag indicates an initial state of the checkbox
+     * @param selected    a selected value, nullable
+     * @param deselected  a deselected value, nullable
+     */
     public ContentButton(String id, String title, boolean preselected, String selected, String deselected) {
         this.selected = Objects.requireNonNullElse(selected, "true");
         this.deselected = Objects.requireNonNullElse(deselected, "false");
@@ -36,10 +50,21 @@ public class ContentButton extends JSinglePresentableUnit implements DataUnit<St
         if (preselected) button.doClick();
     }
 
+    /**
+     * Instantiates a new content button.
+     *
+     * @param id    an id, not null
+     * @param title a title, nullable
+     */
     public ContentButton(String id, String title) {
         this(id, title, false, null, null);
     }
 
+    /**
+     * Instantiates a new Content button.
+     *
+     * @param id an id
+     */
     public ContentButton(String id) {
         this(id, null, false, null, null);
     }
@@ -52,6 +77,7 @@ public class ContentButton extends JSinglePresentableUnit implements DataUnit<St
         return luma < 128;
     }
 
+    /**{@inheritDoc}*/
     @Override
     public Object applyStyle(Style style) {
         try {
@@ -62,11 +88,13 @@ public class ContentButton extends JSinglePresentableUnit implements DataUnit<St
         }
     }
 
+    /**{@inheritDoc}*/
     @Override
     public DataBean<String> getBean() {
         return new DataBean<>(getId(), wasPressed ? selected : deselected);
     }
 
+    /**{@inheritDoc}*/
     @Override
     public void setBean(DataBean<String> data) {
         if (data.isPresent()) {
@@ -76,13 +104,15 @@ public class ContentButton extends JSinglePresentableUnit implements DataUnit<St
         //else do nothing
     }
 
+    /**{@inheritDoc}*/
     @Override
     public void reset() {
         if (wasPressed) button.doClick();
     }
 
+    /**{@inheritDoc}*/
     @Override
     public void setPresentation(String presentation) {
-        button.setText(presentation);
+        if(presentation != null) button.setText(presentation);
     }
 }
