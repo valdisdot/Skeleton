@@ -21,18 +21,18 @@ public abstract class JSinglePresentableUnit extends JPresentableUnit {
     /**{@inheritDoc}*/
     @Override
     public void updatePresentations(Collection<PresentablePair> presentations) {
-        presentations.stream().findFirst().ifPresent(entry -> setPresentation(entry.toString()));
+        if(presentations != null && !presentations.isEmpty()) presentations.stream().findFirst().ifPresent(entry -> setPresentation(entry.toString()));
     }
 
     /**{@inheritDoc}*/
     @Override
     public void completePresentations(Collection<PresentablePair> presentations) {
-        presentations.stream().findFirst().ifPresent(entry -> setPresentation(entry.toString()));
+        if(presentations != null && !presentations.isEmpty()) presentations.stream().findFirst().ifPresent(entry -> setPresentation(entry.toString()));
     }
 
     /**{@inheritDoc}*/
     @Override
     public void replacePresentations(Collection<PresentablePair> presentations) {
-        presentations.stream().findFirst().ifPresent(entry -> setPresentation(entry.toString()));
+        if(presentations != null && !presentations.isEmpty()) presentations.stream().findFirst().ifPresent(entry -> setPresentation(entry.toString()));
     }
 }

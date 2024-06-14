@@ -21,19 +21,23 @@ public abstract class JMultiPresentableUnit extends JPresentableUnit {
     /**{@inheritDoc}*/
     @Override
     public void completePresentations(Collection<PresentablePair> presentations) {
-        for (PresentablePair pair : presentations) {
-            if (view.contains(pair)) view.get(view.indexOf(pair)).setPresentation(pair.toString());
-            else view.add(pair);
+        if(presentations != null && !presentations.isEmpty()) {
+            for (PresentablePair pair : presentations) {
+                if (view.contains(pair)) view.get(view.indexOf(pair)).setPresentation(pair.toString());
+                else view.add(pair);
+            }
+            updateView();
         }
-        updateView();
     }
 
     /**{@inheritDoc}*/
     @Override
     public void replacePresentations(Collection<PresentablePair> presentations) {
-        view.clear();
-        view.addAll(presentations);
-        updateView();
+        if(presentations != null && !presentations.isEmpty()){
+            view.clear();
+            view.addAll(presentations);
+            updateView();
+        }
     }
 
     /**
@@ -47,10 +51,12 @@ public abstract class JMultiPresentableUnit extends JPresentableUnit {
     /**{@inheritDoc}*/
     @Override
     public void updatePresentations(Collection<PresentablePair> presentations) {
-        for (PresentablePair pair : presentations) {
-            if (view.contains(pair)) view.get(view.indexOf(pair)).setPresentation(pair.toString());
+        if(presentations != null && !presentations.isEmpty()) {
+            for (PresentablePair pair : presentations) {
+                if (view.contains(pair)) view.get(view.indexOf(pair)).setPresentation(pair.toString());
+            }
+            updateView();
         }
-        updateView();
     }
 
     /**
