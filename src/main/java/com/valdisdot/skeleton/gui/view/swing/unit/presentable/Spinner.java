@@ -10,9 +10,21 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * The implementation of a spinner element.
+ * @since 1.0
+ * @author Vladyslav Tymchenko
+ */
 public class Spinner extends JMultiPresentableUnit implements DataUnit<String> {
     private final JSpinner spinner;
 
+    /**
+     * Instantiates a new spinner.
+     *
+     * @param id   an id, not null
+     * @param view a view, nullable
+     * @see PresentablePair
+     */
     public Spinner(String id, Collection<PresentablePair> view) {
         JSpinner spinner = new JSpinner();
         spinner.setName(id);
@@ -21,13 +33,14 @@ public class Spinner extends JMultiPresentableUnit implements DataUnit<String> {
         replacePresentations(view);
     }
 
-
+    /**{@inheritDoc}*/
     @Override
     public DataBean<String> getBean() {
         PresentablePair value = (PresentablePair) spinner.getValue();
         return new DataBean<>(getId(), value == null ? null : value.getId());
     }
 
+    /**{@inheritDoc}*/
     @Override
     public void setBean(DataBean<String> data) {
         if (data.isPresent()) {
@@ -41,18 +54,18 @@ public class Spinner extends JMultiPresentableUnit implements DataUnit<String> {
         }
     }
 
+    /**{@inheritDoc}*/
     @Override
     public void reset() {
         if (!getCurrentView().isEmpty()) spinner.setValue(getCurrentView().get(0));
     }
 
+    /**{@inheritDoc}*/
     @Override
     protected void updateView() {
         List<PresentablePair> view = getCurrentView();
-        if (!view.isEmpty()) {
-            Collections.reverse(view);
-            spinner.setModel(new SpinnerListModel(view));
-            spinner.setValue(view.get(view.size() - 1));
-        }
+        Collections.reverse(view);
+        spinner.setModel(new SpinnerListModel(view));
+        spinner.setValue(view.get(view.size() - 1));
     }
 }
