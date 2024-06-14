@@ -8,10 +8,21 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Objects;
 
+/**
+ * The implementation of a text area element.
+ * @since 1.0
+ * @author Vladyslav Tymchenko
+ */
 public class TextArea extends JSinglePresentableUnit implements DataUnit<String> {
     private final JTextArea textArea;
     private String defaultText;
 
+    /**
+     * Instantiates a new text area.
+     *
+     * @param id          an id, not null
+     * @param defaultText default text, nullable
+     */
     public TextArea(String id, String defaultText) {
         this.defaultText = Objects.requireNonNullElse(defaultText, "");
         JTextArea textArea = new JTextArea(this.defaultText);
@@ -43,28 +54,39 @@ public class TextArea extends JSinglePresentableUnit implements DataUnit<String>
         setComponent(scrollPane);
     }
 
+    /**
+     * Instantiates a new text area.
+     *
+     * @param id the id
+     */
     public TextArea(String id) {
         this(id, null);
     }
 
+    /**{@inheritDoc}*/
     @Override
     public DataBean<String> getBean() {
         return new DataBean<>(getId(), textArea.getText());
     }
 
+    /**{@inheritDoc}*/
     @Override
     public void setBean(DataBean<String> data) {
         if (data.isPresent()) textArea.setText(data.fetchFirst());
     }
 
+    /**{@inheritDoc}*/
     @Override
     public void reset() {
         textArea.setText(defaultText);
     }
 
+    /**{@inheritDoc}*/
     @Override
     public void setPresentation(String presentation) {
-        this.defaultText = presentation;
-        textArea.setText(presentation);
+        if(presentation != null) {
+            this.defaultText = presentation;
+            textArea.setText(presentation);
+        }
     }
 }
