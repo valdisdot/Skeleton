@@ -12,9 +12,9 @@ import java.util.function.Consumer;
 
 /**
  * The implementation of ControlUnit for clickable button.
- * @author Vladyslav Tymchenko
  * @apiNote Pay attention that each user action will produce a new Thread.
  * @since 1.0
+ * @author Vladyslav Tymchenko
  */
 public class ControlButton extends JSinglePresentableUnit implements ControlUnit<JComponent> {
     private final JButton button;
@@ -87,6 +87,6 @@ public class ControlButton extends JSinglePresentableUnit implements ControlUnit
     /**{@inheritDoc}*/
     @Override
     public void setPresentation(String presentation) {
-        button.setText(presentation);
+        if(presentation != null) button.setText(presentation);
     }
 }
