@@ -12,10 +12,22 @@ import java.util.Collection;
 import java.util.Enumeration;
 import java.util.List;
 
+/**
+ * The implementation of a radio box element.
+ * @since 1.0
+ * @author Vladyslav Tymchenko
+ */
 public class RadioBox extends JMultiPresentableUnit implements DataUnit<String> {
     private final JPanel container;
     private ButtonGroup buttonGroup;
 
+    /**
+     * Instantiates a new radio box.
+     *
+     * @param id   an id, not null
+     * @param view a view, nullable
+     * @see PresentablePair
+     */
     public RadioBox(String id, Collection<PresentablePair> view) {
         JPanel container = new JPanel(new MigLayout("wrap,insets 0,gap 0")) {
             @Override
@@ -42,6 +54,7 @@ public class RadioBox extends JMultiPresentableUnit implements DataUnit<String> 
         replacePresentations(view);
     }
 
+    /**{@inheritDoc}*/
     @Override
     public DataBean<String> getBean() {
         Enumeration<AbstractButton> enumeration = buttonGroup.getElements();
@@ -53,6 +66,7 @@ public class RadioBox extends JMultiPresentableUnit implements DataUnit<String> 
         return new DataBean<>(getId(), (String) null);
     }
 
+    /**{@inheritDoc}*/
     @Override
     public void setBean(DataBean<String> data) {
         if (data.isPresent()) {
@@ -70,18 +84,19 @@ public class RadioBox extends JMultiPresentableUnit implements DataUnit<String> 
 
     }
 
+    /**{@inheritDoc}*/
     @Override
     public void reset() {
         buttonGroup.clearSelection();
     }
 
+    /**{@inheritDoc}*/
     @Override
     protected void updateView() {
+        container.removeAll();
         List<PresentablePair> view = getCurrentView();
-        buttonGroup = new ButtonGroup();
-
         if (!view.isEmpty()) {
-            container.removeAll();
+            buttonGroup = new ButtonGroup();
             for (PresentablePair pair : view) {
                 JRadioButton jButton = new JRadioButton(pair.toString());
                 jButton.setFont(container.getFont());
