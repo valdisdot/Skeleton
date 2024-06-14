@@ -12,10 +12,22 @@ import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+/**
+ * The implementation of a multi combo box element.
+ * @since 1.0
+ * @author Vladyslav Tymchenko
+ */
 public class MultiComboBox extends JMultiPresentableUnit implements DataUnit<String> {
     private final Function<Collection<String>, String> toLineFunction;
     private final JList<PresentablePair> list;
 
+    /**
+     * Instantiates a new multi combo box.
+     * @param id             an id, not null
+     * @param view           a view, nullable
+     * @param toLineFunction a collection-to-line function, nullable
+     * @see PresentablePair
+     */
     public MultiComboBox(String id, Collection<PresentablePair> view, Function<Collection<String>, String> toLineFunction) {
         JList<PresentablePair> list = new JList<>();
         list.setName(id);
@@ -43,27 +55,45 @@ public class MultiComboBox extends JMultiPresentableUnit implements DataUnit<Str
         scrollPane.setName(id);
         setComponent(scrollPane);
         this.toLineFunction = toLineFunction == null ? collection -> collection.stream().collect(Collectors.joining(",", "\"", "\"")) : toLineFunction;
-        if (view != null && !view.isEmpty()) replacePresentations(view);
+        replacePresentations(view);
     }
 
+    /**
+     * Instantiates a new multi combo box.
+     * @param id   an id, not null
+     * @param view a view, nullable
+     * @see PresentablePair
+     */
     public MultiComboBox(String id, Collection<PresentablePair> view) {
         this(id, view, null);
     }
 
+    /**
+     * Instantiates a new multi combo box.
+     *
+     * @param id             an id, not null
+     * @param toLineFunction a collection-to-line function, nullable
+     */
     public MultiComboBox(String id, Function<Collection<String>, String> toLineFunction) {
         this(id, null, toLineFunction);
     }
 
+    /**
+     * Instantiates a new multi combo box.
+     *
+     * @param id an id, not null
+     */
     public MultiComboBox(String id) {
         this(id, null, null);
     }
 
-
+    /**{@inheritDoc}*/
     @Override
     public DataBean<String> getBean() {
         return new DataBean<>(getId(), toLineFunction.apply(list.getSelectedValuesList().stream().map(PresentablePair::getId).collect(Collectors.toList())));
     }
 
+    /**{@inheritDoc}*/
     @Override
     public void setBean(DataBean<String> data) {
         List<String> values = data.fetchList();
@@ -75,16 +105,18 @@ public class MultiComboBox extends JMultiPresentableUnit implements DataUnit<Str
         }
     }
 
+    /**{@inheritDoc}*/
     @Override
     public void reset() {
         list.clearSelection();
     }
 
+    /**{@inheritDoc}*/
     @Override
     protected void updateView() {
+        list.removeAll();
         List<PresentablePair> view = getCurrentView();
         if (!view.isEmpty()) {
-            list.removeAll();
             DefaultListModel<PresentablePair> model = new DefaultListModel<>();
             model.addAll(view);
             list.setModel(model);
