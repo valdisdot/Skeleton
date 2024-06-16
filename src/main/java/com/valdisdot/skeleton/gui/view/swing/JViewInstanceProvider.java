@@ -17,7 +17,7 @@ import java.util.Optional;
  * @author Vladyslav Tymchenko
  */
 public class JViewInstanceProvider implements ViewInstanceProvider<JPanel, JComponent, String> {
-    private final Map<String, JView> compiledViews;
+    private final Map<String, JViewInstance> compiledViews;
     private final Map<String, PanelMold> moldedViews;
     private final PropertiesMap propertiesMap;
 
@@ -34,7 +34,7 @@ public class JViewInstanceProvider implements ViewInstanceProvider<JPanel, JComp
             if (panelMold.getScope() == PanelMold.Scope.PROTOTYPE) {
                 moldedViews.put(panelMold.getId(), panelMold);
             } else {
-                compiledViews.put(panelMold.getId(), new JView(panelMold));
+                compiledViews.put(panelMold.getId(), new JViewInstance(panelMold));
             }
         });
         propertiesMap.putAll(provider.getProperties());
@@ -49,7 +49,7 @@ public class JViewInstanceProvider implements ViewInstanceProvider<JPanel, JComp
     @Override
     public Optional<ViewInstance<JPanel, JComponent, String>> getInstance(String id) {
         return compiledViews.containsKey(id) ? Optional.ofNullable(compiledViews.get(id)) :
-                moldedViews.containsKey(id) ? Optional.of(new JView(moldedViews.get(id))) :
+                moldedViews.containsKey(id) ? Optional.of(new JViewInstance(moldedViews.get(id))) :
                         Optional.empty();
     }
 

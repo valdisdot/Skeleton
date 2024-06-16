@@ -25,7 +25,7 @@ import java.util.*;
  * @author Vladyslav Tymchenko
  * @see ViewInstance
  */
-public class JView extends JElement implements ViewInstance<JPanel, JComponent, String> {
+public class JViewInstance extends JElement implements ViewInstance<JPanel, JComponent, String> {
     protected final Map<String, ControlUnit<JComponent>> controlUnits;
     protected final Map<String, DataUnit<String>> dataUnits;
     protected final Map<String, PresentableUnit<JComponent>> presentableUnits;
@@ -36,7 +36,7 @@ public class JView extends JElement implements ViewInstance<JPanel, JComponent, 
      * Instantiates a new view from a panel mold.
      * @param mold a mold
      */
-    public JView(PanelMold mold) {
+    public JViewInstance(PanelMold mold) {
         Objects.requireNonNull(mold, "PanelMold is null.");
         Objects.requireNonNull(mold.getId(), "PanelMold ID is null.");
         controlUnits = new HashMap<>();
