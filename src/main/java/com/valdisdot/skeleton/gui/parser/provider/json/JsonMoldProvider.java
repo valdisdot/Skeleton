@@ -22,6 +22,7 @@ import java.util.*;
  * @author Vladyslav Tymchenko
  */
 public class JsonMoldProvider implements MoldProvider {
+    private String id;
     private final PropertiesMap properties;
     private final Collection<PanelMold> panelMolds;
     private final Map<String, Style> styles;
@@ -73,6 +74,7 @@ public class JsonMoldProvider implements MoldProvider {
      */
     protected JsonMoldProvider(JsonPlot json) {
         Objects.requireNonNull(json, "JsonPlot is null");
+        this.id = json.getId();
         properties = new PropertiesMap();
         properties.putAll(json.getProperties());
 
@@ -179,6 +181,11 @@ public class JsonMoldProvider implements MoldProvider {
         return elementMolds;
     }
 
+    /**{@inheritDoc}*/
+    @Override
+    public String getId() {
+        return id;
+    }
 
     /**{@inheritDoc}*/
     @Override
