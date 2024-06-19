@@ -11,18 +11,14 @@ For now, the Skeleton perfectly fits to make a simple graphical application with
 ### Library structure
 
 - `core`
-    - `Identifiable` *interface*
-    - `ViewInstance` *interface*
-    - `ViewInstanceProvider` *interface*
-    - `ViewInstanceProviderComposite` *interface*
-    - `control`
-        - `ControlUnit` *class*
-    - `data`
-        - `DataBean` *class*
-        - `DataUnit` *interface*
-    - `view`
-        - `PresentablePair` *class*
-        - `PresentableUnit` *interface*
+  - `Identifiable` *interface*
+  - `ControlUnit` *interface*
+  - `DataUnit` *interface*
+  - `PresentableUnit` *interface*
+      - `PresentableUnit.Pair` *class*
+  - `ViewInstance` *interface*
+  - `ViewInstanceProvider` *interface*
+  - `ViewInstanceProviderComposite` *interface*
 - `gui`
     - `parser`
         - `mold`
