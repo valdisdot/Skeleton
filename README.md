@@ -14,6 +14,7 @@ For now, the Skeleton perfectly fits to make a simple graphical application with
     - `Identifiable` *interface*
     - `ViewInstance` *interface*
     - `ViewInstanceProvider` *interface*
+    - `ViewInstanceProviderComposite` *interface*
     - `control`
         - `ControlUnit` *class*
     - `data`
@@ -39,6 +40,7 @@ For now, the Skeleton perfectly fits to make a simple graphical application with
             - `JElement` *abstract class*
             - `JViewInstance` *class*
             - `JViewInstanceProvider` *class*
+            - `JViewInstanceCompositeProvider` *class*
             - `unit`
                 - `JPresentableUnit` *abstract class*
                 - `JSinglePresentableUnit` *abstract class*
@@ -77,9 +79,10 @@ The library contains a class `util.HelloWorld` with the main method. You can ini
 ``````
 ## JsonPresentableUnit API
 {
+    "id": "skeleton_example_file_id", ## optional field, helps to identify the source
     ## optional object, a map with custom properties, which can be retrieved as a part of PropertiesMap
     "properties": {
-        "your_custom_value_1": "value",
+        "example_application_name": "Skeleton example!",
         "your_custom_value_2": 1,
         "your_custom_value_3": true
     },
