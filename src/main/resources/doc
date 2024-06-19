@@ -1,7 +1,9 @@
 ## JsonPresentableUnit API
 {
+    "id": "skeleton_example_file_id",
     ## optional object, a map with custom properties, which can be retrieved as a part of PropertiesMap
     "properties": {
+        "example_application_name": "Skeleton example!",
         "your_custom_value_1": "value",
         "your_custom_value_2": 1,
         "your_custom_value_3": true

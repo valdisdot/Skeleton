@@ -10,6 +10,7 @@ import java.util.*;
  * @author Vladyslav Tymchenko
  * */
 public class JsonPlot {
+    private String id;
     private final Map<String, Object> properties = new LinkedHashMap<>();
     private final List<StylePlot> styles = new LinkedList<>();
     private final List<PanelPlot> panels = new LinkedList<>();
@@ -43,6 +44,14 @@ public class JsonPlot {
         ) {
             in.transferTo(out);
         }
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public Map<String, Object> getProperties() {
