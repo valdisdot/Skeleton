@@ -1,8 +1,6 @@
 package com.valdisdot.skeleton.gui.view.swing.unit.presentable;
 
-import com.valdisdot.skeleton.core.data.DataBean;
-import com.valdisdot.skeleton.core.data.DataUnit;
-import com.valdisdot.skeleton.core.view.PresentablePair;
+import com.valdisdot.skeleton.core.DataUnit;
 import com.valdisdot.skeleton.gui.view.swing.unit.JMultiPresentableUnit;
 
 import javax.swing.*;
@@ -19,17 +17,17 @@ import java.util.stream.Collectors;
  */
 public class MultiComboBox extends JMultiPresentableUnit implements DataUnit<String> {
     private final Function<Collection<String>, String> toLineFunction;
-    private final JList<PresentablePair> list;
+    private final JList<Pair> list;
 
     /**
      * Instantiates a new multi combo box.
      * @param id             an id, not null
      * @param view           a view, nullable
      * @param toLineFunction a collection-to-line function, nullable
-     * @see PresentablePair
+     * @see Pair
      */
-    public MultiComboBox(String id, Collection<PresentablePair> view, Function<Collection<String>, String> toLineFunction) {
-        JList<PresentablePair> list = new JList<>();
+    public MultiComboBox(String id, Collection<Pair> view, Function<Collection<String>, String> toLineFunction) {
+        JList<Pair> list = new JList<>();
         list.setName(id);
         this.list = list;
         JScrollPane scrollPane = new JScrollPane(list, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED) {
@@ -62,9 +60,9 @@ public class MultiComboBox extends JMultiPresentableUnit implements DataUnit<Str
      * Instantiates a new multi combo box.
      * @param id   an id, not null
      * @param view a view, nullable
-     * @see PresentablePair
+     * @see Pair
      */
-    public MultiComboBox(String id, Collection<PresentablePair> view) {
+    public MultiComboBox(String id, Collection<Pair> view) {
         this(id, view, null);
     }
 
@@ -89,20 +87,20 @@ public class MultiComboBox extends JMultiPresentableUnit implements DataUnit<Str
 
     /**{@inheritDoc}*/
     @Override
-    public DataBean<String> getBean() {
-        return new DataBean<>(getId(), toLineFunction.apply(list.getSelectedValuesList().stream().map(PresentablePair::getId).collect(Collectors.toList())));
+    public String getData() {
+        return toLineFunction.apply(list.getSelectedValuesList().stream().map(Pair::getId).collect(Collectors.toList()));
     }
 
     /**{@inheritDoc}*/
     @Override
-    public void setBean(DataBean<String> data) {
-        List<String> values = data.fetchList();
-        if (!values.isEmpty()) {
+    public void setData(String data) {
             int i = 0;
-            for (PresentablePair pair : getCurrentView()) {
-                if (values.contains(pair.getId())) list.setSelectedIndex(i);
+            for (Pair pair : getCurrentView()) {
+                if (pair.getId().equals(data)) {
+                    list.setSelectedIndex(i);
+                    return;
+                }
             }
-        }
     }
 
     /**{@inheritDoc}*/
@@ -115,9 +113,9 @@ public class MultiComboBox extends JMultiPresentableUnit implements DataUnit<Str
     @Override
     protected void updateView() {
         list.removeAll();
-        List<PresentablePair> view = getCurrentView();
+        List<Pair> view = getCurrentView();
         if (!view.isEmpty()) {
-            DefaultListModel<PresentablePair> model = new DefaultListModel<>();
+            DefaultListModel<Pair> model = new DefaultListModel<>();
             model.addAll(view);
             list.setModel(model);
         }

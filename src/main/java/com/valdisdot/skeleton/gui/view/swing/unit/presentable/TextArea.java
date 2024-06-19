@@ -1,7 +1,6 @@
 package com.valdisdot.skeleton.gui.view.swing.unit.presentable;
 
-import com.valdisdot.skeleton.core.data.DataBean;
-import com.valdisdot.skeleton.core.data.DataUnit;
+import com.valdisdot.skeleton.core.DataUnit;
 import com.valdisdot.skeleton.gui.view.swing.unit.JSinglePresentableUnit;
 
 import javax.swing.*;
@@ -65,14 +64,14 @@ public class TextArea extends JSinglePresentableUnit implements DataUnit<String>
 
     /**{@inheritDoc}*/
     @Override
-    public DataBean<String> getBean() {
-        return new DataBean<>(getId(), textArea.getText());
+    public String getData() {
+        return textArea.getText();
     }
 
     /**{@inheritDoc}*/
     @Override
-    public void setBean(DataBean<String> data) {
-        if (data.isPresent()) textArea.setText(data.fetchFirst());
+    public void setData(String data) {
+        textArea.setText(data == null ? "" : data);
     }
 
     /**{@inheritDoc}*/

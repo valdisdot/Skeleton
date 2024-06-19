@@ -1,7 +1,4 @@
-package com.valdisdot.skeleton.core.control;
-
-import com.valdisdot.skeleton.core.data.DataUnit;
-import com.valdisdot.skeleton.core.view.PresentableUnit;
+package com.valdisdot.skeleton.core;
 
 import java.util.Collection;
 import java.util.concurrent.Callable;

@@ -1,8 +1,6 @@
 package com.valdisdot.skeleton.gui.view.swing.unit.presentable;
 
-import com.valdisdot.skeleton.core.data.DataBean;
-import com.valdisdot.skeleton.core.data.DataUnit;
-import com.valdisdot.skeleton.core.view.PresentablePair;
+import com.valdisdot.skeleton.core.DataUnit;
 import com.valdisdot.skeleton.gui.view.swing.unit.JMultiPresentableUnit;
 
 import javax.swing.*;
@@ -15,17 +13,17 @@ import java.util.List;
  * @author Vladyslav Tymchenko
  */
 public class ComboBox extends JMultiPresentableUnit implements DataUnit<String> {
-    private final JComboBox<PresentablePair> comboBox;
+    private final JComboBox<Pair> comboBox;
 
     /**
      * Instantiates a new combo box.
      *
      * @param id   an id, not null
      * @param view a view, nullable
-     * @see PresentablePair
+     * @see Pair
      */
-    public ComboBox(String id, Collection<PresentablePair> view) {
-        JComboBox<PresentablePair> comboBox = new JComboBox<>();
+    public ComboBox(String id, Collection<Pair> view) {
+        JComboBox<Pair> comboBox = new JComboBox<>();
         comboBox.setName(id);
         this.comboBox = setComponent(comboBox);
         replacePresentations(view);
@@ -42,16 +40,16 @@ public class ComboBox extends JMultiPresentableUnit implements DataUnit<String> 
 
     /**{@inheritDoc}*/
     @Override
-    public DataBean<String> getBean() {
-        return new DataBean<>(getId(), comboBox.getSelectedItem() == null ? null : comboBox.getSelectedItem().toString());
+    public String getData() {
+        return comboBox.getSelectedItem() == null ? null : comboBox.getSelectedItem().toString();
     }
 
     /**{@inheritDoc}*/
     @Override
-    public void setBean(DataBean<String> data) {
+    public void setData(String data) {
         int i = 0;
-        for (PresentablePair pair : getCurrentView()) {
-            if (pair.getId().equals(data.getId())) {
+        for (Pair pair : getCurrentView()) {
+            if (pair.getId().equals(data)) {
                 comboBox.setSelectedIndex(i);
                 return;
             }
@@ -68,9 +66,9 @@ public class ComboBox extends JMultiPresentableUnit implements DataUnit<String> 
     @Override
     protected void updateView() {
         comboBox.removeAllItems();
-        List<PresentablePair> view = getCurrentView();
+        List<Pair> view = getCurrentView();
         if (!view.isEmpty()) {
-            for (PresentablePair pair : view) {
+            for (Pair pair : view) {
                 comboBox.addItem(pair);
             }
         }

@@ -1,7 +1,6 @@
 package com.valdisdot.skeleton.gui.view.swing.unit.presentable;
 
-import com.valdisdot.skeleton.core.data.DataBean;
-import com.valdisdot.skeleton.core.data.DataUnit;
+import com.valdisdot.skeleton.core.DataUnit;
 import com.valdisdot.skeleton.gui.view.swing.unit.JSinglePresentableUnit;
 
 import javax.swing.*;
@@ -39,14 +38,14 @@ public class Label extends JSinglePresentableUnit implements DataUnit<String> {
 
     /**{@inheritDoc}*/
     @Override
-    public DataBean<String> getBean() {
-        return new DataBean<>(getId(), label.getText());
+    public String getData() {
+        return label.getText();
     }
 
     /**{@inheritDoc}*/
     @Override
-    public void setBean(DataBean<String> data) {
-        if (data.isPresent()) label.setText(data.fetchFirst());
+    public void setData(String data) {
+        label.setText(data == null ? "" : data);
     }
 
     /**{@inheritDoc}*/

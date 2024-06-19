@@ -1,8 +1,8 @@
 package com.valdisdot.skeleton.gui.view.swing.unit.control;
 
-import com.valdisdot.skeleton.core.control.ControlUnit;
-import com.valdisdot.skeleton.core.data.DataUnit;
-import com.valdisdot.skeleton.core.view.PresentableUnit;
+import com.valdisdot.skeleton.core.ControlUnit;
+import com.valdisdot.skeleton.core.DataUnit;
+import com.valdisdot.skeleton.core.PresentableUnit;
 import com.valdisdot.skeleton.gui.view.swing.unit.JSinglePresentableUnit;
 
 import javax.swing.*;

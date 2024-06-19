@@ -1,7 +1,5 @@
 package com.valdisdot.skeleton.gui.view.swing.unit;
 
-import com.valdisdot.skeleton.core.view.PresentablePair;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -12,7 +10,7 @@ import java.util.List;
  * @author Vladyslav Tymchenko
  */
 public abstract class JMultiPresentableUnit extends JPresentableUnit {
-    private final List<PresentablePair> view;
+    private final List<Pair> view;
 
     protected JMultiPresentableUnit() {
         this.view = new ArrayList<>(5);
@@ -20,9 +18,9 @@ public abstract class JMultiPresentableUnit extends JPresentableUnit {
 
     /**{@inheritDoc}*/
     @Override
-    public void completePresentations(Collection<PresentablePair> presentations) {
+    public void completePresentations(Collection<Pair> presentations) {
         if(presentations != null && !presentations.isEmpty()) {
-            for (PresentablePair pair : presentations) {
+            for (Pair pair : presentations) {
                 if (view.contains(pair)) view.get(view.indexOf(pair)).setPresentation(pair.toString());
                 else view.add(pair);
             }
@@ -32,7 +30,7 @@ public abstract class JMultiPresentableUnit extends JPresentableUnit {
 
     /**{@inheritDoc}*/
     @Override
-    public void replacePresentations(Collection<PresentablePair> presentations) {
+    public void replacePresentations(Collection<Pair> presentations) {
         if(presentations != null && !presentations.isEmpty()){
             view.clear();
             view.addAll(presentations);
@@ -50,9 +48,9 @@ public abstract class JMultiPresentableUnit extends JPresentableUnit {
 
     /**{@inheritDoc}*/
     @Override
-    public void updatePresentations(Collection<PresentablePair> presentations) {
+    public void updatePresentations(Collection<Pair> presentations) {
         if(presentations != null && !presentations.isEmpty()) {
-            for (PresentablePair pair : presentations) {
+            for (Pair pair : presentations) {
                 if (view.contains(pair)) view.get(view.indexOf(pair)).setPresentation(pair.toString());
             }
             updateView();
@@ -62,7 +60,7 @@ public abstract class JMultiPresentableUnit extends JPresentableUnit {
     /**
      * @return the current presentation, internal elements view.
      */
-    protected List<PresentablePair> getCurrentView() {
+    protected List<Pair> getCurrentView() {
         return view;
     }
 

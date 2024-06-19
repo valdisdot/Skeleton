@@ -1,6 +1,4 @@
-package com.valdisdot.skeleton.core.data;
-
-import com.valdisdot.skeleton.core.Identifiable;
+package com.valdisdot.skeleton.core;
 
 /**
  * The class is a container to data states in the application.
@@ -13,20 +11,20 @@ public interface DataUnit<Data> extends Identifiable {
     /**
      * @return the current data state of an element
      */
-    DataBean<Data> getBean();
+    Data getData();
 
     /**
      * @param data a new data state of an element
      */
-    void setBean(DataBean<Data> data);
+    void setData(Data data);
 
     /**
      * @param data a new data state of an element
      * @return the current data state of an element
      */
-    default DataBean<Data> exchange(DataBean<Data> data) {
-        DataBean<Data> res = getBean();
-        if (data.isPresent()) setBean(data);
+    default Data exchange(Data data) {
+        Data res = getData();
+        setData(data);
         return res;
     }
 

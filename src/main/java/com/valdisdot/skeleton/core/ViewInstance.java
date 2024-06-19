@@ -1,8 +1,5 @@
 package com.valdisdot.skeleton.core;
 
-import com.valdisdot.skeleton.core.control.ControlUnit;
-import com.valdisdot.skeleton.core.data.DataUnit;
-import com.valdisdot.skeleton.core.view.PresentableUnit;
 import com.valdisdot.skeleton.util.PropertiesMap;
 
 import java.util.Map;

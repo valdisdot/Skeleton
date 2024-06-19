@@ -1,6 +1,4 @@
-package com.valdisdot.skeleton.core.view;
-
-import com.valdisdot.skeleton.core.Identifiable;
+package com.valdisdot.skeleton.core;
 
 import java.util.Collection;
 import java.util.List;

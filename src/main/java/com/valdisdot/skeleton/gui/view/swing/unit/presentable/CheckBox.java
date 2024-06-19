@@ -1,7 +1,6 @@
 package com.valdisdot.skeleton.gui.view.swing.unit.presentable;
 
-import com.valdisdot.skeleton.core.data.DataBean;
-import com.valdisdot.skeleton.core.data.DataUnit;
+import com.valdisdot.skeleton.core.DataUnit;
 import com.valdisdot.skeleton.gui.view.swing.unit.JSinglePresentableUnit;
 
 import javax.swing.*;
@@ -70,21 +69,15 @@ public class CheckBox extends JSinglePresentableUnit implements DataUnit<String>
 
     /**{@inheritDoc}*/
     @Override
-    public DataBean<String> getBean() {
-        return new DataBean<>(getId(), checkBox.isSelected() ? selected : deselected);
+    public String getData() {
+        return checkBox.isSelected() ? selected : deselected;
     }
 
     /**{@inheritDoc}*/
     @Override
-    public void setBean(DataBean<String> data) {
-        if (data.isPresent()) {
-            String text = data.fetchFirst();
-            if (text.equals(selected)) checkBox.setSelected(true);
-            else if (text.equals(deselected)) {
-                checkBox.setSelected(false);
-            }
-        }
-        //else do nothing
+    public void setData(String data) {
+        if (selected.equals(data)) checkBox.setSelected(true);
+        else if (deselected.equals(data)) checkBox.setSelected(false);
     }
 
     /**{@inheritDoc}*/

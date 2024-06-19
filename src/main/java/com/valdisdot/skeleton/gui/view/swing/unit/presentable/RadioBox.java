@@ -1,8 +1,6 @@
 package com.valdisdot.skeleton.gui.view.swing.unit.presentable;
 
-import com.valdisdot.skeleton.core.data.DataBean;
-import com.valdisdot.skeleton.core.data.DataUnit;
-import com.valdisdot.skeleton.core.view.PresentablePair;
+import com.valdisdot.skeleton.core.DataUnit;
 import com.valdisdot.skeleton.gui.view.swing.unit.JMultiPresentableUnit;
 import net.miginfocom.swing.MigLayout;
 
@@ -26,9 +24,9 @@ public class RadioBox extends JMultiPresentableUnit implements DataUnit<String> 
      *
      * @param id   an id, not null
      * @param view a view, nullable
-     * @see PresentablePair
+     * @see Pair
      */
-    public RadioBox(String id, Collection<PresentablePair> view) {
+    public RadioBox(String id, Collection<Pair> view) {
         JPanel container = new JPanel(new MigLayout("wrap,insets 0,gap 0")) {
             @Override
             public void setFont(Font font) {
@@ -56,32 +54,28 @@ public class RadioBox extends JMultiPresentableUnit implements DataUnit<String> 
 
     /**{@inheritDoc}*/
     @Override
-    public DataBean<String> getBean() {
+    public String getData() {
         Enumeration<AbstractButton> enumeration = buttonGroup.getElements();
         AbstractButton button;
         while (enumeration.hasMoreElements()) {
             button = enumeration.nextElement();
-            if (button.isSelected()) return new DataBean<>(getId(), button.getName());
+            if (button.isSelected()) return button.getName();
         }
-        return new DataBean<>(getId(), (String) null);
+        return "";
     }
 
     /**{@inheritDoc}*/
     @Override
-    public void setBean(DataBean<String> data) {
-        if (data.isPresent()) {
-            String val = data.fetchFirst();
-            Enumeration<AbstractButton> enumeration = buttonGroup.getElements();
-            AbstractButton button;
-            while (enumeration.hasMoreElements()) {
-                button = enumeration.nextElement();
-                if (button.getName().equals(val)) {
-                    button.setSelected(true);
-                    return;
-                }
+    public void setData(String data) {
+        Enumeration<AbstractButton> enumeration = buttonGroup.getElements();
+        AbstractButton button;
+        while (enumeration.hasMoreElements()) {
+            button = enumeration.nextElement();
+            if (button.getName().equals(data)) {
+                button.setSelected(true);
+                return;
             }
         }
-
     }
 
     /**{@inheritDoc}*/
@@ -94,10 +88,10 @@ public class RadioBox extends JMultiPresentableUnit implements DataUnit<String> 
     @Override
     protected void updateView() {
         container.removeAll();
-        List<PresentablePair> view = getCurrentView();
+        List<Pair> view = getCurrentView();
         if (!view.isEmpty()) {
             buttonGroup = new ButtonGroup();
-            for (PresentablePair pair : view) {
+            for (Pair pair : view) {
                 JRadioButton jButton = new JRadioButton(pair.toString());
                 jButton.setFont(container.getFont());
                 jButton.setBackground(container.getBackground());

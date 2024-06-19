@@ -1,7 +1,5 @@
 package com.valdisdot.skeleton.gui.view.swing.unit;
 
-import com.valdisdot.skeleton.core.view.PresentablePair;
-
 import javax.swing.*;
 import java.util.Collection;
 
@@ -20,19 +18,19 @@ public abstract class JSinglePresentableUnit extends JPresentableUnit {
 
     /**{@inheritDoc}*/
     @Override
-    public void updatePresentations(Collection<PresentablePair> presentations) {
+    public void updatePresentations(Collection<Pair> presentations) {
         if(presentations != null && !presentations.isEmpty()) presentations.stream().findFirst().ifPresent(entry -> setPresentation(entry.toString()));
     }
 
     /**{@inheritDoc}*/
     @Override
-    public void completePresentations(Collection<PresentablePair> presentations) {
+    public void completePresentations(Collection<Pair> presentations) {
         if(presentations != null && !presentations.isEmpty()) presentations.stream().findFirst().ifPresent(entry -> setPresentation(entry.toString()));
     }
 
     /**{@inheritDoc}*/
     @Override
-    public void replacePresentations(Collection<PresentablePair> presentations) {
+    public void replacePresentations(Collection<Pair> presentations) {
         if(presentations != null && !presentations.isEmpty()) presentations.stream().findFirst().ifPresent(entry -> setPresentation(entry.toString()));
     }
 }

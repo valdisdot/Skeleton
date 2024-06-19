@@ -1,8 +1,6 @@
 package com.valdisdot.skeleton.gui.view.swing.unit.presentable;
 
-import com.valdisdot.skeleton.core.data.DataBean;
-import com.valdisdot.skeleton.core.data.DataUnit;
-import com.valdisdot.skeleton.core.view.PresentablePair;
+import com.valdisdot.skeleton.core.DataUnit;
 import com.valdisdot.skeleton.gui.parser.mold.Style;
 import com.valdisdot.skeleton.gui.view.swing.unit.JMultiPresentableUnit;
 
@@ -26,9 +24,9 @@ public class Slider extends JMultiPresentableUnit implements DataUnit<String> {
      * @param id         an id, not null
      * @param view       a view, nullable
      * @param isVertical flag indicates an orientation of the slider
-     * @see PresentablePair
+     * @see Pair
      */
-    public Slider(String id, Collection<PresentablePair> view, boolean isVertical) {
+    public Slider(String id, Collection<Pair> view, boolean isVertical) {
         JSlider slider = new JSlider(isVertical ? JSlider.VERTICAL : JSlider.HORIZONTAL);
         slider.setName(id);
         slider.setPaintLabels(true);
@@ -42,9 +40,9 @@ public class Slider extends JMultiPresentableUnit implements DataUnit<String> {
      *
      * @param id   an id, not null
      * @param view a view, nullable
-     * @see PresentablePair
+     * @see Pair
      */
-    public Slider(String id, Collection<PresentablePair> view) {
+    public Slider(String id, Collection<Pair> view) {
         this(id, view, false);
     }
 
@@ -59,21 +57,18 @@ public class Slider extends JMultiPresentableUnit implements DataUnit<String> {
 
     /**{@inheritDoc}*/
     @Override
-    public DataBean<String> getBean() {
-        return new DataBean<>(getId(), getCurrentView().get(slider.getValue()).toString());
+    public String getData() {
+        return getCurrentView().get(slider.getValue()).toString();
     }
 
     /**{@inheritDoc}*/
     @Override
-    public void setBean(DataBean<String> data) {
-        if (data.isPresent()) {
-            String value = data.fetchFirst();
-            int i = 0;
-            for (PresentablePair pair : getCurrentView()) {
-                if (pair.getId().equals(value)) {
-                    slider.setValue(i);
-                    return;
-                }
+    public void setData(String data) {
+        int i = 0;
+        for (Pair pair : getCurrentView()) {
+            if (pair.getId().equals(data)) {
+                slider.setValue(i);
+                return;
             }
         }
     }
@@ -105,12 +100,12 @@ public class Slider extends JMultiPresentableUnit implements DataUnit<String> {
     @Override
     protected void updateView() {
         slider.setLabelTable(null);
-        List<PresentablePair> view = getCurrentView();
+        List<Pair> view = getCurrentView();
         if (!view.isEmpty()) {
             int index = 0;
             Hashtable<Integer, JLabel> labels = new Hashtable<>();
             JLabel label;
-            for (PresentablePair pair : view) {
+            for (Pair pair : view) {
                 label = new JLabel(pair.toString());
                 label.setForeground(slider.getForeground());
                 label.setFont(slider.getFont());

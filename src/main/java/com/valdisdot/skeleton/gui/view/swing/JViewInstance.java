@@ -1,10 +1,9 @@
 package com.valdisdot.skeleton.gui.view.swing;
 
 import com.valdisdot.skeleton.core.ViewInstance;
-import com.valdisdot.skeleton.core.control.ControlUnit;
-import com.valdisdot.skeleton.core.data.DataUnit;
-import com.valdisdot.skeleton.core.view.PresentablePair;
-import com.valdisdot.skeleton.core.view.PresentableUnit;
+import com.valdisdot.skeleton.core.ControlUnit;
+import com.valdisdot.skeleton.core.DataUnit;
+import com.valdisdot.skeleton.core.PresentableUnit;
 import com.valdisdot.skeleton.gui.parser.mold.ElementMold;
 import com.valdisdot.skeleton.gui.parser.mold.Mold;
 import com.valdisdot.skeleton.gui.parser.mold.PanelMold;
@@ -111,31 +110,31 @@ public class JViewInstance extends JElement implements ViewInstance<JPanel, JCom
             dataUnits.put(label.getId(), label);
             return label.getComponent();
         } else if (mold.getType().equalsIgnoreCase(MultiComboBox.class.getSimpleName())) {
-            MultiComboBox multiComboBox = new MultiComboBox(mold.getId(), PresentablePair.fromMap(mold.getValues()), "jsonArray".equals(mold.getProperty("listStyle")) ? Functions.collectionToJsonArray() : Functions.collectionToString());
+            MultiComboBox multiComboBox = new MultiComboBox(mold.getId(), PresentableUnit.Pair.fromMap(mold.getValues()), "jsonArray".equals(mold.getProperty("listStyle")) ? Functions.collectionToJsonArray() : Functions.collectionToString());
             mold.getStyles().forEach(style -> properties.put(mold.getId(), multiComboBox.applyStyle(style)));
             presentableUnits.put(multiComboBox.getId(), multiComboBox);
             dataUnits.put(multiComboBox.getId(), multiComboBox);
             return multiComboBox.getComponent();
         } else if (mold.getType().equalsIgnoreCase(ComboBox.class.getSimpleName())){
-            ComboBox comboBox = new ComboBox(mold.getId(), PresentablePair.fromMap(mold.getValues()));
+            ComboBox comboBox = new ComboBox(mold.getId(), PresentableUnit.Pair.fromMap(mold.getValues()));
             mold.getStyles().forEach(style -> properties.put(mold.getId(), comboBox.applyStyle(style)));
             presentableUnits.put(comboBox.getId(), comboBox);
             dataUnits.put(comboBox.getId(), comboBox);
             return comboBox.getComponent();
         } else if (mold.getType().equalsIgnoreCase(RadioBox.class.getSimpleName())){
-            RadioBox radioBox = new RadioBox(mold.getId(), PresentablePair.fromMap(mold.getValues()));
+            RadioBox radioBox = new RadioBox(mold.getId(), PresentableUnit.Pair.fromMap(mold.getValues()));
             mold.getStyles().forEach(style -> properties.put(mold.getId(), radioBox.applyStyle(style)));
             presentableUnits.put(radioBox.getId(), radioBox);
             dataUnits.put(radioBox.getId(), radioBox);
             return radioBox.getComponent();
         } else if (mold.getType().equalsIgnoreCase(Slider.class.getSimpleName())){
-            Slider slider = new Slider(mold.getId(), PresentablePair.fromMap(mold.getValues()), "true".equals(mold.getProperty("vertical")));
+            Slider slider = new Slider(mold.getId(), PresentableUnit.Pair.fromMap(mold.getValues()), "true".equals(mold.getProperty("vertical")));
             mold.getStyles().forEach(style -> properties.put(mold.getId(), slider.applyStyle(style)));
             presentableUnits.put(slider.getId(), slider);
             dataUnits.put(slider.getId(), slider);
             return slider.getComponent();
         } else if (mold.getType().equalsIgnoreCase(Spinner.class.getSimpleName())){
-            Spinner spinner = new Spinner(mold.getId(), PresentablePair.fromMap(mold.getValues()));
+            Spinner spinner = new Spinner(mold.getId(), PresentableUnit.Pair.fromMap(mold.getValues()));
             mold.getStyles().forEach(style -> properties.put(mold.getId(), spinner.applyStyle(style)));
             presentableUnits.put(spinner.getId(), spinner);
             dataUnits.put(spinner.getId(), spinner);

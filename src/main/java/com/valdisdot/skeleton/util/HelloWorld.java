@@ -60,7 +60,7 @@ public class HelloWorld {
                 } else { //build
                     ViewInstance<JPanel, JComponent, String> viewInstance = panelOptional.get();
                     JPanel panel = viewInstance.getView();
-                    JFrame frame = new JFrame("Skeleton example");
+                    JFrame frame = new JFrame(viewInstanceProvider.getProperties().fetchAsString("example_application_name").orElse("Your app"));
                     frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
                     frame.add(panel);
                     frame.pack();

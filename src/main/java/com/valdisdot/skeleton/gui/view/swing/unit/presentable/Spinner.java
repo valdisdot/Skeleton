@@ -1,8 +1,6 @@
 package com.valdisdot.skeleton.gui.view.swing.unit.presentable;
 
-import com.valdisdot.skeleton.core.data.DataBean;
-import com.valdisdot.skeleton.core.data.DataUnit;
-import com.valdisdot.skeleton.core.view.PresentablePair;
+import com.valdisdot.skeleton.core.DataUnit;
 import com.valdisdot.skeleton.gui.view.swing.unit.JMultiPresentableUnit;
 
 import javax.swing.*;
@@ -23,9 +21,9 @@ public class Spinner extends JMultiPresentableUnit implements DataUnit<String> {
      *
      * @param id   an id, not null
      * @param view a view, nullable
-     * @see PresentablePair
+     * @see Pair
      */
-    public Spinner(String id, Collection<PresentablePair> view) {
+    public Spinner(String id, Collection<Pair> view) {
         JSpinner spinner = new JSpinner();
         spinner.setName(id);
         ((JSpinner.DefaultEditor) spinner.getEditor()).getTextField().setEditable(false);
@@ -35,21 +33,18 @@ public class Spinner extends JMultiPresentableUnit implements DataUnit<String> {
 
     /**{@inheritDoc}*/
     @Override
-    public DataBean<String> getBean() {
-        PresentablePair value = (PresentablePair) spinner.getValue();
-        return new DataBean<>(getId(), value == null ? null : value.getId());
+    public String getData() {
+        Pair value = (Pair) spinner.getValue();
+        return value == null ? "" : value.getId();
     }
 
     /**{@inheritDoc}*/
     @Override
-    public void setBean(DataBean<String> data) {
-        if (data.isPresent()) {
-            String value = data.fetchFirst();
-            for (PresentablePair pair : getCurrentView()) {
-                if (pair.getId().equals(value)) {
-                    spinner.setValue(pair);
-                    return;
-                }
+    public void setData(String data) {
+        for (Pair pair : getCurrentView()) {
+            if (pair.getId().equals(data)) {
+                spinner.setValue(pair);
+                return;
             }
         }
     }
@@ -63,7 +58,7 @@ public class Spinner extends JMultiPresentableUnit implements DataUnit<String> {
     /**{@inheritDoc}*/
     @Override
     protected void updateView() {
-        List<PresentablePair> view = getCurrentView();
+        List<Pair> view = getCurrentView();
         Collections.reverse(view);
         spinner.setModel(new SpinnerListModel(view));
         spinner.setValue(view.get(view.size() - 1));

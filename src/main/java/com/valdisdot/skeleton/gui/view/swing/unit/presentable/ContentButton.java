@@ -1,7 +1,6 @@
 package com.valdisdot.skeleton.gui.view.swing.unit.presentable;
 
-import com.valdisdot.skeleton.core.data.DataBean;
-import com.valdisdot.skeleton.core.data.DataUnit;
+import com.valdisdot.skeleton.core.DataUnit;
 import com.valdisdot.skeleton.gui.parser.mold.Style;
 import com.valdisdot.skeleton.gui.view.swing.unit.JSinglePresentableUnit;
 
@@ -90,17 +89,14 @@ public class ContentButton extends JSinglePresentableUnit implements DataUnit<St
 
     /**{@inheritDoc}*/
     @Override
-    public DataBean<String> getBean() {
-        return new DataBean<>(getId(), wasPressed ? selected : deselected);
+    public String getData() {
+        return wasPressed ? selected : deselected;
     }
 
     /**{@inheritDoc}*/
     @Override
-    public void setBean(DataBean<String> data) {
-        if (data.isPresent()) {
-            String text = data.fetchFirst();
-            if ((text.equals(selected) && !wasPressed) || (text.equals(deselected) && wasPressed)) button.doClick();
-        }
+    public void setData(String data) {
+        if ((selected.equals(data) && !wasPressed) || (deselected.equals(data) && wasPressed)) button.doClick();
         //else do nothing
     }
 

@@ -1,6 +1,6 @@
 package com.valdisdot.skeleton.gui.view.swing.unit;
 
-import com.valdisdot.skeleton.core.view.PresentableUnit;
+import com.valdisdot.skeleton.core.PresentableUnit;
 import com.valdisdot.skeleton.gui.view.swing.JElement;
 
 import javax.swing.*;
