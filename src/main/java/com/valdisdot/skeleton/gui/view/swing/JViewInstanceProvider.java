@@ -7,9 +7,7 @@ import com.valdisdot.skeleton.gui.parser.provider.MoldProvider;
 import com.valdisdot.skeleton.util.PropertiesMap;
 
 import javax.swing.*;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * The class represents the implementation for Molds of a special factory object, which can be used for retrieving view instances and common properties for the application.
@@ -17,6 +15,7 @@ import java.util.Optional;
  * @author Vladyslav Tymchenko
  */
 public class JViewInstanceProvider implements ViewInstanceProvider<JPanel, JComponent, String> {
+    private String id;
     private final Map<String, JViewInstance> compiledViews;
     private final Map<String, PanelMold> moldedViews;
     private final PropertiesMap propertiesMap;
@@ -27,6 +26,7 @@ public class JViewInstanceProvider implements ViewInstanceProvider<JPanel, JComp
      * @param provider the provider
      */
     public JViewInstanceProvider(MoldProvider provider) {
+        this.id = provider.getId();
         compiledViews = new HashMap<>();
         moldedViews = new HashMap<>();
         propertiesMap = new PropertiesMap();
@@ -38,6 +38,20 @@ public class JViewInstanceProvider implements ViewInstanceProvider<JPanel, JComp
             }
         });
         propertiesMap.putAll(provider.getProperties());
+    }
+
+    /**{@inheritDoc}*/
+    public Collection<String> getInstanceIds(){
+        Set<String> keySet = new HashSet<>();
+        keySet.addAll(compiledViews.keySet());
+        keySet.addAll(moldedViews.keySet());
+        return keySet;
+    }
+
+    /**{@inheritDoc}*/
+    @Override
+    public String getId() {
+        return id;
     }
 
     /**

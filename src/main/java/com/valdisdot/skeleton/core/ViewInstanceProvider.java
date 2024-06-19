@@ -2,6 +2,7 @@ package com.valdisdot.skeleton.core;
 
 import com.valdisdot.skeleton.util.PropertiesMap;
 
+import java.util.Collection;
 import java.util.Optional;
 
 /**
@@ -13,7 +14,7 @@ import java.util.Optional;
  * @author Vladyslav Tymchenko
  * @since 1.0
  */
-public interface ViewInstanceProvider<ContainerViewType, ComponentViewType, DataType> {
+public interface ViewInstanceProvider<ContainerViewType, ComponentViewType, DataType> extends Identifiable {
     /**
      * @param id an id of the required ViewInstance.
      * @return an Optional of ViewInstance from this provider with types {@code <ContainerViewType, ComponentViewType, DataType>}
@@ -24,4 +25,10 @@ public interface ViewInstanceProvider<ContainerViewType, ComponentViewType, Data
      * @return a properties with common values for the whole application.
      */
     PropertiesMap getProperties();
+
+    /**
+     * Allows to peek the instance IDs.
+     * @return a collection of IDs
+     */
+    Collection<String> getInstanceIds();
 }
