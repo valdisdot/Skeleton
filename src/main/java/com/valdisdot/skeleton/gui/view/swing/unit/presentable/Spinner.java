@@ -35,7 +35,7 @@ public class Spinner extends JMultiPresentableUnit implements DataUnit<String> {
     @Override
     public String getData() {
         Pair value = (Pair) spinner.getValue();
-        return value == null ? "" : value.getId();
+        return value == null ? null : value.getId();
     }
 
     /**{@inheritDoc}*/
