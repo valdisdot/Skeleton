@@ -6,6 +6,7 @@ import com.valdisdot.skeleton.core.PresentableUnit;
 import com.valdisdot.skeleton.gui.view.swing.unit.JSinglePresentableUnit;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.Collection;
 import java.util.concurrent.Callable;
 import java.util.function.Consumer;
@@ -28,6 +29,7 @@ public class ControlButton extends JSinglePresentableUnit implements ControlUnit
     public ControlButton(String id, String title) {
         this.button = title == null ? new JButton() : new JButton(title);
         this.button.setFocusPainted(false);
+        this.button.setMargin(new Insets(5, 5, 5, 5));
         this.button.setName(id);
         setComponent(this.button);
     }
