@@ -58,7 +58,7 @@ public class Slider extends JMultiPresentableUnit implements DataUnit<String> {
     /**{@inheritDoc}*/
     @Override
     public String getData() {
-        return getCurrentView().get(slider.getValue()).toString();
+        return getCurrentView().get(slider.getValue()).getId();
     }
 
     /**{@inheritDoc}*/

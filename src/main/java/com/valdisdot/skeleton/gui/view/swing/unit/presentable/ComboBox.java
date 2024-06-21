@@ -41,7 +41,7 @@ public class ComboBox extends JMultiPresentableUnit implements DataUnit<String> 
     /**{@inheritDoc}*/
     @Override
     public String getData() {
-        return comboBox.getSelectedItem() == null ? null : comboBox.getSelectedItem().toString();
+        return comboBox.getSelectedItem() == null ? null : ((Pair) comboBox.getSelectedItem()).getId();
     }
 
     /**{@inheritDoc}*/
