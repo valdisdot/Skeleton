@@ -471,6 +471,22 @@ public class FrameBuilder implements Runnable, Supplier<JFrame> {
         }
 
         /**
+         * Adds a state listener that reacts to the selection state of the menu option.
+         *
+         * @param stateConsumer the consumer to execute when the selection state changes. It receives a Boolean indicating whether the menu option is selected.
+         * @return the current SelectableMenuOption instance for method chaining.
+         * @throws BuildingException tf the stateConsumer is null.
+         */
+        public SelectableMenuOption addStateListener(Consumer<Boolean> stateConsumer) {
+            if (Objects.isNull(stateConsumer)) throw new BuildingException("State listener function is null");
+            targetItem.addActionListener(l -> {
+                stateConsumer.accept(targetItem.isSelected());
+            });
+            return this;
+        }
+
+
+        /**
          * Sets the components to be displayed based on the selection state.
          *
          * @param ifSelectedComponent   the component to display if selected.
