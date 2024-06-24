@@ -15,6 +15,8 @@ import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
 import java.util.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * The class represents the implementation of an abstraction between graphical view elements, their control and data exchange.
@@ -30,6 +32,7 @@ public class JViewInstance extends JElement implements ViewInstance<JPanel, JCom
     protected final Map<String, PresentableUnit<JComponent>> presentableUnits;
     protected final JPanel view;
     protected final Map<String, Object> properties;
+    protected ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
 
     /**
      * Instantiates a new view from a panel mold.
@@ -81,6 +84,7 @@ public class JViewInstance extends JElement implements ViewInstance<JPanel, JCom
         controlUnits.put(mold.getId(), button);
         presentableUnits.put(mold.getId(), button);
         mold.getStyles().forEach(style -> properties.put(mold.getId(), button.applyStyle(style)));
+        button.setExecutorService(executorService);
         return button.getComponent();
     }
 
