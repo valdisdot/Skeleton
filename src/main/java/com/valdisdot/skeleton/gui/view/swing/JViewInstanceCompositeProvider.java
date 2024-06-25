@@ -56,11 +56,11 @@ public class JViewInstanceCompositeProvider implements ViewInstanceProviderCompo
                 if (unfoldedComposite.containsKey(instanceId))
                     throw new IllegalArgumentException(String.format("Collision with provider ID: %s. ID is already defined in the provider with ID: %s, not just in provider with ID: %s", instanceId, unfoldedComposite.get(instanceId).getId(), provider.getId()));
                 unfoldedComposite.put(instanceId, provider);
-                for (Map.Entry<String, Object> objectEntry : provider.getProperties().entrySet()) {
-                    if (mergedPropertiesMap.containsKey(objectEntry.getKey()))
-                        throw new IllegalArgumentException(String.format("Collision with property ID: %s in the provider with ID: %s", objectEntry.getKey(), provider.getId()));
-                    mergedPropertiesMap.put(objectEntry.getKey(), objectEntry.getValue());
-                }
+            }
+            for (Map.Entry<String, Object> objectEntry : provider.getProperties().entrySet()) {
+                if (mergedPropertiesMap.containsKey(objectEntry.getKey()))
+                    throw new IllegalArgumentException(String.format("Collision with property ID: %s in the provider with ID: %s", objectEntry.getKey(), provider.getId()));
+                mergedPropertiesMap.put(objectEntry.getKey(), objectEntry.getValue());
             }
         }
         composite.put(provider.getId(), provider);
