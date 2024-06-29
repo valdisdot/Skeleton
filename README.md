@@ -54,6 +54,9 @@ For now, the Skeleton perfectly fits to make a simple graphical application with
                     - `TextField` *class*
                     - `Slider` *class*
                     - `Spinner` *class*
+            - `custom`
+              - `EditableTable` *class*
+              - `FrameBuilder` *class*
 - `util`
     - `PropertiesMap` *class*
     - `Functions` *util class*
