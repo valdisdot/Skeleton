@@ -6,7 +6,6 @@ import com.valdisdot.skeleton.gui.parser.mold.ElementMold;
 import com.valdisdot.skeleton.gui.parser.mold.PanelMold;
 import com.valdisdot.skeleton.gui.parser.mold.Style;
 import com.valdisdot.skeleton.gui.parser.provider.MoldProvider;
-import com.valdisdot.skeleton.util.PropertiesMap;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,7 +22,7 @@ import java.util.*;
  */
 public class JsonMoldProvider implements MoldProvider {
     private String id;
-    private final PropertiesMap properties;
+    private final Map<String, String> properties;
     private final Collection<PanelMold> panelMolds;
     private final Map<String, Style> styles;
 
@@ -75,7 +74,7 @@ public class JsonMoldProvider implements MoldProvider {
     protected JsonMoldProvider(JsonPlot json) {
         Objects.requireNonNull(json, "JsonPlot is null");
         this.id = json.getId();
-        properties = new PropertiesMap();
+        properties = new LinkedHashMap<>();
         properties.putAll(json.getProperties());
 
         styles = new HashMap<>();
@@ -195,7 +194,7 @@ public class JsonMoldProvider implements MoldProvider {
 
     /**{@inheritDoc}*/
     @Override
-    public PropertiesMap getProperties() {
+    public Map<String, String> getProperties() {
         return properties;
     }
 }

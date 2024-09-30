@@ -11,7 +11,7 @@ import java.util.*;
  * */
 public class JsonPlot {
     private String id;
-    private final Map<String, Object> properties = new LinkedHashMap<>();
+    private final Map<String, String> properties = new LinkedHashMap<>();
     private final List<StylePlot> styles = new LinkedList<>();
     private final List<PanelPlot> panels = new LinkedList<>();
 
@@ -54,11 +54,11 @@ public class JsonPlot {
         this.id = id;
     }
 
-    public Map<String, Object> getProperties() {
+    public Map<String, String> getProperties() {
         return properties;
     }
 
-    void setProperties(Map<String, Object> properties) {
+    void setProperties(Map<String, String> properties) {
         this.properties.putAll(properties);
     }
 

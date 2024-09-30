@@ -2,9 +2,8 @@ package com.valdisdot.skeleton.gui.parser.provider;
 
 import com.valdisdot.skeleton.core.Identifiable;
 import com.valdisdot.skeleton.gui.parser.mold.PanelMold;
-import com.valdisdot.skeleton.util.PropertiesMap;
-
 import java.util.Collection;
+import java.util.Map;
 
 /**
  * The interface provide an additional abstraction layer for parsing and deserializing PanelMolds from the outsize the application, like JSON- or XML-files.
@@ -21,5 +20,5 @@ public interface MoldProvider extends Identifiable {
     /**
      * @return the common properties for the whole application.
      */
-    PropertiesMap getProperties();
+    Map<String, String> getProperties();
 }
