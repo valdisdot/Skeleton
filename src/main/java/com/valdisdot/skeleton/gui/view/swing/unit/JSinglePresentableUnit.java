@@ -1,5 +1,7 @@
 package com.valdisdot.skeleton.gui.view.swing.unit;
 
+import com.valdisdot.skeleton.core.Pair;
+
 import javax.swing.*;
 import java.util.Collection;
 

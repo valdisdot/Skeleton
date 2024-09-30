@@ -1,6 +1,7 @@
 package com.valdisdot.skeleton.gui.view.swing.unit.presentable;
 
 import com.valdisdot.skeleton.core.DataUnit;
+import com.valdisdot.skeleton.core.Pair;
 import com.valdisdot.skeleton.gui.view.swing.unit.JMultiPresentableUnit;
 
 import javax.swing.*;
