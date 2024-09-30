@@ -23,7 +23,7 @@ import java.util.*;
 public class JsonMoldProvider implements MoldProvider {
     private String id;
     private final Map<String, String> properties;
-    private final Collection<PanelMold> panelMolds;
+    private final List<PanelMold> panelMolds;
     private final Map<String, Style> styles;
 
     /**
@@ -128,7 +128,7 @@ public class JsonMoldProvider implements MoldProvider {
         return styles;
     }
 
-    private Collection<PanelMold> parsePanelMolds(List<JsonPlot.PanelPlot> panels, Map<String, Style> styles) {
+    private List<PanelMold> parsePanelMolds(List<JsonPlot.PanelPlot> panels, Map<String, Style> styles) {
         List<PanelMold> panelMolds = new LinkedList<>();
         panels.forEach(panelPlot -> {
             //is not null

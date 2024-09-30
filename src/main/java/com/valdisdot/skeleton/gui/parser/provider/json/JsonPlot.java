@@ -15,7 +15,7 @@ public class JsonPlot {
     private final List<StylePlot> styles = new LinkedList<>();
     private final List<PanelPlot> panels = new LinkedList<>();
 
-    public static void compileJsonStarterFile(File destination) throws IOException {
+    public static void compileJsonStarterFileTo(File destination) throws IOException {
         if (destination.length() > 0)
             throw new IOException(String.format("File '%s' already exists!", destination.getName()));
         FileWriter writer = new FileWriter(destination);
@@ -37,7 +37,7 @@ public class JsonPlot {
         writer.close();
     }
 
-    public static void writeDocReference(File destination) throws IOException {
+    public static void writeDocReferenceTo(File destination) throws IOException {
         try (
                 FileOutputStream out = new FileOutputStream(destination);
                 InputStream in = JsonPlot.class.getClassLoader().getResourceAsStream("doc")
@@ -46,15 +46,15 @@ public class JsonPlot {
         }
     }
 
-    public String getId() {
+    String getId() {
         return id;
     }
 
-    public void setId(String id) {
+    void setId(String id) {
         this.id = id;
     }
 
-    public Map<String, String> getProperties() {
+    Map<String, String> getProperties() {
         return properties;
     }
 
@@ -62,7 +62,7 @@ public class JsonPlot {
         this.properties.putAll(properties);
     }
 
-    public List<StylePlot> getStyles() {
+    List<StylePlot> getStyles() {
         return styles;
     }
 
@@ -70,7 +70,7 @@ public class JsonPlot {
         this.styles.addAll(styles);
     }
 
-    public List<PanelPlot> getPanels() {
+    List<PanelPlot> getPanels() {
         return panels;
     }
 
@@ -87,36 +87,36 @@ public class JsonPlot {
                 '}';
     }
 
-    public static class StylePlot {
-        private final Map<String, String> values = new HashMap<>();
+    static class StylePlot {
         private String id;
         private String type;
+        private final Map<String, String> values = new HashMap<>();
 
         {
             values.put("fontStyle", "plain");
         }
 
-        public String getId() {
+        String getId() {
             return id;
         }
 
-        public void setId(String id) {
+        void setId(String id) {
             this.id = id;
         }
 
-        public String getType() {
+        String getType() {
             return type;
         }
 
-        public void setType(String type) {
+        void setType(String type) {
             this.type = type;
         }
 
-        public Map<String, String> getValues() {
+        Map<String, String> getValues() {
             return values;
         }
 
-        public void setValues(Map<String, String> values) {
+        void setValues(Map<String, String> values) {
             this.values.putAll(values);
         }
 
@@ -130,13 +130,13 @@ public class JsonPlot {
         }
     }
 
-    private static class Plot {
-        protected final List<String> styles = new LinkedList<>();
-        protected final Map<String, String> properties = new HashMap<>();
+    static class Plot {
         protected String id;
         protected String title;
+        protected final Map<String, String> properties = new HashMap<>();
+        protected final List<String> styles = new LinkedList<>();
 
-        public String getId() {
+        String getId() {
             return id;
         }
 
@@ -144,7 +144,7 @@ public class JsonPlot {
             this.id = id;
         }
 
-        public String getTitle() {
+        String getTitle() {
             return title;
         }
 
@@ -152,7 +152,7 @@ public class JsonPlot {
             this.title = title;
         }
 
-        public List<String> getStyles() {
+        List<String> getStyles() {
             return styles;
         }
 
@@ -160,7 +160,7 @@ public class JsonPlot {
             this.styles.addAll(styles);
         }
 
-        public Map<String, String> getProperties() {
+        Map<String, String> getProperties() {
             return properties;
         }
 
@@ -169,7 +169,7 @@ public class JsonPlot {
         }
     }
 
-    public static class ElementPlot extends Plot {
+    static class ElementPlot extends Plot {
         private String type;
         private boolean follow = false;
         private final Map<String, String> values = new LinkedHashMap<>();
@@ -184,7 +184,7 @@ public class JsonPlot {
             properties.put("preselected", "false");
         }
 
-        public String getType() {
+        String getType() {
             return type;
         }
 
@@ -192,7 +192,7 @@ public class JsonPlot {
             this.type = type;
         }
 
-        public boolean isFollow() {
+        boolean isFollow() {
             return follow;
         }
 
@@ -200,11 +200,11 @@ public class JsonPlot {
             this.follow = follow;
         }
 
-        public Map<String, String> getValues() {
+        Map<String, String> getValues() {
             return values;
         }
 
-        public void setValues(Map<String, String> values) {
+        void setValues(Map<String, String> values) {
             this.values.putAll(values);
         }
 
@@ -222,11 +222,11 @@ public class JsonPlot {
         }
     }
 
-    public static class PanelPlot extends Plot {
+    static class PanelPlot extends Plot {
         private final List<ElementPlot> elements = new LinkedList<>();
         private String scope = "singleton";
 
-        public List<ElementPlot> getElements() {
+        List<ElementPlot> getElements() {
             return elements;
         }
 
@@ -234,7 +234,7 @@ public class JsonPlot {
             this.elements.addAll(elements);
         }
 
-        public String getScope() {
+        String getScope() {
             return scope;
         }
 

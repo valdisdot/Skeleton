@@ -27,14 +27,14 @@ public class HelloWorld {
             ArrayList<String> params = new ArrayList<>(Arrays.asList(args));
             if (params.contains("--doc")) {
                 System.out.print("Writing the 'doc.txt' file. ");
-                JsonPlot.writeDocReference(new File("doc.txt"));
+                JsonPlot.writeDocReferenceTo(new File("doc.txt"));
                 System.out.println("Done!");
                 wasExecution = true;
                 params.remove("--doc");
             }
             if (params.contains("--init")) {
                 System.out.print("Writing the 'skeleton.json' file. ");
-                JsonPlot.compileJsonStarterFile(new File("skeleton.json"));
+                JsonPlot.compileJsonStarterFileTo(new File("skeleton.json"));
                 System.out.println("Done!");
                 wasExecution = true;
                 params.remove("--init");
@@ -47,7 +47,7 @@ public class HelloWorld {
                 } else {
                     System.out.println("Can't find the file.");
                     System.out.print("Writing the 'skeleton.json' file. ");
-                    JsonPlot.compileJsonStarterFile(new File("skeleton.json"));
+                    JsonPlot.compileJsonStarterFileTo(new File("skeleton.json"));
                     System.out.println("Done!");
                 }
                 System.out.print("Trying to parse the 'skeleton.json'. ");
