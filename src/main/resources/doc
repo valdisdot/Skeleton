@@ -54,6 +54,7 @@
     "panels": [
         {
             "id": "some_panel_id", ## mandatory field
+            "title": "A title", ## optional field, won't be used implicitly but is accessible with Mold.getTitle()
             "scope": "prototype", ## default: singleton (one instance per application), has the same meaning as in Spring DI, optional field
             ## optional object, a map with custom properties for this panel, which can be retrieved as a part of PropertiesMap
             "properties": {
