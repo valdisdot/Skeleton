@@ -2,6 +2,8 @@ package com.valdisdot.skeleton.gui.parser.provider;
 
 import com.valdisdot.skeleton.core.Identifiable;
 import com.valdisdot.skeleton.gui.parser.mold.PanelMold;
+import com.valdisdot.skeleton.gui.parser.mold.Style;
+
 import java.util.Collection;
 import java.util.Map;
 
@@ -21,4 +23,9 @@ public interface MoldProvider extends Identifiable {
      * @return the common properties for the whole application.
      */
     Map<String, String> getProperties();
+
+    /**
+     * @return the application's styles.
+     */
+    Map<String, Style> getStyles();
 }

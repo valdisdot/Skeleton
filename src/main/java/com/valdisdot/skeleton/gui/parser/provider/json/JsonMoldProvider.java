@@ -197,4 +197,10 @@ public class JsonMoldProvider implements MoldProvider {
     public Map<String, String> getProperties() {
         return properties;
     }
+
+    /**{@inheritDoc}*/
+    @Override
+    public Map<String, Style> getStyles() {
+        return styles;
+    }
 }
