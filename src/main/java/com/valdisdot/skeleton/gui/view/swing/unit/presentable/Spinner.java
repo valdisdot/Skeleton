@@ -52,7 +52,7 @@ public class Spinner extends JMultiPresentableUnit implements DataUnit<String> {
 
     /**{@inheritDoc}*/
     @Override
-    public void reset() {
+    public void resetData() {
         if (!getCurrentView().isEmpty()) spinner.setValue(getCurrentView().get(0));
     }
 

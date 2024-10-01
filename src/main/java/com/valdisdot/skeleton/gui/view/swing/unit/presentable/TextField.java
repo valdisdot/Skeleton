@@ -53,7 +53,7 @@ public class TextField extends JSinglePresentableUnit implements DataUnit<String
 
     /**{@inheritDoc}*/
     @Override
-    public void reset() {
+    public void resetData() {
         textField.setText(defaultText);
     }
 

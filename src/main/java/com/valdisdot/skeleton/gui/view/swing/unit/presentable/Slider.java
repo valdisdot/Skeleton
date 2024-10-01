@@ -76,7 +76,7 @@ public class Slider extends JMultiPresentableUnit implements DataUnit<String> {
 
     /**{@inheritDoc}*/
     @Override
-    public void reset() {
+    public void resetData() {
         slider.setValue(0);
     }
 

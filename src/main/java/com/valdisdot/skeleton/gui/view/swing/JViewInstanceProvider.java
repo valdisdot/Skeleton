@@ -4,7 +4,7 @@ import com.valdisdot.skeleton.core.ViewInstance;
 import com.valdisdot.skeleton.core.ViewInstanceProvider;
 import com.valdisdot.skeleton.gui.parser.mold.PanelMold;
 import com.valdisdot.skeleton.gui.parser.provider.MoldProvider;
-import com.valdisdot.skeleton.util.PropertiesMap;
+import com.valdisdot.skeleton.core.PropertiesMap;
 
 import javax.swing.*;
 import java.util.*;

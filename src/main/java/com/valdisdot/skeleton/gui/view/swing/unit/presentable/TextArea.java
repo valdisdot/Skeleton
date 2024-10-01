@@ -76,7 +76,7 @@ public class TextArea extends JSinglePresentableUnit implements DataUnit<String>
 
     /**{@inheritDoc}*/
     @Override
-    public void reset() {
+    public void resetData() {
         textArea.setText(defaultText);
     }
 

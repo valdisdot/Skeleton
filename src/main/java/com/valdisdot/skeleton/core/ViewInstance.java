@@ -1,7 +1,5 @@
 package com.valdisdot.skeleton.core;
 
-import com.valdisdot.skeleton.util.PropertiesMap;
-
 import java.util.Map;
 import java.util.Optional;
 

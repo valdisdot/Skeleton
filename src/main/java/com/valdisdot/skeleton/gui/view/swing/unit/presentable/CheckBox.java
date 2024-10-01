@@ -82,7 +82,7 @@ public class CheckBox extends JSinglePresentableUnit implements DataUnit<String>
 
     /**{@inheritDoc}*/
     @Override
-    public void reset() {
+    public void resetData() {
         checkBox.setSelected(preselected);
     }
 

@@ -102,7 +102,7 @@ public class ContentButton extends JSinglePresentableUnit implements DataUnit<St
 
     /**{@inheritDoc}*/
     @Override
-    public void reset() {
+    public void resetData() {
         if (wasPressed) button.doClick();
     }
 

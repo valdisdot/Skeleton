@@ -3,7 +3,7 @@ package com.valdisdot.skeleton.gui.view.swing;
 import com.valdisdot.skeleton.core.ViewInstance;
 import com.valdisdot.skeleton.core.ViewInstanceProvider;
 import com.valdisdot.skeleton.core.ViewInstanceProviderComposite;
-import com.valdisdot.skeleton.util.PropertiesMap;
+import com.valdisdot.skeleton.core.PropertiesMap;
 
 import javax.swing.*;
 import java.util.*;

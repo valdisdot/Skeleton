@@ -7,7 +7,7 @@ import com.valdisdot.skeleton.gui.parser.mold.PanelMold;
 import com.valdisdot.skeleton.gui.view.swing.unit.control.ControlButton;
 import com.valdisdot.skeleton.gui.view.swing.unit.presentable.*;
 import com.valdisdot.skeleton.util.Functions;
-import com.valdisdot.skeleton.util.PropertiesMap;
+import com.valdisdot.skeleton.core.PropertiesMap;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;

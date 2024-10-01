@@ -59,7 +59,7 @@ public class ComboBox extends JMultiPresentableUnit implements DataUnit<String> 
 
     /**{@inheritDoc}*/
     @Override
-    public void reset() {
+    public void resetData() {
         comboBox.setSelectedIndex(0);
     }
 

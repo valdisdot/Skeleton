@@ -106,7 +106,7 @@ public class MultiComboBox extends JMultiPresentableUnit implements DataUnit<Str
 
     /**{@inheritDoc}*/
     @Override
-    public void reset() {
+    public void resetData() {
         list.clearSelection();
     }
 

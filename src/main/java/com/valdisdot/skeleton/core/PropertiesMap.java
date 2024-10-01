@@ -1,4 +1,4 @@
-package com.valdisdot.skeleton.util;
+package com.valdisdot.skeleton.core;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

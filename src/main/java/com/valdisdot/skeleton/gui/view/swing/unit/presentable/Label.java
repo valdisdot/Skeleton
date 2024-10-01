@@ -50,7 +50,7 @@ public class Label extends JSinglePresentableUnit implements DataUnit<String> {
 
     /**{@inheritDoc}*/
     @Override
-    public void reset() {
+    public void resetData() {
         label.setText(title);
     }
 

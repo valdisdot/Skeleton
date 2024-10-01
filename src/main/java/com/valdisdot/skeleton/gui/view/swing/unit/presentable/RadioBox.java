@@ -81,7 +81,7 @@ public class RadioBox extends JMultiPresentableUnit implements DataUnit<String> 
 
     /**{@inheritDoc}*/
     @Override
-    public void reset() {
+    public void resetData() {
         buttonGroup.clearSelection();
     }
 
