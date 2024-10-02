@@ -127,6 +127,20 @@ public class FrameBuilder implements Runnable, Supplier<JFrame> {
     }
 
     /**
+     * Allows peeking into the JFrame itself and applying a specified function.
+     *
+     * @param function the function to apply to the JFrame.
+     * @return the current Frame instance for method chaining.
+     * @throws BuildingException if the function is null.
+     */
+    public FrameBuilder peekFrame(Consumer<JFrame> function) {
+        if (Objects.isNull(function)) throw new BuildingException("Menu bar peek function is null");
+        if (Objects.isNull(targetFrame.getJMenuBar())) targetFrame.setJMenuBar(new JMenuBar());
+        function.accept(this.targetFrame);
+        return this;
+    }
+
+    /**
      * Allows peeking into the JMenuBar of the frame and applying a specified function.
      *
      * @param function the function to apply to the JMenuBar.
