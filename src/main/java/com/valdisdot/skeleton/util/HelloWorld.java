@@ -54,7 +54,7 @@ public class HelloWorld {
                 //library usage example
                 MoldProvider moldProvider = new JsonMoldProvider(skeleton);
                 ViewInstanceProvider<JPanel, JComponent, String> viewInstanceProvider = new JViewInstanceProvider(moldProvider);
-                Optional<ViewInstance<JPanel, JComponent, String>> panelOptional = viewInstanceProvider.getInstance("some_panel_id");
+                Optional<ViewInstance<JPanel, JComponent, String>> panelOptional = viewInstanceProvider.getInstanceById("some_panel_id");
                 if (panelOptional.isEmpty()) {
                     System.out.println("Looks like you modified 'skeleton.json', can't parse it into the example.");
                 } else { //build
