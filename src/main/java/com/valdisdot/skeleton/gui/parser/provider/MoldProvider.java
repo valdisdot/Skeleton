@@ -4,7 +4,7 @@ import com.valdisdot.skeleton.core.Identifiable;
 import com.valdisdot.skeleton.gui.parser.mold.PanelMold;
 import com.valdisdot.skeleton.gui.parser.mold.Style;
 
-import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -17,7 +17,7 @@ public interface MoldProvider extends Identifiable {
      * @return a collection of panel molds
      * @see PanelMold
      */
-    Collection<PanelMold> getPanelMolds();
+    List<PanelMold> getPanelMolds();
 
     /**
      * @return the common properties for the whole application.

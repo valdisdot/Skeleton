@@ -188,7 +188,7 @@ public class JsonMoldProvider implements MoldProvider {
 
     /**{@inheritDoc}*/
     @Override
-    public Collection<PanelMold> getPanelMolds() {
+    public List<PanelMold> getPanelMolds() {
         return panelMolds;
     }
 
