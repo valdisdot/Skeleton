@@ -8,7 +8,7 @@ import java.util.*;
  * @author Vladyslav Tymchenko
  */
 public class PanelMold extends Mold {
-    private List<ElementMold> elements;
+    private LinkedList<ElementMold> elements;
     private Scope scope;
 
     /**
@@ -48,6 +48,47 @@ public class PanelMold extends Mold {
      */
     public void addElements(Collection<ElementMold> elementMolds) {
         elements.addAll(elementMolds);
+    }
+
+    public void insertElement(ElementMold elementMold, int atIndex) {
+        try{
+            elements.add(atIndex, elementMold);
+        } catch (IndexOutOfBoundsException e) {
+            elements.add(elementMold);
+        }
+    }
+
+    public void insertElement(ElementMold elementMold, String afterElementMoldId) {
+        insertElement(elementMold, findIndex(afterElementMoldId, true, 1));
+    }
+
+    public void insertElements(Collection<ElementMold> elementMolds, int atIndex) {
+        try {
+            elements.addAll(atIndex, elementMolds);
+        }  catch (IndexOutOfBoundsException e) {
+            elements.addAll(elementMolds);
+        }
+    }
+
+    public void insertElements(Collection<ElementMold> elementMolds, String afterElementMoldId) {
+        insertElements(elementMolds, findIndex(afterElementMoldId, true, 1));
+    }
+
+    public void replaceElement(ElementMold newElement, int atIndex) {
+        if(atIndex >= 0 && atIndex < elements.size()) elements.set(atIndex, newElement);
+        else elements.add(newElement);
+    }
+
+    public void replaceElement(ElementMold newElement, String targetElementMoldId) {
+        replaceElement(newElement, findIndex(targetElementMoldId, false, 0));
+    }
+
+    public void removeElement(int atIndex) {
+        if(atIndex >= 0 && atIndex < elements.size()) elements.remove(atIndex);
+    }
+
+    public void removeElement(String targetElementMoldId) {
+        removeElement(findIndex(targetElementMoldId, false, 0));
     }
 
     /**
@@ -92,6 +133,16 @@ public class PanelMold extends Mold {
      */
     public Scope getScope() {
         return scope;
+    }
+
+    private int findIndex(String elementMoldId, boolean excludeLast, int shift) {
+        Iterator<ElementMold> iterator = elements.iterator();
+        for(int i = 0; i < (elements.size() - (excludeLast ? 1 : 0)); ++i){
+            if(elementMoldId.equals(iterator.next().getId())) {
+                return i + shift;
+            }
+        }
+        return -1;
     }
 
     @Override
