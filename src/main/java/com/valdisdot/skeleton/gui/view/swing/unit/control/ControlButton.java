@@ -1,5 +1,6 @@
 package com.valdisdot.skeleton.gui.view.swing.unit.control;
 
+import com.valdisdot.skeleton.core.ActionRegistration;
 import com.valdisdot.skeleton.core.ControlUnit;
 import com.valdisdot.skeleton.core.DataUnit;
 import com.valdisdot.skeleton.core.PresentableUnit;
@@ -7,17 +8,18 @@ import com.valdisdot.skeleton.gui.view.swing.unit.JSinglePresentableUnit;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.util.Collection;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Future;
 import java.util.function.Consumer;
 
 /**
  * The implementation of ControlUnit for clickable button.
+ *
+ * @author Vladyslav Tymchenko
  * @apiNote Pay attention that each user action will produce a new Thread if no ExecutorService was provided.
  * @since 1.0
- * @author Vladyslav Tymchenko
  */
 public class ControlButton extends JSinglePresentableUnit implements ControlUnit<JComponent> {
     private final JButton button;
@@ -46,91 +48,75 @@ public class ControlButton extends JSinglePresentableUnit implements ControlUnit
         this(id, null);
     }
 
-    public void setExecutorService(ExecutorService executorService){
+    public void setExecutorService(ExecutorService executorService) {
         this.executorService = executorService;
     }
 
-    /**{@inheritDoc}*/
-    @Override
-    public <Data> void addDataActionFor(DataUnit<Data> element, Consumer<DataUnit<Data>> withMethod) {
-        button.addActionListener(
-                executorService == null ?
-                l -> new Thread(() -> withMethod.accept(element)).start() :
-                l -> executorService.execute(() -> withMethod.accept(element))
-                );
+    private ActionRegistration bindAction(Runnable runnable) {
+        ActionListener l = executorService == null ? e -> new Thread(runnable).start() : e -> executorService.execute(runnable);
+        button.addActionListener(l);
+        return () -> button.removeActionListener(l);
     }
 
-    /**{@inheritDoc}*/
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public <Data> void addDataActionFor(Collection<DataUnit<Data>> elements, Consumer<DataUnit<Data>> withMethod) {
-        button.addActionListener(
-                executorService == null ?
-                l -> new Thread(() -> elements.forEach(withMethod)).start() :
-                l -> executorService.execute(() -> elements.forEach(withMethod))
-        );
+    public <Data> ActionRegistration addDataActionFor(DataUnit<Data> element, Consumer<DataUnit<Data>> withMethod) {
+        return bindAction(() -> withMethod.accept(element));
     }
 
-    /**{@inheritDoc}*/
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void addAction(Runnable action) {
-        button.addActionListener(
-                executorService == null ?
-                l -> new Thread(action).start() :
-                l -> executorService.execute(action));
+    public <Data> ActionRegistration addDataActionFor(Collection<DataUnit<Data>> elements, Consumer<DataUnit<Data>> withMethod) {
+        return bindAction(() -> elements.forEach(withMethod));
     }
 
-    /**{@inheritDoc}*/
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public <Data> void addAction(Callable<Data> callable, Consumer<Data> resultConsumer, Consumer<Exception> exceptionConsumer) {
-        button.addActionListener(
-                    executorService == null ?
-                    l -> new Thread(() -> {
-                        try {
-                            resultConsumer.accept(callable.call());
-                        } catch (Exception e) {
-                            exceptionConsumer.accept(e);
-                        }
-                    }).start() :
-                    l -> {
-                        try {
-                            Future<Data> resultFuture = executorService.submit(callable);
-                            executorService.execute(() -> {
-                                try {
-                                    resultConsumer.accept(resultFuture.get());
-                                } catch (Exception e) {
-                                    exceptionConsumer.accept(e);
-                                }
-                            });
-                        } catch (Exception e) {
-                            exceptionConsumer.accept(e);
-                        }
-                    }
-                );
+    public ActionRegistration addAction(Runnable action) {
+        return bindAction(action);
     }
 
-    /**{@inheritDoc}*/
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public <AView> void addViewActionFor(PresentableUnit<AView> element, Consumer<PresentableUnit<AView>> withMethod) {
-        button.addActionListener(
-                executorService == null ?
-                l -> new Thread(() -> withMethod.accept(element)).start() :
-                l -> executorService.execute(() -> withMethod.accept(element))
-        );
+    public <Data> ActionRegistration addAction(Callable<Data> callable, Consumer<Data> resultConsumer, Consumer<Exception> exceptionConsumer) {
+        return bindAction(() -> {
+            try {
+                resultConsumer.accept(callable.call());
+            } catch (Exception e) {
+                exceptionConsumer.accept(e);
+            }
+        });
     }
 
-    /**{@inheritDoc}*/
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public <AView> void addViewActionFor(Collection<PresentableUnit<AView>> elements, Consumer<PresentableUnit<AView>> withMethod) {
-        button.addActionListener(
-                executorService == null ?
-                l -> new Thread(() -> elements.forEach(withMethod)).start() :
-                l -> executorService.execute(() -> elements.forEach(withMethod))
-                );
+    public <AView> ActionRegistration addViewActionFor(PresentableUnit<AView> element, Consumer<PresentableUnit<AView>> withMethod) {
+        return bindAction(() -> withMethod.accept(element));
     }
 
-    /**{@inheritDoc}*/
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public <AView> ActionRegistration addViewActionFor(Collection<PresentableUnit<AView>> elements, Consumer<PresentableUnit<AView>> withMethod) {
+        return bindAction(() -> elements.forEach(withMethod));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setPresentation(String presentation) {
-        if(presentation != null) button.setText(presentation);
+        if (presentation != null) button.setText(presentation);
     }
 }
