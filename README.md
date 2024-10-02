@@ -2,7 +2,7 @@
 
 The library contains classes and methods which makes the development of a simple GUI application much easy, in a functional programming way.
 
-It provides the separation between the business logic (by `DataBean` and `DataUnit`), control the application via GUI (by `ControlUnit`) and the application view (by `PresentableUnit`) by the `ViewInstance` interface. Clone the repository and see the ***javadoc*** to learn more.
+It provides the separation between the business logic (`DataUnit`), control the application via GUI (by `ControlUnit`) and the application view (by `PresentableUnit`) by the `ViewInstance` interface. Clone the repository and see the ***javadoc*** to learn more.
 
 Current implementation contains logic for parsing `javax.swing` classes as a GUI from a *json-source* like file, `InputStream` or a string.
 
@@ -11,14 +11,16 @@ For now, the Skeleton perfectly fits to make a simple graphical application with
 ### Library structure
 
 - `core`
-  - `Identifiable` *interface*
+
+  - `Identifiable` base *interface*
+  - `ActionRegistration` subscriber *interface*
   - `ControlUnit` *interface*
   - `DataUnit` *interface*
   - `PresentableUnit` *interface*
-      - `PresentableUnit.Pair` *class*
+  - `Pair` container *class*
   - `ViewInstance` *interface*
   - `ViewInstanceProvider` *interface*
-  - `ViewInstanceProviderComposite` *interface*
+  - `PropertiesMap` container *class*
 - `gui`
     - `parser`
         - `mold`
@@ -36,7 +38,6 @@ For now, the Skeleton perfectly fits to make a simple graphical application with
             - `JElement` *abstract class*
             - `JViewInstance` *class*
             - `JViewInstanceProvider` *class*
-            - `JViewInstanceCompositeProvider` *class*
             - `unit`
                 - `JPresentableUnit` *abstract class*
                 - `JSinglePresentableUnit` *abstract class*
@@ -58,7 +59,6 @@ For now, the Skeleton perfectly fits to make a simple graphical application with
               - `EditableTable` *class*
               - `FrameBuilder` *class*
 - `util`
-    - `PropertiesMap` *class*
     - `Functions` *util class*
     - `HelloWorld` *init class*
 

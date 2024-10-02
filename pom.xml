@@ -6,7 +6,7 @@
 
     <groupId>com.valdisdot</groupId>
     <artifactId>skeleton</artifactId>
-    <version>1.0</version>
+    <version>1.1</version>
     <name>${project.groupId}:${project.artifactId}</name>
     <description>Skeleton GUI</description>
     <packaging>jar</packaging>
