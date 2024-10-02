@@ -1,32 +1,54 @@
 package com.valdisdot.skeleton.core;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 /**
- * The interface represents a special factory object, which can be used for retrieving view instances and common properties for the application.
+ * The {@code ViewInstanceProvider} interface represents a specialized factory object that is responsible
+ * for retrieving view instances and providing common properties for the entire application.
+ * <p>
+ * It handles the management and lookup of {@link ViewInstance} objects, and allows accessing shared
+ * properties of the application through a {@link PropertiesMap}.
+ * </p>
  *
- * @param <ContainerViewType> the view type of the container.
- * @param <ComponentViewType> the view type of internal view components.
- * @param <DataType>          type of data exchange between view components and business logic.
+ * @param <ContainerViewType> the type representing the container view of the view instance.
+ * @param <ComponentViewType> the type representing the internal view components of the view instance.
+ * @param <DataType>          the type of data exchanged between view components and the business logic.
+ *
  * @author Vladyslav Tymchenko
  * @since 1.0
  */
 public interface ViewInstanceProvider<ContainerViewType, ComponentViewType, DataType> extends Identifiable {
-    /**
-     * @param id an id of the required ViewInstance.
-     * @return an Optional of ViewInstance from this provider with types {@code <ContainerViewType, ComponentViewType, DataType>}
-     */
-    Optional<ViewInstance<ContainerViewType, ComponentViewType, DataType>> getInstance(String id);
 
     /**
-     * @return a properties with common values for the whole application.
+     * Retrieves a {@link ViewInstance} by its unique ID.
+     *
+     * @param id the ID of the required {@link ViewInstance}.
+     * @return an {@link Optional} containing the {@link ViewInstance} with types
+     *         {@code <ContainerViewType, ComponentViewType, DataType>} if found, or an empty Optional if not.
+     */
+    Optional<ViewInstance<ContainerViewType, ComponentViewType, DataType>> getInstanceById(String id);
+
+    /**
+     * Retrieves a list of {@link ViewInstance} objects that have IDs containing the specified token.
+     *
+     * @param idToken a partial string token to search for matching instance IDs.
+     * @return a list of {@link ViewInstance} objects whose IDs contain the given token.
+     */
+    List<ViewInstance<ContainerViewType, ComponentViewType, DataType>> getInstancesByIdsLike(String idToken);
+
+    /**
+     * Provides a {@link PropertiesMap} containing common values that are shared across the application.
+     *
+     * @return a {@link PropertiesMap} with application-wide properties.
      */
     PropertiesMap getProperties();
 
     /**
-     * Allows to peek the instance IDs.
-     * @return a collection of IDs
+     * Retrieves the collection of all available instance IDs.
+     *
+     * @return a collection of instance IDs available in this provider.
      */
     Collection<String> getInstanceIds();
 }
