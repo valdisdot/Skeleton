@@ -216,7 +216,16 @@ public class PanelMold extends Mold {
      * @return the cloned panel mold
      */
     public PanelMold clone() {
-        PanelMold panelMold = new PanelMold(this.id, this.scope);
+        return clone(this.id);
+    }
+
+    /**
+     * Clones this panel mold, creating a new {@code PanelMold} with a specified ID, but different scope, and elements.
+     *
+     * @return the cloned panel mold
+     */
+    public PanelMold clone(String id) {
+        PanelMold panelMold = new PanelMold(id, this.scope);
         panelMold.title = this.title;
         panelMold.properties.putAll(this.properties);
         panelMold.styles.addAll(this.styles);
