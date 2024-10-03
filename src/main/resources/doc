@@ -95,6 +95,22 @@
                         "your_font_id"
                     ]
                 },
+                {
+                    "id": "badge",
+                    "type": "badge",
+                    "follow": false,
+                    "title": "The badge",
+                    "properties": {
+                        "verticalPadding": 5,
+                        "horizontalPadding": 20
+                    },
+                    "styles": [
+                        "your_background_id",
+                        "your_foreground_id",
+                        "your_size_id",
+                        "your_font_id"
+                    ]
+                },
                 ## content button
                 {
                     "id": "an_id_2", ## mandatory field
