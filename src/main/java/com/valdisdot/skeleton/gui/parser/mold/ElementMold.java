@@ -1,8 +1,6 @@
 package com.valdisdot.skeleton.gui.parser.mold;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 /**{@inheritDoc}
  * @since 1.0
@@ -110,6 +108,30 @@ public class ElementMold extends Mold {
      */
     public void setValues(Map<String, String> values) {
         if (Objects.nonNull(values)) this.values.putAll(values);
+    }
+
+    /**
+     * Clones this element mold, creating a new {@code ElementMold} with a specified ID, but different properties.
+     *
+     * @return the cloned element mold
+     */
+    public ElementMold clone(String id) {
+        ElementMold elementMold = new ElementMold(id, this.type, this.values);
+        elementMold.doesFollow = this.doesFollow;
+        elementMold.isControl = this.isControl;
+        elementMold.title = this.title;
+        elementMold.properties = new LinkedHashMap<>(this.properties);
+        elementMold.styles = new ArrayList<>(styles);
+        return elementMold;
+    }
+
+    /**
+     * Clones this element mold, creating a new {@code ElementMold} with the same ID and properties..
+     *
+     * @return the cloned element mold
+     */
+    public ElementMold clone(){
+        return clone(this.id);
     }
 
     @Override
