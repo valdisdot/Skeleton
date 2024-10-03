@@ -154,6 +154,16 @@ public class PanelMold extends Mold {
     }
 
     /**
+     * Returns the Optional of the element with the specified ID..
+     *
+     * @param elementMoldId the ID of the element mold to be found
+     */
+    public Optional<ElementMold> getElementById(String elementMoldId) {
+        int index = findIndex(elementMoldId, false, 0);
+        return index >= 0 ? Optional.ofNullable(elements.get(index)) : Optional.empty();
+    }
+
+    /**
      * Returns a list of all element molds in this panel mold.
      *
      * @return an unmodifiable list of element molds
@@ -207,6 +217,9 @@ public class PanelMold extends Mold {
      */
     public PanelMold clone() {
         PanelMold panelMold = new PanelMold(this.id, this.scope);
+        panelMold.title = this.title;
+        panelMold.properties.putAll(this.properties);
+        panelMold.styles.addAll(this.styles);
         panelMold.elements.addAll(this.elements);
         return panelMold;
     }
