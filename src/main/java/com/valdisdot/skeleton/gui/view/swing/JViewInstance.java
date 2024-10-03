@@ -41,7 +41,7 @@ public class JViewInstance extends JElement implements ViewInstance<JPanel, JCom
         controlUnits = new HashMap<>();
         dataUnits = new HashMap<>();
         presentableUnits = new HashMap<>();
-        properties = new HashMap<>();
+        properties = new HashMap<>(mold.getProperties());
         JPanel view = new JPanel(new MigLayout("wrap"));
         view.setName(mold.getId());
         this.view = setComponent(view);
@@ -80,7 +80,7 @@ public class JViewInstance extends JElement implements ViewInstance<JPanel, JCom
         ControlButton button = new ControlButton(mold.getId(), mold.getTitle());
         controlUnits.put(mold.getId(), button);
         presentableUnits.put(mold.getId(), button);
-        mold.getStyles().forEach(style -> properties.put(mold.getId(), button.applyStyle(style)));
+        mold.getStyles().forEach(style -> properties.put(style.getId(), button.applyStyle(style)));
         button.setExecutorService(executorService);
         return button.getComponent();
     }
@@ -94,61 +94,73 @@ public class JViewInstance extends JElement implements ViewInstance<JPanel, JCom
     protected JComponent parseJElement(ElementMold mold) {
         if(mold.getType().equalsIgnoreCase(CheckBox.class.getSimpleName())) {
             CheckBox checkBox = new CheckBox(mold.getId(), mold.getTitle(), "true".equals(mold.getProperty("preselected")), mold.getProperty("selected"), mold.getProperty("deselected"));
-            mold.getStyles().forEach(style -> properties.put(mold.getId(), checkBox.applyStyle(style)));
+            mold.getStyles().forEach(style -> properties.put(style.getId(), checkBox.applyStyle(style)));
             presentableUnits.put(checkBox.getId(), checkBox);
             dataUnits.put(checkBox.getId(), checkBox);
             return checkBox.getComponent();
         } else if (mold.getType().equalsIgnoreCase(ContentButton.class.getSimpleName())){
             ContentButton contentButton = new ContentButton(mold.getId(), mold.getTitle(), "true".equals(mold.getProperty("preselected")), mold.getProperty("selected"), mold.getProperty("deselected"));
-            mold.getStyles().forEach(style -> properties.put(mold.getId(), contentButton.applyStyle(style)));
+            mold.getStyles().forEach(style -> properties.put(style.getId(), contentButton.applyStyle(style)));
             presentableUnits.put(contentButton.getId(), contentButton);
             dataUnits.put(contentButton.getId(), contentButton);
             return contentButton.getComponent();
         } else if (mold.getType().equalsIgnoreCase(Label.class.getSimpleName())){
             Label label = new Label(mold.getId(), mold.getTitle());
-            mold.getStyles().forEach(style -> properties.put(mold.getId(), label.applyStyle(style)));
+            mold.getStyles().forEach(style -> properties.put(style.getId(), label.applyStyle(style)));
             presentableUnits.put(label.getId(), label);
             dataUnits.put(label.getId(), label);
             return label.getComponent();
+        } else if (mold.getType().equalsIgnoreCase(Badge.class.getSimpleName())){
+            int hPadding = 5;
+            int vPadding = 5;
+            try {
+                vPadding = Integer.parseInt(mold.getProperty("verticalPadding"));
+                hPadding = Integer.parseInt(mold.getProperty("horizontalPadding"));
+            } catch (Exception e){}
+            Badge badge = new Badge(mold.getId(), mold.getTitle(), vPadding, hPadding);
+            mold.getStyles().forEach(style -> properties.put(style.getId(), badge.applyStyle(style)));
+            presentableUnits.put(badge.getId(), badge);
+            dataUnits.put(badge.getId(), badge);
+            return badge.getComponent();
         } else if (mold.getType().equalsIgnoreCase(MultiComboBox.class.getSimpleName())) {
             MultiComboBox multiComboBox = new MultiComboBox(mold.getId(), Pair.fromMap(mold.getValues()), "jsonArray".equals(mold.getProperty("listStyle")) ? Functions.collectionToJsonArray() : Functions.collectionToString());
-            mold.getStyles().forEach(style -> properties.put(mold.getId(), multiComboBox.applyStyle(style)));
+            mold.getStyles().forEach(style -> properties.put(style.getId(), multiComboBox.applyStyle(style)));
             presentableUnits.put(multiComboBox.getId(), multiComboBox);
             dataUnits.put(multiComboBox.getId(), multiComboBox);
             return multiComboBox.getComponent();
         } else if (mold.getType().equalsIgnoreCase(ComboBox.class.getSimpleName())){
             ComboBox comboBox = new ComboBox(mold.getId(), Pair.fromMap(mold.getValues()));
-            mold.getStyles().forEach(style -> properties.put(mold.getId(), comboBox.applyStyle(style)));
+            mold.getStyles().forEach(style -> properties.put(style.getId(), comboBox.applyStyle(style)));
             presentableUnits.put(comboBox.getId(), comboBox);
             dataUnits.put(comboBox.getId(), comboBox);
             return comboBox.getComponent();
         } else if (mold.getType().equalsIgnoreCase(RadioBox.class.getSimpleName())){
             RadioBox radioBox = new RadioBox(mold.getId(), Pair.fromMap(mold.getValues()));
-            mold.getStyles().forEach(style -> properties.put(mold.getId(), radioBox.applyStyle(style)));
+            mold.getStyles().forEach(style -> properties.put(style.getId(), radioBox.applyStyle(style)));
             presentableUnits.put(radioBox.getId(), radioBox);
             dataUnits.put(radioBox.getId(), radioBox);
             return radioBox.getComponent();
         } else if (mold.getType().equalsIgnoreCase(Slider.class.getSimpleName())){
             Slider slider = new Slider(mold.getId(), Pair.fromMap(mold.getValues()), "true".equals(mold.getProperty("vertical")));
-            mold.getStyles().forEach(style -> properties.put(mold.getId(), slider.applyStyle(style)));
+            mold.getStyles().forEach(style -> properties.put(style.getId(), slider.applyStyle(style)));
             presentableUnits.put(slider.getId(), slider);
             dataUnits.put(slider.getId(), slider);
             return slider.getComponent();
         } else if (mold.getType().equalsIgnoreCase(Spinner.class.getSimpleName())){
             Spinner spinner = new Spinner(mold.getId(), Pair.fromMap(mold.getValues()));
-            mold.getStyles().forEach(style -> properties.put(mold.getId(), spinner.applyStyle(style)));
+            mold.getStyles().forEach(style -> properties.put(style.getId(), spinner.applyStyle(style)));
             presentableUnits.put(spinner.getId(), spinner);
             dataUnits.put(spinner.getId(), spinner);
             return spinner.getComponent();
         } else if (mold.getType().equalsIgnoreCase(TextArea.class.getSimpleName())){
             TextArea textArea = new TextArea(mold.getId(), mold.getProperty("defaultValue"));
-            mold.getStyles().forEach(style -> properties.put(mold.getId(), textArea.applyStyle(style)));
+            mold.getStyles().forEach(style -> properties.put(style.getId(), textArea.applyStyle(style)));
             presentableUnits.put(textArea.getId(), textArea);
             dataUnits.put(textArea.getId(), textArea);
             return textArea.getComponent();
         } else if (mold.getType().equalsIgnoreCase(TextField.class.getSimpleName())) {
             TextField textField = new TextField(mold.getId(), mold.getProperty("defaultValue"));
-            mold.getStyles().forEach(style -> properties.put(mold.getId(), textField.applyStyle(style)));
+            mold.getStyles().forEach(style -> properties.put(style.getId(), textField.applyStyle(style)));
             presentableUnits.put(textField.getId(), textField);
             dataUnits.put(textField.getId(), textField);
             return textField.getComponent();
