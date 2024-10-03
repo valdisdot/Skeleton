@@ -6,6 +6,7 @@ import com.valdisdot.skeleton.gui.parser.mold.Style;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * The interface provide an additional abstraction layer for parsing and deserializing PanelMolds from the outsize the application, like JSON- or XML-files.
@@ -18,6 +19,12 @@ public interface MoldProvider extends Identifiable {
      * @see PanelMold
      */
     List<PanelMold> getPanelMolds();
+
+    /**
+     * @return an Optional of the panel mold by its ID
+     * @see PanelMold
+     */
+    Optional<PanelMold> getPanelMoldById(String panelMoldId);
 
     /**
      * @return the common properties for the whole application.

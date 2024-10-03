@@ -194,6 +194,13 @@ public class JsonMoldProvider implements MoldProvider {
 
     /**{@inheritDoc}*/
     @Override
+    public Optional<PanelMold> getPanelMoldById(String panelMoldId) {
+        for(PanelMold m : panelMolds) if(m != null && panelMoldId.equals(m.getId())) return Optional.of(m);
+        return Optional.empty();
+    }
+
+    /**{@inheritDoc}*/
+    @Override
     public Map<String, String> getProperties() {
         return properties;
     }
