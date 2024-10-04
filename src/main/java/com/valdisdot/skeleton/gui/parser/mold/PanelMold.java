@@ -139,18 +139,21 @@ public class PanelMold extends Mold {
      * Removes the element at the specified index.
      *
      * @param atIndex the index of the element to remove
+     * @return removed ElementMold
      */
-    public void removeElement(int atIndex) {
-        if (atIndex >= 0 && atIndex < elements.size()) elements.remove(atIndex);
+    public Optional<ElementMold> removeElement(int atIndex) {
+        if (atIndex >= 0 && atIndex < elements.size()) return Optional.ofNullable(elements.remove(atIndex));
+        return Optional.empty();
     }
 
     /**
      * Removes the element with the specified ID.
      *
      * @param targetElementMoldId the ID of the element mold to remove
+     * @return removed ElementMold
      */
-    public void removeElement(String targetElementMoldId) {
-        removeElement(findIndex(targetElementMoldId, false, 0));
+    public Optional<ElementMold> removeElement(String targetElementMoldId) {
+        return removeElement(findIndex(targetElementMoldId, false, 0));
     }
 
     /**
@@ -229,7 +232,7 @@ public class PanelMold extends Mold {
         panelMold.title = this.title;
         panelMold.properties.putAll(this.properties);
         panelMold.styles.addAll(this.styles);
-        panelMold.elements.addAll(this.elements);
+        for(ElementMold elementMold : this.elements) panelMold.elements.add(elementMold.clone());
         return panelMold;
     }
 
