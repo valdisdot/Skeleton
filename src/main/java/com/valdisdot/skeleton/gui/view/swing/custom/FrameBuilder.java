@@ -12,7 +12,7 @@ import java.util.function.Supplier;
  * A class represents a chaining interface to make a customizable JFrame with various configuration options.
  * It implements Runnable and Supplier of the JFrame interfaces.
  */
-public class FrameBuilder implements Runnable, Supplier<JFrame> {
+public class FrameBuilder implements Runnable {
     private final JFrame targetFrame;
     private JComponent lastComponent = null;
 
@@ -155,13 +155,10 @@ public class FrameBuilder implements Runnable, Supplier<JFrame> {
     }
 
     /**
-     * Gets the JFrame managed by this class.
-     *
-     * @return the JFrame instance.
-     */
-    @Override
-    public JFrame get() {
-        targetFrame.pack();
+     * Return the frame with an optional packing.
+     * */
+    public JFrame get(boolean doFramePack) {
+        if(doFramePack) targetFrame.pack();
         return targetFrame;
     }
 
@@ -170,7 +167,7 @@ public class FrameBuilder implements Runnable, Supplier<JFrame> {
      */
     @Override
     public void run() {
-        get().setVisible(true);
+        this.get(true).setVisible(true);
     }
 
     private void updateView(JComponent newView) {
