@@ -103,10 +103,20 @@ public class ElementMold extends Mold {
     }
 
     /**
+     * Add a single value to this element.
+     *
+     * @param key the key
+     * @param value  the value
+     */
+    public void addValue(String key, String value) {
+        this.values.put(key, value);
+    }
+
+    /**
      * Sets the values of this element.
      * @param values the values
      */
-    public void setValues(Map<String, String> values) {
+    public void addValues(Map<String, String> values) {
         if (Objects.nonNull(values)) this.values.putAll(values);
     }
 
